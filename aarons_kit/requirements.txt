@@ -13,4 +13,3 @@ tomli==2.0.1
 typing-extensions==4.1.1
 uWSGI>=2.0.19,<2.1
 psycopg2-binary==2.8.5
-
