@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+
+  # db:
+  #   image: mysql:5.7
+  #   ports:
+  #     - "3306:3306"
+  #   restart: always
+  #   volumes:
+  #     - production_db_volume:/var/lib/mysql
+  #   env_file:
+  #     - .live.env
+
+  #or
+  db:
+    image: postgres:12.5
+    ports:
+     - "5432:5432"
+    restart: always
+    volumes:
+     - production_db_volume:/var/lib/postgresql/data/
+    env_file:
+     - .live.env
+
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - production_static_data:/vol/web
+    restart: always
+    env_file:
+      - .live.env
+    depends_on:
+      - db
+
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - production_static_data:/vol/static
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+
+volumes:
+  production_static_data:
+  production_db_volume:
