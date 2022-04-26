@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "aarons_kit_api",
     "rest_framework",
     "django_celery_results",  # optional but super convenient way to check results of the tasks right in django admin
+    "celery",
 ]
 
 MIDDLEWARE = [
