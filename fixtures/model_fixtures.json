@@ -1,0 +1,673 @@
+[
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 1,
+        "fields": {
+            "Category": "Area Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 1,
+        "fields": {
+            "SubCategory": "African American Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 2,
+        "fields": {
+            "SubCategory": "African Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 3,
+        "fields": {
+            "SubCategory": "American Indian Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 4,
+        "fields": {
+            "SubCategory": "American Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 5,
+        "fields": {
+            "SubCategory": "Asian Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 6,
+        "fields": {
+            "SubCategory": "British Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 7,
+        "fields": {
+            "SubCategory": "European Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 8,
+        "fields": {
+            "SubCategory": "Irish Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 9,
+        "fields": {
+            "SubCategory": "Jewish Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 10,
+        "fields": {
+            "SubCategory": "Latin American Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 11,
+        "fields": {
+            "SubCategory": "Middle East Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 12,
+        "fields": {
+            "SubCategory": "Slavic Studies"
+        }
+    },
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 2,
+        "fields": {
+            "Category": "Arts"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 13,
+        "fields": {
+            "SubCategory": "Architecture & Architectural"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 14,
+        "fields": {
+            "SubCategory": "History"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 15,
+        "fields": {
+            "SubCategory": "Art & Art History"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 16,
+        "fields": {
+            "SubCategory": "Garden & Landscape"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 17,
+        "fields": {
+            "SubCategory": "Music"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 18,
+        "fields": {
+            "SubCategory": "Performing Arts"
+        }
+    },
+
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 3,
+        "fields": {
+            "Category": "Business & Economics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 19,
+        "fields": {
+            "SubCategory": "Business"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 20,
+        "fields": {
+            "SubCategory": "Development Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 21,
+        "fields": {
+            "SubCategory": "Economics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 22,
+        "fields": {
+            "SubCategory": "Finance"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 23,
+        "fields": {
+            "SubCategory": "Labor & Employment Relations"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 24,
+        "fields": {
+            "SubCategory": "Management & Organizational Behavior"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 25,
+        "fields": {
+            "SubCategory": "Marketing & Advertising"
+        }
+    },
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 4,
+        "fields": {
+            "Category": "History"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 26,
+        "fields": {
+            "SubCategory": "History"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 27,
+        "fields": {
+            "SubCategory": "History of Science & Technology"
+        }
+    },
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 5,
+        "fields": {
+            "Category": "Humanities"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 28,
+        "fields": {
+            "SubCategory": "Bibliography"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 29,
+        "fields": {
+            "SubCategory": "Classical Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 30,
+        "fields": {
+            "SubCategory": "Film Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 31,
+        "fields": {
+            "SubCategory": "Folklore"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 32,
+        "fields": {
+            "SubCategory": "Language & Literature"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 33,
+        "fields": {
+            "SubCategory": "Museum Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 34,
+        "fields": {
+            "SubCategory": "Philosophy"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 35,
+        "fields": {
+            "SubCategory": "Religion"
+        }
+    },
+
+
+
+    
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 6,
+        "fields": {
+            "Category": "Law"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 36,
+        "fields": {
+            "SubCategory": "Criminology & Criminal Justice"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 37,
+        "fields": {
+            "SubCategory": "Law"
+        }
+    },
+
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 7,
+        "fields": {
+            "Category": "Medicine & Allied Health"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 38,
+        "fields": {
+            "SubCategory": "Health Policy"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 39,
+        "fields": {
+            "SubCategory": "Health Sciences"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 40,
+        "fields": {
+            "SubCategory": "Public Health"
+        }
+    },
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 8,
+        "fields": {
+            "Category": "Science & Mathematics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 41,
+        "fields": {
+            "SubCategory": "Agriculture"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 42,
+        "fields": {
+            "SubCategory": "Aquatic Sciences"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 43,
+        "fields": {
+            "SubCategory": "Astronomy"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 44,
+        "fields": {
+            "SubCategory": "Biological Sciences"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 45,
+        "fields": {
+            "SubCategory": "Botany & Plant Sciences"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 46,
+        "fields": {
+            "SubCategory": "Chemistry"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 47,
+        "fields": {
+            "SubCategory": "Computer Science"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 48,
+        "fields": {
+            "SubCategory": "Developmental & Cell Biology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 49,
+        "fields": {
+            "SubCategory": "Ecology & Evolutionary Biology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 50,
+        "fields": {
+            "SubCategory": "Engineering"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 51,
+        "fields": {
+            "SubCategory": "Environmental Science"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 52,
+        "fields": {
+            "SubCategory": "General Science"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 53,
+        "fields": {
+            "SubCategory": "Geology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 54,
+        "fields": {
+            "SubCategory": "Horticulture"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 55,
+        "fields": {
+            "SubCategory": "Mathematics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 56,
+        "fields": {
+            "SubCategory": "Paleontology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 57,
+        "fields": {
+            "SubCategory": "Physics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 58,
+        "fields": {
+            "SubCategory": "Science & Technology Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 59,
+        "fields": {
+            "SubCategory": "Statistics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 60,
+        "fields": {
+            "SubCategory": "Technology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 61,
+        "fields": {
+            "SubCategory": "Zoology"
+        }
+    },
+
+
+    {
+        "model": "aarons_kit_api.Categories",
+        "pk": 9,
+        "fields": {
+            "Category": "Social Sciences"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 62,
+        "fields": {
+            "SubCategory": "Anthropology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 63,
+        "fields": {
+            "SubCategory": "Archaeology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 64,
+        "fields": {
+            "SubCategory": "Communication Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 65,
+        "fields": {
+            "SubCategory": "Cultural Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 66,
+        "fields": {
+            "SubCategory": "Education"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 67,
+        "fields": {
+            "SubCategory": "Environmental Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 68,
+        "fields": {
+            "SubCategory": "Feminist & Women's Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 69,
+        "fields": {
+            "SubCategory": "Food Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 70,
+        "fields": {
+            "SubCategory": "Gender Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 71,
+        "fields": {
+            "SubCategory": "Geography"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 72,
+        "fields": {
+            "SubCategory": "International Relations"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 73,
+        "fields": {
+            "SubCategory": "Library Science"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 74,
+        "fields": {
+            "SubCategory": "Linguistics"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 75,
+        "fields": {
+            "SubCategory": "Military Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 76,
+        "fields": {
+            "SubCategory": "Peace & Conflict Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 77,
+        "fields": {
+            "SubCategory": "Political Science"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 78,
+        "fields": {
+            "SubCategory": "Population Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 79,
+        "fields": {
+            "SubCategory": "Psychology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 80,
+        "fields": {
+            "SubCategory": "Public Policy & Administration"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 81,
+        "fields": {
+            "SubCategory": "Social Work"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 82,
+        "fields": {
+            "SubCategory": "Sociology"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 83,
+        "fields": {
+            "SubCategory": "Transportation Studies"
+        }
+    },
+    {
+        "model": "aarons_kit_api.SubCategories",
+        "pk": 84,
+        "fields": {
+            "SubCategory": "Urban Studies"
+        }
+    }
+  ]

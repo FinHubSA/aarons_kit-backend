@@ -1,18 +1,6 @@
 version: '3.7'
 
 services:
-
-  # db:
-  #   image: mysql:5.7
-  #   ports:
-  #     - "3306:3306"
-  #   restart: always
-  #   volumes:
-  #     - production_db_volume:/var/lib/mysql
-  #   env_file:
-  #     - .live.env
-
-  #or
   db:
     image: postgres:12.5
     ports:
@@ -25,7 +13,9 @@ services:
 
   app:
     restart: always
-    command : bash -c "(python3 manage.py runserver 0.0.0.0:8000)"
+    command : bash -c "(python3 manage.py makemigrations) &&
+                      (python3 manage.py migrate) &&
+                      (python3 manage.py runserver 0.0.0.0:8000)"
     build:
       context: .
     ports:

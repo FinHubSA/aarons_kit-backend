@@ -19,3 +19,20 @@ docker-compose build
 
 # To run in background
 docker-compose up -d
+
+# To run tests
+
+- Connect to api app in docker
+- Run this command to view the container ids:
+```
+docker ps
+```
+- Run this command to get into the postgres docker container:
+```
+docker exec -it app_container_id bash
+```
+- To run tests do this command:
+```
+python3 manage.py test
+```
+
