@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from aarons_kit_api.models import Categories, SubCategories, Journals, JournalCategories, JournalSubCategories,Publishers,Issues,Articles,Authors,ArticleAuthors
+from aarons_kit_api.models import Categories, SubCategories, Journals, JournalSubCategories,Publishers,Issues,Articles,Authors,ArticleAuthors
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -17,6 +17,7 @@ class SubCategoriesSerializer(serializers.ModelSerializer):
         model = SubCategories
         fields = ('SubCategoryID',
                   'SubCategory',
+                  'CategoryID',
                   )
 
 
@@ -26,17 +27,6 @@ class JournalsSerializer(serializers.ModelSerializer):
         model = Journals
         fields = ('JournalID',
                   'JournalName',
-                  )
-
-class JournalCategoriesSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = JournalCategories
-        fields = ('TransactionID',
-                  'Timestamp',
-                  'InstrumentTypeID',
-                  'Receiver',
-                  'Sender'
                   )
 
 class JournalSubCategoriesSerializer(serializers.ModelSerializer):
@@ -78,8 +68,18 @@ class ArticlesSerializer(serializers.ModelSerializer):
                   'IssueID',
                   'Abstract',
                   'References',
-                  'Url',
+                  'URL',
                   'Scraped',
+                  # Extra Data
+                  'IssueName',
+                  'IssueYear',
+                  'IssueVolume',
+                  'IssueNumber',
+                  'JournalID',
+                  'JournalName',
+                  'PublisherID',
+                  'PublisherName',
+                  'Authors'
                   )
 
 class AuthorsSerializer(serializers.ModelSerializer):
