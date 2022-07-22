@@ -41,4 +41,13 @@ class CategoriesTestCase(TestCase):
         self.assertEqual(response.data['JournalName'], article.JournalName)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_upload_json_data(self):
+        headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
+
+        with open('fixtures/test_metadata_small.json') as f:
+            metadata = json.load(f)
+        
+        response = client.post(reverse('store_articles_metadata'), data={'metadata':json.dumps(metadata)}, headers=headers)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     

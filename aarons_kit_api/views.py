@@ -10,13 +10,21 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
-import copy
+import json
 
 from aarons_kit_api.models import Categories, SubCategories, Journals, JournalSubCategories,Publishers,Issues,Articles,Authors,ArticleAuthors
 from aarons_kit_api.serializers import CategoriesSerializer, SubCategoriesSerializer, JournalsSerializer, JournalSubCategoriesSerializer,PublishersSerializer,IssuesSerializer,ArticlesSerializer,AuthorsSerializer,ArticleAuthorsSerializer
 
 ##### articles #####
+
+@api_view(['POST'])
+def store_articles_metadata(request):
+    articles_metadata = json.loads(request.data["metadata"])
+    
+    for metadata in articles_metadata:
+        print(metadata)
+
+    return Response({'message':'Metadata successfully stored'}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def get_available_articles(request):
