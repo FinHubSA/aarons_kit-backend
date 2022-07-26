@@ -2,6 +2,7 @@ from django.urls import include, path, re_path
 from aarons_kit_api import views
 
 urlpatterns = [
+    re_path(r'^api/articles/metadata$', views.store_articles_metadata, name='store_articles_metadata'),
     re_path(r'^api/articles$', views.get_available_articles, name='get_available_articles'),
     re_path(r'^api/articles/title$', views.get_article_by_title, name='get_article_by_title'),
     re_path(r'^api/articles/year$', views.get_articles_by_year_range, name='get_articles_by_year_range'),
