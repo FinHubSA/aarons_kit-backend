@@ -36,3 +36,13 @@ docker exec -it app_container_id bash
 python3 manage.py test
 ```
 
+# To extract references
+- Run the following
+```
+pip install wheel
+pip install refextract 
+brew install libmagic
+python3
+from refextract import extract_references_from_file
+```
+

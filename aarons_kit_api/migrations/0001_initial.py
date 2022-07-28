@@ -8,94 +8,171 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Authors',
+            name="Authors",
             fields=[
-                ('AuthorID', models.IntegerField(primary_key=True, serialize=False)),
-                ('Name', models.CharField(max_length=500)),
-                ('Surname', models.CharField(max_length=500)),
+                ("AuthorID", models.IntegerField(primary_key=True, serialize=False)),
+                ("Name", models.CharField(max_length=500)),
+                ("Surname", models.CharField(max_length=500)),
             ],
         ),
         migrations.CreateModel(
-            name='Categories',
+            name="Categories",
             fields=[
-                ('CategoryID', models.IntegerField(primary_key=True, serialize=False)),
-                ('Category', models.CharField(max_length=100)),
+                ("CategoryID", models.IntegerField(primary_key=True, serialize=False)),
+                ("Category", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Journals',
+            name="Journals",
             fields=[
-                ('JournalID', models.IntegerField(primary_key=True, serialize=False)),
-                ('JournalName', models.CharField(max_length=100)),
+                ("JournalID", models.IntegerField(primary_key=True, serialize=False)),
+                ("JournalName", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Publishers',
+            name="Publishers",
             fields=[
-                ('PublisherID', models.IntegerField(primary_key=True, serialize=False)),
-                ('PublisherName', models.CharField(max_length=100)),
+                ("PublisherID", models.IntegerField(primary_key=True, serialize=False)),
+                ("PublisherName", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='SubCategories',
+            name="SubCategories",
             fields=[
-                ('SubCategoryID', models.IntegerField(primary_key=True, serialize=False)),
-                ('SubCategory', models.CharField(max_length=100)),
-                ('CategoryID', models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='sub_categories', to='aarons_kit_api.categories')),
+                (
+                    "SubCategoryID",
+                    models.IntegerField(primary_key=True, serialize=False),
+                ),
+                ("SubCategory", models.CharField(max_length=100)),
+                (
+                    "CategoryID",
+                    models.ForeignKey(
+                        default=1,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sub_categories",
+                        to="aarons_kit_api.categories",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='JournalSubCategories',
+            name="JournalSubCategories",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('JournalID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sub_categories', to='aarons_kit_api.journals')),
-                ('SubCategoryID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='journals', to='aarons_kit_api.subcategories')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "JournalID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sub_categories",
+                        to="aarons_kit_api.journals",
+                    ),
+                ),
+                (
+                    "SubCategoryID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="journals",
+                        to="aarons_kit_api.subcategories",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Issues',
+            name="Issues",
             fields=[
-                ('IssueID', models.IntegerField(primary_key=True, serialize=False)),
-                ('IssueName', models.CharField(max_length=100)),
-                ('Year', models.IntegerField(default=0)),
-                ('Volume', models.IntegerField(default=0)),
-                ('Number', models.IntegerField(default=0)),
-                ('JournalID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='aarons_kit_api.journals')),
-                ('PublisherID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='aarons_kit_api.publishers')),
+                ("IssueID", models.IntegerField(primary_key=True, serialize=False)),
+                ("IssueName", models.CharField(max_length=100)),
+                ("Year", models.IntegerField(default=0)),
+                ("Volume", models.IntegerField(default=0)),
+                ("Number", models.IntegerField(default=0)),
+                (
+                    "JournalID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="aarons_kit_api.journals",
+                    ),
+                ),
+                (
+                    "PublisherID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="aarons_kit_api.publishers",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Articles',
+            name="Articles",
             fields=[
-                ('ArticleID', models.IntegerField(primary_key=True, serialize=False)),
-                ('Title', models.CharField(max_length=500)),
-                ('DOI', models.CharField(max_length=200)),
-                ('Abstract', models.CharField(max_length=10000)),
-                ('References', models.CharField(max_length=10000)),
-                ('URL', models.CharField(max_length=1000)),
-                ('Scraped', models.BooleanField(default=False)),
-                ('IssueID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='aarons_kit_api.issues')),
+                ("ArticleID", models.IntegerField(primary_key=True, serialize=False)),
+                ("Title", models.CharField(max_length=500)),
+                ("DOI", models.CharField(max_length=200)),
+                ("Abstract", models.CharField(max_length=10000)),
+                ("References", models.CharField(max_length=10000)),
+                ("URL", models.CharField(max_length=1000)),
+                ("Scraped", models.BooleanField(default=False)),
+                (
+                    "IssueID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="articles",
+                        to="aarons_kit_api.issues",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ArticleAuthors',
+            name="ArticleAuthors",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('ArticleID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='authors', to='aarons_kit_api.articles')),
-                ('AuthorID', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='aarons_kit_api.authors')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "ArticleID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="authors",
+                        to="aarons_kit_api.articles",
+                    ),
+                ),
+                (
+                    "AuthorID",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="articles",
+                        to="aarons_kit_api.authors",
+                    ),
+                ),
             ],
         ),
         migrations.AddConstraint(
-            model_name='journalsubcategories',
-            constraint=models.UniqueConstraint(fields=('JournalID', 'SubCategoryID'), name='JournalSubCategory'),
+            model_name="journalsubcategories",
+            constraint=models.UniqueConstraint(
+                fields=("JournalID", "SubCategoryID"), name="JournalSubCategory"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='articleauthors',
-            constraint=models.UniqueConstraint(fields=('AuthorID', 'ArticleID'), name='ArticleAuthor'),
+            model_name="articleauthors",
+            constraint=models.UniqueConstraint(
+                fields=("AuthorID", "ArticleID"), name="ArticleAuthor"
+            ),
         ),
     ]
