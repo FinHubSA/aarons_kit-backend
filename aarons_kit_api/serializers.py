@@ -1,116 +1,56 @@
 from rest_framework import serializers
 from aarons_kit_api.models import (
-    Categories,
-    SubCategories,
-    Journals,
-    JournalSubCategories,
-    Publishers,
-    Issues,
-    Articles,
-    Authors,
-    ArticleAuthors,
+    Journal,
+    Issue,
+    Article,
+    Author,
 )
 
 
-class CategoriesSerializer(serializers.ModelSerializer):
+class JournalSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Categories
+        model = Journal
         fields = (
-            "CategoryID",
-            "Category",
+            "journalID",
+            "issn",
+            "altISSN",
+            "journalName",
         )
 
 
-class SubCategoriesSerializer(serializers.ModelSerializer):
+class IssueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SubCategories
+        model = Issue
         fields = (
-            "SubCategoryID",
-            "SubCategory",
-            "CategoryID",
+            "issueID",
+            "journal",
+            "issueJstorID",
+            "year",
+            "volume",
+            "number",
         )
 
 
-class JournalsSerializer(serializers.ModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Journals
+        model = Author
         fields = (
-            "JournalID",
-            "JournalName",
+            "authorID",
+            "authorName",
         )
 
 
-class JournalSubCategoriesSerializer(serializers.ModelSerializer):
+class ArticleSerializer(serializers.ModelSerializer):
+    authors = AuthorSerializer(read_only=True, many=True)
+
     class Meta:
-        model = JournalSubCategories
+        model = Article
         fields = (
-            "JournalID",
-            "SubCategoryID",
-        )
-
-
-class PublishersSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Publishers
-        fields = (
-            "PublisherID",
-            "PublisherName",
-        )
-
-
-class IssuesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Issues
-        fields = (
-            "IssueID",
-            "IssueName",
-            "Year",
-            "Volume",
-            "Number",
-            "JournalID",
-            "PublisherID",
-        )
-
-
-class ArticlesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Articles
-        fields = (
-            "ArticleID",
-            "Title",
-            "DOI",
-            "IssueID",
-            "Abstract",
-            "References",
-            "URL",
-            "Scraped",
-            # Extra Data
-            "IssueName",
-            "IssueYear",
-            "IssueVolume",
-            "IssueNumber",
-            "JournalID",
-            "JournalName",
-            "PublisherID",
-            "PublisherName",
-            "Authors",
-        )
-
-
-class AuthorsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Authors
-        fields = (
-            "AuthorID",
-            "Name",
-            "Surname",
-        )
-
-
-class ArticleAuthorsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ArticleAuthors
-        fields = (
-            "AuthorID",
-            "ArticleID",
+            "articleID",
+            "issue",
+            "articleJstorID",
+            "title",
+            "abstract",
+            "url",
+            "authors",
         )

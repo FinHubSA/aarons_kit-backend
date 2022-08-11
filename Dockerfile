@@ -1,37 +1,27 @@
 FROM python:3.9.9
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV PATH="/scripts:${PATH}"
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/scripts:${PATH}"
 
-RUN pip3 install --upgrade pip
-COPY requirements.txt ./
-# packages required for setting up WSGI
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends gcc libc-dev python3-dev postgresql
-
-RUN pip3 install -r requirements.txt
-
-RUN mkdir /app
-COPY ./aarons_kit /app
+COPY requirements.txt .
 WORKDIR /app
-COPY ./scripts /scripts
+COPY aarons_kit /aarons_kit
+COPY scripts /scripts
 
-RUN chmod +x /scripts/*
+RUN pip3 install --upgrade pip && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends gcc libc-dev python3-dev postgresql && \
+    pip3 install -r ../requirements.txt && \
+    chmod +x /scripts/* && \
+    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
+    useradd user && \
+    chown -R user:user /vol && \
+    chmod -R 755 /vol/web && \
+    chown -R user:user /app && \
+    chmod -R 755 /app
 
-# folder to serve media files by nginx
-RUN mkdir -p /vol/web/media
-# folder to serve static files by nginx
-RUN mkdir -p /vol/web/static
-
-# always good to run our source code with a different user other than root user
-RUN useradd user
-RUN chown -R user:user /vol
-# chmod 755 means full access to owner and read-access to everyone else
-RUN chmod -R 755 /vol/web
-RUN chown -R user:user /app
-RUN chmod -R 755 /app
-# switch to our user
 USER user
 
 CMD ["entrypoint.sh"]

@@ -1,11 +1,11 @@
-from django.urls import include, path, re_path
+from django.urls import re_path
 from aarons_kit_api import views
 
 urlpatterns = [
     re_path(
         r"^api/articles/metadata$",
-        views.store_articles_metadata,
-        name="store_articles_metadata",
+        views.store_metadata,
+        name="store_metadata",
     ),
     re_path(
         r"^api/articles$", views.get_available_articles, name="get_available_articles"
@@ -38,12 +38,6 @@ urlpatterns = [
         views.check_article_by_author,
         name="check_article_by_author",
     ),
-    re_path(
-        r"^api/categories$",
-        views.get_available_categories,
-        name="get_available_categories",
-    ),
-    re_path(r"^api/category$", views.get_category, name="get_category"),
     re_path(
         r"^api/journals/titles$",
         views.get_available_journals,
