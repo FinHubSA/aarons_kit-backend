@@ -3,42 +3,88 @@ from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
-from aarons_kit_api.models import Categories, SubCategories, Journals, JournalSubCategories,Publishers,Issues,Articles,Authors,ArticleAuthors
-from .serializers import CategoriesSerializer, SubCategoriesSerializer, JournalsSerializer, JournalSubCategoriesSerializer,PublishersSerializer,IssuesSerializer,ArticlesSerializer,AuthorsSerializer,ArticleAuthorsSerializer
+from aarons_kit_api.models import (
+    Journal,
+    Issue,
+    Article,
+    Author,
+)
 
 client = Client()
 
-class CategoriesTestCase(TestCase):
 
+class TestArticle(TestCase):
     def setUp(self):
-        call_command('loaddata', 'fixtures/model_fixtures', verbosity=0)
-        call_command('loaddata', 'fixtures/test_fixtures', verbosity=0)
-
-    def test_get_available_categories(self):
-        response = client.get(reverse('get_available_categories'))
-
-        categories = Categories.objects.all()
-
-        self.assertEqual(len(response.data), len(categories))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        call_command("loaddata", "fixtures/test_fixtures", verbosity=0)
 
     def test_get_available_articles(self):
-        response = client.get(reverse('get_available_articles'))
+        response = client.get(reverse("get_available_articles"))
 
-        articles = Articles.objects.all()
+        articles = Article.objects.all()
 
         self.assertEqual(len(response.data), len(articles))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_article_by_title(self):
-        response = client.get('%s?title=%s' % (reverse('get_article_by_title'), 'The Larval Inhabitants of Cow Pats'))
+        title = "The Larval Inhabitants of Cow Pats"
 
-        article = Articles.objects.get(Title='The Larval Inhabitants of Cow Pats')
-        article.get_related_data()
+        response = client.get("%s?title=%s" % (reverse("get_article_by_title"), title))
 
-        self.assertEqual(response.data['ArticleID'], article.ArticleID)
-        self.assertEqual(response.data['IssueName'], article.IssueName)
-        self.assertEqual(response.data['JournalName'], article.JournalName)
+        article = Article.objects.select_related("issue").get(title=title)
+
+        self.assertEqual(response.data["articleID"], article.articleID)
+        self.assertEqual(response.data["issue"], article.issue.issueID)
+        self.assertEqual(response.data["articleJstorID"], article.articleJstorID)
+        self.assertEqual(response.data["title"], article.title)
+        self.assertEqual(response.data["abstract"], article.abstract)
+        self.assertEqual(response.data["url"], article.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    
+
+class TestMetadata(TestCase):
+    def test_upload_metadata(self):
+        headers = {"Content-Type": "application/json", "Accept": "application/json"}
+
+        with open("fixtures/test_metadata_small.json") as f:
+            metadata = json.load(f)
+
+        response = client.post(
+            reverse("store_metadata"),
+            data={"metadata": json.dumps(metadata)},
+            headers=headers,
+        )
+
+        # Test journal
+        journal_response = Journal.objects.get(
+            journalName="14th Century English Mystics Newsletter"
+        )
+        self.assertEqual(journal_response.issn, "07375840")
+        self.assertEqual(journal_response.altISSN, "")
+
+        # Test issue
+        issue_response = Issue.objects.get(issueJstorID="1")
+        self.assertEqual(issue_response.journal, journal_response)
+        self.assertEqual(issue_response.volume, 9)
+        self.assertEqual(issue_response.number, 4)
+        self.assertEqual(issue_response.year, 1983)
+
+        # Test articles
+        article_response_1 = Article.objects.get(articleJstorID="1")
+        self.assertEqual(article_response_1.issue, issue_response)
+        self.assertEqual(article_response_1.title, "Front Matter")
+        self.assertEqual(article_response_1.abstract, "")
+        self.assertEqual(article_response_1.url, "")
+        article_response_2 = Article.objects.get(articleJstorID="2")
+        self.assertEqual(article_response_2.issue, issue_response)
+        self.assertEqual(article_response_2.title, "TO OUR READERS")
+        self.assertEqual(article_response_2.abstract, "")
+        self.assertEqual(article_response_2.url, "")
+
+        # Test authors
+        author_1 = Author.objects.get(authorName="blah")
+        author_2 = Author.objects.get(authorName="blah 2")
+
+        self.assertEqual(len(author_1.article_set.all()), 2)
+        self.assertEqual(len(author_2.article_set.all()), 1)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

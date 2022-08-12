@@ -1,151 +1,83 @@
 [
     {
-        "model": "aarons_kit_api.Journals",
+        "model": "aarons_kit_api.Journal",
         "pk": 1,
         "fields": {
-            "JournalName": "Journal of Animal Ecology"
+            "journalName": "Journal of Animal Ecology",
+            "issn": "123",
+            "altISSN": "456"
         }
     },
     {
-        "model": "aarons_kit_api.JournalSubCategories",
+        "model": "aarons_kit_api.Issue",
         "pk": 1,
         "fields": {
-            "JournalID": 1,
-            "SubCategoryID": 49
+            "year": 1954,
+            "volume": 23,
+            "journal": 1,
+            "issueJstorID": "1",
+            "number": "2"
         }
     },
     {
-        "model": "aarons_kit_api.JournalSubCategories",
+        "model": "aarons_kit_api.Article",
+        "pk": 1,
+        "fields": {
+            "title": "The Occurrence of Mytilicola intestinalis (Steuer) on the East Coast of England",
+            "issue": 1,
+            "abstract": "",
+            "url": "",
+            "articleJstorID": "1"
+        }
+    },
+    {
+        "model": "aarons_kit_api.Author",
+        "pk": 1,
+        "fields": {
+            "authorName": "G. D. Waugh"
+        }
+    },
+    {
+        "model": "aarons_kit_api.Article",
         "pk": 2,
         "fields": {
-            "JournalID": 1,
-            "SubCategoryID": 44
+            "title": "The Mathematics of Bird Population Growth and Decline",
+            "issue": 1,
+            "abstract": "",
+            "url": "",
+            "articleJstorID": "2"
         }
     },
     {
-        "model": "aarons_kit_api.Publishers",
-        "pk": 1,
-        "fields": {
-            "PublisherName": "British Ecological Society"
-        }
-    },
-    {
-        "model": "aarons_kit_api.Issues",
-        "pk": 1,
-        "fields": {
-            "IssueName": "Vol. 23, No. 2, Nov., 1954",
-            "Year": 1954,
-            "Volume": 23,
-            "Number": 2,
-            "JournalID": 1,
-            "PublisherID": 1
-        }
-    },
-    {
-        "model": "aarons_kit_api.Articles",
-        "pk": 1,
-        "fields": {
-            "Title": "The Occurrence of Mytilicola intestinalis (Steuer) on the East Coast of England",
-            "DOI": "10.2307/1987",
-            "IssueID": 1,
-            "Abstract": "",
-            "References": "",
-            "URL": "",
-            "Scraped": 0
-        }
-    },
-    {
-        "model": "aarons_kit_api.Authors",
-        "pk": 1,
-        "fields": {
-            "Name": "G. D. Waugh",
-            "Surname": "Waugh"
-        }
-    },
-    {
-        "model": "aarons_kit_api.ArticleAuthors",
-        "pk": 1,
-        "fields": {
-            "AuthorID": 1,
-            "ArticleID": 1
-        }
-    },
-
-
-    {
-        "model": "aarons_kit_api.Articles",
+        "model": "aarons_kit_api.Author",
         "pk": 2,
         "fields": {
-            "Title": "The Mathematics of Bird Population Growth and Decline",
-            "DOI": "10.2307/1980",
-            "IssueID": 1,
-            "Abstract": "",
-            "References": "",
-            "URL": "https://www.jstor.org/stable/1980",
-            "Scraped": 1
+            "authorName": "R. Capildeo"
         }
     },
     {
-        "model": "aarons_kit_api.Authors",
-        "pk": 2,
-        "fields": {
-            "Name": "R. Capildeo",
-            "Surname": "Capildeo"
-        }
-    },
-    {
-        "model": "aarons_kit_api.Authors",
+        "model": "aarons_kit_api.Author",
         "pk": 3,
         "fields": {
-            "Name": "J. B. S. Haldane",
-            "Surname": "Haldane"
+            "authorName": "J. B. S. Haldane"
         }
     },
     {
-        "model": "aarons_kit_api.ArticleAuthors",
-        "pk": 2,
-        "fields": {
-            "AuthorID": 2,
-            "ArticleID": 2
-        }
-    },
-    {
-        "model": "aarons_kit_api.ArticleAuthors",
+        "model": "aarons_kit_api.Article",
         "pk": 3,
         "fields": {
-            "AuthorID": 3,
-            "ArticleID": 2
-        }
-    },
-
-
-    {
-        "model": "aarons_kit_api.Articles",
-        "pk": 3,
-        "fields": {
-            "Title": "The Larval Inhabitants of Cow Pats",
-            "DOI": "10.2307/1982",
-            "IssueID": 1,
-            "Abstract": "",
-            "References": "",
-            "URL": "",
-            "Scraped": 0
+            "title": "The Larval Inhabitants of Cow Pats",
+            "issue": 1,
+            "abstract": "",
+            "url": "",
+            "articleJstorID": "3"
         }
     },
     {
-        "model": "aarons_kit_api.Authors",
+        "model": "aarons_kit_api.Author",
         "pk": 4,
         "fields": {
-            "Name": "B. R. Laurence",
-            "Surname": "Laurence"
-        }
-    },
-    {
-        "model": "aarons_kit_api.ArticleAuthors",
-        "pk": 4,
-        "fields": {
-            "AuthorID": 4,
-            "ArticleID": 3
+            "authorName": "B. R. Laurence"
         }
     }
 ]
