@@ -90,6 +90,9 @@ coverage.xml
 # pyenv 
 .python-version 
 
+# django
+local_settings.py
+
 # celery 
 celerybeat-schedule.* 
 

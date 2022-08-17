@@ -1,4 +1,5 @@
 import json
+from aarons_kit_api.masterlist_scraper import start_scraping
 from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -88,3 +89,7 @@ class TestMetadata(TestCase):
         self.assertEqual(len(author_2.article_set.all()), 1)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class TestScraper(TestCase):
+    def test_metadata_scrapper(self):
+        start_scraping()

@@ -150,3 +150,12 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 # CELERY_RESULT_BACKEND_DB = f'db+mysql+pymysql://{os.environ.get("MYSQL_USER")}:{os.environ.get("MYSQL_PASSWORD")}@db/{os.environ.get("MYSQL_DATABASE")}'
 CELERY_BROKER_URL = f'amqp://{os.environ.get("RABBITMQ_DEFAULT_USER")}:{os.environ.get("RABBITMQ_DEFAULT_PASS")}@rabbit//'
 CELERY_TASK_RESULT_EXPIRES = 18000
+
+####################
+## Local Settings ##
+####################
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass

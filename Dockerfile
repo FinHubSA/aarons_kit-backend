@@ -16,8 +16,10 @@ RUN pip3 install --upgrade pip && \
     chmod +x /scripts/* && \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
+    mkdir -p /home/user/ && \
     useradd user && \
     chown -R user:user /vol && \
+    chown -R user:user /home/user && \
     chmod -R 755 /vol/web && \
     chown -R user:user /app && \
     chmod -R 755 /app
