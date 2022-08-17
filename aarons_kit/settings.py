@@ -151,6 +151,9 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = f'amqp://{os.environ.get("RABBITMQ_DEFAULT_USER")}:{os.environ.get("RABBITMQ_DEFAULT_PASS")}@rabbit//'
 CELERY_TASK_RESULT_EXPIRES = 18000
 
+## Testing
+NOSE_ARGS = ['--nocapture','--nologcapture']
+
 ####################
 ## Local Settings ##
 ####################
