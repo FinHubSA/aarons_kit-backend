@@ -1,0 +1,145 @@
+JSTOR Citation List
+@comment{{ These records have been provided through JSTOR. http://www.jstor.org }}
+
+
+@article{10.2307/26400177,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400177},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ publisher = {Academy of Management},
+ title = {Front Matter},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400178,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400178},
+ author = {ANDREW PETTIGREW and KEN STARKEY},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ pages = {649--664},
+ publisher = {Academy of Management},
+ title = {From the Guest Editors: The Legitimacy and Impact of Business Schools—Key Issues and a Research Agenda},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400179,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400179},
+ abstract = {Business faculty represent an intriguing platform from which to examine the interplay between human capital theory and legitimacy. We examine a cohort of Canadian business school scholars over 10 years, through the theoretical framework of human capital and legitimacy to gain insight into how factors interact differently in their environment. We show the importance of both human capital and external legitimacy on faculty compensation, highlighting the role of movement as a partial mediator between general human capital (publication number and quality) and compensation, and as a full mediator between external legitimacy (journal editorship and editorial board membership) and compensation. In addition, we found that external legitimacy (journal editorship and professional roles) interacted with movement to impact faculty compensation. We make a unique theoretical contribution by examining how individuals' estimates of their knowledge and comparative value impacts individual compensation trajectories, and ultimately the business schools themselves. Our study has implications for the management of knowledge industries as well as for the curricula design of business schools.},
+ author = {YING HONG and BENSON HONIG},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ pages = {665--685},
+ publisher = {Academy of Management},
+ title = {Publish and Politics: An Examination of Business School Faculty Salaries in Ontario},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400180,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400180},
+ abstract = {The much-discussed "relevance gap" (Starkey & Madan, 2001) between research and practice in management is a major source of concern for business schools, in terms of their legitimacy in the eyes of students, employers, and funding bodies. We frame the relevance gap as a knowledge-transfer issue, focusing on the role of "bridging media" as one mechanism through which academic research is made accessible to practicing managers. Specifically, we ask two questions: (1) Which academic research is selected for dissemination by bridging media? And (2) How can we develop better ways of measuring this type of bridging activity? Through a preliminary empirical analysis (of the citation trails from 264 academic papers to bridge journals such as Sloan Management Review), we find that academic papers cited in bridge journals: (1) also have a high academic impact factor; (2) draw on and/or contribute to a broad body of literature; (3) are more likely to be inductive or theoretical than deductive; and (4) are on topics rated by practitioners as "interesting." We also discuss how our methodology could be extended to contribute to Aguinis et al.' s (2014) pluralist conceptualization of scholarly impact.},
+ author = {JULIAN BIRKINSHAW and RAMON LECUONA and PATRICK BARWISE},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ pages = {686--702},
+ publisher = {Academy of Management},
+ title = {The Relevance Gap in Business School Research: Which Academic Papers Are Cited in Managerial Bridge Journals?},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400181,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400181},
+ abstract = {Business schools face growing institutional pressure to respond to the sustainability agenda, especially since the financial crisis highlighted the need to educate business leaders who engage with issues beyond a profit imperative. Although business schools increasingly signal their engagement with global issues, such as sustainability, there are also suggestions that they decouple their espoused commitments from their practices. Rather than institute actual change and include sustainability in organizational activities, business schools may merely indicate that such change is taking place. We examine the key organizational and strategic conditions under which business schools decouple their sustainability policies from their practices. We draw on interviews with 40 deans of U.K. business schools and analyze the data using fuzzy set (fs) qualitative comparative analysis (fs/QCA), a method that investigates combinations of individual conditions. We find evidence to suggest that tight coupling is associated with small, prestigious business schools and that decoupling is associated with business schools that are large, wealthy, or lacking in expertise. We discuss the implications of these findings for business school legitimacy and institutional theory.},
+ author = {ANNIE SNELSON-POWELL and JOHANNE GROSVOLD and ANDREW MILLINGTON},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ pages = {703--723},
+ publisher = {Academy of Management},
+ title = {Business School Legitimacy and the Challenge of Sustainability: A Fuzzy Set Analysis of Institutional Decoupling},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400182,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400182},
+ abstract = {Although supportive of calls for business schools to learn the lessons of history to address contemporary challenges about their legitimacy and impact, we argue that our ability to learn is limited by the histories we have created. Through contrasting the contested development of the case method of teaching at Harvard Business School and the conventional history of its rise, we argue that this history, which promotes a smooth linear evolution, works against reconceptualizing the role of the business school. To illustrate this, we develop a "counterhistory" of the case method—one that reveals a contested and circuitous path of development—and discuss how recognizing this would encourage us to think differently. This counterhistory provides a means of stimulating debate and innovative thinking about how business schools can address their legitimacy challenges, and, in doing so, have a more positive impact on society.},
+ author = {TODD BRIDGMAN and STEPHEN CUMMINGS and COLM McLAUGHLIN},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ pages = {724--741},
+ publisher = {Academy of Management},
+ title = {Restating the Case: How Revisiting the Development of the Case Method Can Help Us Think Differently About the Future of the Business School},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400183,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400183},
+ abstract = {The walls around many business schools remain high, eroding interdisciplinary education and research collaboration that might address some grand challenges facing society. In response, we adopt a public interest perspective and argue business schools should lower their walls to engage with other academic departments to address such grand challenges in a way that engenders social value. We identify forces for lower and higher walls that surround business schools and influence prospects for interdisciplinary collaboration. We highlight examples of successful relationships between business schools and other academic departments, which offer some optimism for a reimagined public interest mission for business schools. Finally, we draw out some boundary conditions to take a more contingent view of possibilities for such interdisciplinary collaboration encompassing business schools.},
+ author = {GRAEME CURRIE and JULIE DAVIES and EWAN FERLIE},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ pages = {742--755},
+ publisher = {Academy of Management},
+ title = {A Call for University-Based Business Schools to "Lower Their Walls:" Collaborating With Other Academic Departments in Pursuit of Social Value},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+
+
+
+
+
+@article{10.2307/26400184,
+ ISSN = {1537260X},
+ URL = {http://www.jstor.org/stable/26400184},
+ journal = {Academy of Management Learning & Education},
+ number = {4},
+ publisher = {Academy of Management},
+ title = {Back Matter},
+ urldate = {2022-08-18},
+ volume = {15},
+ year = {2016}
+}
+

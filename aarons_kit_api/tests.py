@@ -1,9 +1,15 @@
 import json
-from aarons_kit_api.masterlist_scraper import start_scraping
+import bibtexparser
+import pandas as pd
+
 from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
+
+from aarons_kit_api.masterlist_scraper import start_scraping
+from aarons_kit_api.masterlist_scraper import save_citations_data
+
 from aarons_kit_api.models import (
     Journal,
     Issue,
@@ -12,7 +18,6 @@ from aarons_kit_api.models import (
 )
 
 client = Client()
-
 
 class TestArticle(TestCase):
     def setUp(self):
@@ -91,5 +96,25 @@ class TestMetadata(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 class TestScraper(TestCase):
-    def test_metadata_scrapper(self):
-        start_scraping()
+    def test_citation_save(self):
+
+        with open("fixtures/citations.txt") as bibtex_file:
+            citations_data = bibtexparser.load(bibtex_file)
+
+        save_citations_data(pd.DataFrame(citations_data.entries), "https://www.jstor.org/journal/acadmanaleareduc", "https://www.jstor.org/stable/i26400176")
+
+        # Test journal
+        journal_response = Journal.objects.get(
+            journalName="Academy of Management Learning & Education"
+        )
+
+        self.assertEqual(journal_response.issn, "1537260X")
+        self.assertEqual(journal_response.altISSN, "")
+
+        # Test issue
+        issue_response = Issue.objects.get(url="https://www.jstor.org/stable/i26400176")
+        self.assertEqual(issue_response.year, 2016)
+
+
+    # def test_metadata_scrapper(self):
+    #     start_scraping()
