@@ -147,9 +147,19 @@ CELERY_CACHE_BACKEND = "django-cache"
 CELERY_TIMEZONE = "YourTimeZone"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-# CELERY_RESULT_BACKEND_DB = f'db+mysql+pymysql://{os.environ.get("MYSQL_USER")}:{os.environ.get("MYSQL_PASSWORD")}@db/{os.environ.get("MYSQL_DATABASE")}'
 CELERY_BROKER_URL = f'amqp://{os.environ.get("RABBITMQ_DEFAULT_USER")}:{os.environ.get("RABBITMQ_DEFAULT_PASS")}@rabbit//'
 CELERY_TASK_RESULT_EXPIRES = 18000
+
+CELERY_BEAT_SCHEDULE = {
+      'scrape-every-24-hours': {
+        'task': 'aarons_kit_api.tasks.scrape_masterlist_task',
+        'schedule': 30.0,
+        'args': (16, 16),
+        'options': {
+            'expires': 15.0,
+        },
+    },
+}
 
 ## Testing
 NOSE_ARGS = ['--nocapture','--nologcapture']

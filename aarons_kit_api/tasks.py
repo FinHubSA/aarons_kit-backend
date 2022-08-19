@@ -8,19 +8,25 @@ import redis
 # Connect to our Redis instance
 redis_instance = redis.StrictRedis(host=settings.REDIS_HOST,port=settings.REDIS_PORT, db=0)
 
+@celery_app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    print("*** periodic task setup ***")
+
+    # Calls process_masterlist_task every 60 seconds
+    sender.add_periodic_task(60.0, process_masterlist_task.s(), expires=10, name='scrap masterlist')
+
+    
 @celery_app.on_after_finalize.connect
 def setup_tasks(sender, **kwargs):
-
-    print("*** setup tasks! ***")
-
-    process_masterlist_task.delay() 
+    print("*** ordinary task setup ***")
+    
+    sender.add_periodic_task(60.0, process_masterlist_task.s(), expires=10, name='scrap masterlist')
 
 @celery_app.task
 def process_masterlist_task():
-    from .masterlist_scraper import start_scraping
+    from .masterlist_scraper import scrape_all_journals
 
-    # start scrapping data
-    start_scraping()
+    scrape_all_journals()
     
 
 
