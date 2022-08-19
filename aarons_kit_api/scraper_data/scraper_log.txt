@@ -35,3 +35,31 @@ Number of Issues scraped: 0
 Rotated IP: False
 Start time: 08/17/2022, 10:44:02
 End time: 08/17/2022, 10:44:52
+
+Journal: https://www.jstor.org/journal/14centengmystnew
+Number of Issues scraped: 0
+
+Journal: https://www.jstor.org/journal/14centengmystnew
+Number of Issues scraped: 0
+Start time: 08/19/2022, 03:32:59
+End time: 08/19/2022, 03:33:31
+
+Journal: https://www.jstor.org/journal/14centengmystnew
+Number of Issues scraped: 0
+Start time: 08/19/2022, 03:44:42
+End time: 08/19/2022, 03:45:14
+
+Journal: https://www.jstor.org/journal/14centengmystnew
+Number of Issues scraped: 0
+Start time: 08/19/2022, 03:48:14
+End time: 08/19/2022, 03:48:45
+
+Journal: https://www.jstor.org/journal/techpracguid
+Number of Issues scraped: 3
+Start time: 08/19/2022, 04:37:19
+End time: 08/19/2022, 04:38:47
+
+Journal: https://www.jstor.org/journal/techwritrevi
+Number of Issues scraped: 2
+Start time: 08/19/2022, 04:41:41
+End time: 08/19/2022, 04:42:51

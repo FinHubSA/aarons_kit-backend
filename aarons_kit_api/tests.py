@@ -7,8 +7,9 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
 
-from aarons_kit_api.masterlist_scraper import start_scraping
+from aarons_kit_api.masterlist_scraper import scrape_journal
 from aarons_kit_api.masterlist_scraper import save_citations_data
+from aarons_kit_api.masterlist_scraper import remote_driver_setup
 
 from aarons_kit_api.models import (
     Journal,
@@ -115,6 +116,30 @@ class TestScraper(TestCase):
         issue_response = Issue.objects.get(url="https://www.jstor.org/stable/i26400176")
         self.assertEqual(issue_response.year, 2016)
 
+        # Repeat the test and check that it doesn't duplicate or give errors
+        save_citations_data(pd.DataFrame(citations_data.entries), "https://www.jstor.org/journal/acadmanaleareduc", "https://www.jstor.org/stable/i26400176")
 
-    # def test_metadata_scrapper(self):
-    #     start_scraping()
+        # Test journal
+        journal_response = Journal.objects.get(
+            journalName="Academy of Management Learning & Education"
+        )
+
+        self.assertEqual(journal_response.issn, "1537260X")
+
+    def test_metadata_scrapper(self):
+
+        driver = remote_driver_setup()
+
+        # https://www.jstor.org/journal/techwritrevi - 2
+        # 
+        scrape_journal(driver, "https://www.jstor.org/journal/techwritrevi")
+
+        driver.quit()
+
+        # Test journal
+        journal_response = Journal.objects.get(
+            journalName="Technical Writing Review"
+        )
+
+        self.assertEqual(journal_response.issn, "26377772")
+

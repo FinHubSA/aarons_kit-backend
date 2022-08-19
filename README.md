@@ -34,6 +34,7 @@ docker exec -it app_container_id bash
 - To run tests do this command:
 ```
 python3 manage.py test
+python3 manage.py test aarons_kit_api.tests.TestScraper.test_metadata_scrapper
 ```
 
 # To extract references

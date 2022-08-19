@@ -78,6 +78,7 @@ def remote_driver_setup():
 
 # Downloads the list of journals as a txt from the jstor and returns it as a pandas dataframe
 def fetch_journal_data():
+    directory = os.path.dirname(__file__)
     url = "https://www.jstor.org/kbart/collections/all-archive-titles?contentType=journals"
 
     journal_data_path = os.path.join(directory, "scraper_data/journal_data.txt")
@@ -130,189 +131,202 @@ def save_db_journals(db_journal_data):
     Journal.objects.bulk_create(model_instances, ignore_conflicts=True)
 
 def filter_issues_urls(issue_url_list):
-    return Issue.objects.exclude(url__in=issue_url_list).values_list('url', flat=True)
+    remove_urls = Issue.objects.filter(url__in=issue_url_list).values_list('url', flat=True)
+    filtered_list = list(set(issue_url_list) - set(remove_urls))
+    return filtered_list
 
-def start_scraping():
+# This is the main method for scrapping all journals
+def scrape_all_journals():
     
     driver = remote_driver_setup()
 
     journal_urls = get_journal_data()["url"]
-
-    start_json_path = os.path.join(directory, "scraper_data/start.json")
-    metadata_json_path = os.path.join(directory, "scraper_data/metadata.json")
-    scraper_log_path = os.path.join(directory, "scraper_data/scraper_log.txt")
-    html_page_path = os.path.join(directory, "scraper_data/Page.html")
     
     # we'll iterate all journals and only skip scrapped issues
     for journal_url in journal_urls:
+        scrape_journal(driver, journal_url)
 
-        scrape_start = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-        page_loaded = False
+    driver.quit()
 
-        while not page_loaded:
-            # Retrieving journal data
-            driver.get(journal_url)
-            time.sleep(5)
-            driver.maximize_window()
+def load_page(driver, journal_url):
+    page_loaded = False
 
-            try:
-                WebDriverWait(driver, 5).until(
-                    expected_conditions.presence_of_element_located(
-                        (By.ID, "onetrust-consent-sdk")
-                    )
-                )
-                print("passed")
-                rotated = "False"
-                page_loaded = True
-            except:
-                print("Failed to access journal page")
-                
-                # Connect to new server
-                # expressvpn(directory, vpn_list(directory))
-                rotated = "True"
+    while not page_loaded:
+        # Retrieving journal data
+        driver.get(journal_url)
+        time.sleep(5)
+        driver.maximize_window()
 
         try:
             WebDriverWait(driver, 5).until(
-                expected_conditions.element_to_be_clickable(
-                    (By.XPATH, r"//button[@id='onetrust-accept-btn-handler']")
+                expected_conditions.presence_of_element_located(
+                    (By.ID, "onetrust-consent-sdk")
                 )
             )
-
-            driver.find_element(
-                By.XPATH, r".//button[@id='onetrust-accept-btn-handler']"
-            ).click()
-            print("cookies accepted")
+            print("passed")
+            rotated = "False"
+            page_loaded = True
         except:
-            print("No cookies, continue")
+            print("Failed to access journal page")
+            
+            # Connect to new server
+            # expressvpn(directory, vpn_list(directory))
+            rotated = "True"
 
-        time.sleep(5)
-
-        random.seed(time.time())
-        issue_url_list = []
-
-        # save_current_page(html_page_path, driver)
-
-        click = driver.find_elements(
-            By.XPATH, r".//div[@class='accordion-container']//details"
+def accept_cookies(driver, journal_url):
+    try:
+        WebDriverWait(driver, 5).until(
+            expected_conditions.element_to_be_clickable(
+                (By.XPATH, r"//button[@id='onetrust-accept-btn-handler']")
+            )
         )
 
-        print("details number: "+str(len(click)))
+        driver.find_element(
+            By.XPATH, r".//button[@id='onetrust-accept-btn-handler']"
+        ).click()
+        print("cookies accepted")
+    except:
+        print("No cookies, continue")
 
-        # expand the decade drawers one by one
-        for element in click:
-            time.sleep(5)
-            element.click()
+    time.sleep(5)
+
+def scrape_issue_urls(driver, journal_url):
+    
+    random.seed(time.time())
+    issue_url_list = []
+
+    click = driver.find_elements(
+        By.XPATH, r".//div[@class='accordion-container']//details"
+    )
+
+    # print("details number: "+str(len(click)))
+
+    # expand the decade drawers one by one
+    for element in click:
+        time.sleep(5)
+        element.click()
+
+    time.sleep(2)
+
+    # captures the year elements within the decade
+    decade_List = driver.find_elements(By.XPATH, r".//dd//ul//li")
+
+    # print("decades number: "+str(len(decade_List)))
+
+    # captures the issues of the year element and records the issue url
+    for element in decade_List:
+        year_list = element.find_elements(By.XPATH, r".//ul//li//collection-view-pharos-link")
+        temp = element.get_attribute("data-year")
+        if temp == None:
+            continue
+        for item in year_list:
+            issue_url = item.get_attribute("href")
+            if (not issue_url.startswith("http") and not issue_url.startswith("https")):
+                issue_url = "https://www.jstor.org"+issue_url
+            issue_url_list.append(issue_url)
+
+    issue_url_list = filter_issues_urls(issue_url_list)
+
+    # print("issue number: "+str(len(issue_url_list)))
+
+    # filter out scraped issues by url
+    return issue_url_list
+
+def download_citations(driver, issue_url):
+    time.sleep(5 * random.random())
+    print("driver url: "+issue_url)
+    driver.get(issue_url)
+
+    try:
+        # Download Citations
+        WebDriverWait(driver, 10).until(
+            expected_conditions.element_to_be_clickable(
+                (
+                    By.XPATH,
+                    r".//toc-view-pharos-checkbox[@id='select_all_citations']/span[@slot='label']",
+                )
+            )
+        ).click()
+        
+        # print("citations 1")
+
+        WebDriverWait(driver, 10).until(
+            expected_conditions.element_to_be_clickable((By.ID, "bulk-cite-button"))
+        ).click()
+
+        # print("citations 2")
+
+        time.sleep(10)
+
+        # click the link to download the bibtex
+        WebDriverWait(driver, 10).until(
+            expected_conditions.element_to_be_clickable(
+                (
+                    By.XPATH,
+                    r"//*[@id='bulk-citation-dropdown']/mfe-bulk-cite-pharos-dropdown-menu-item[5]",
+                )
+            )
+        ).click()
+
+        # print("citations 3")
+    except Exception as e:
+        print(e)
+        input()
+
+def scrape_journal(driver, journal_url):
+    directory = os.path.dirname(__file__)
+
+    scrape_start = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+    scraper_log_path = os.path.join(directory, "scraper_data/scraper_log.txt")
+
+    load_page(driver, journal_url)
+
+    accept_cookies(driver, journal_url)
+
+    issue_url_list = scrape_issue_urls(driver, journal_url)
+    
+    # loops through a dataframe of issue urls and captures metadata per issue
+    for issue_url in issue_url_list:
+        
+        download_citations(driver, issue_url)
+
+        old_name = os.path.join(directory, "scraper_data/citations.txt")
+        new_name = os.path.join(directory, "scraper_data/" + issue_url.split("/")[-1] + ".txt")
+
+        files = WebDriverWait(driver, 20, 1).until(get_downloaded_files)
+        print("number of downloads: "+str(len(files)))
+        print(files[0])
+
+        # get the content of the first file remotely
+        content = get_file_content(driver, files[0])
+
+        # save the content in a local file in the working directory
+        with open(old_name, 'wb') as f:
+            f.write(content)
+
+        os.rename(old_name, new_name)
 
         time.sleep(2)
 
-        # captures the year elements within the decade
-        decade_List = driver.find_elements(By.XPATH, r".//dd//ul//li")
+        with open(new_name) as bibtex_file:
+            citations_data = bibtexparser.load(bibtex_file)
+        
+        save_citations_data(pd.DataFrame(citations_data.entries), journal_url, issue_url)
+        
+        os.remove(new_name)
 
-        print("decades number: "+str(len(decade_List)))
+    scrape_end = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
-        # captures the issues of the year element and records the issue url
-        for element in decade_List:
-            year_list = element.find_elements(By.XPATH, r".//ul//li//collection-view-pharos-link")
-            temp = element.get_attribute("data-year")
-            if temp == None:
-                continue
-            for item in year_list:
-                issue_url = item.get_attribute("href")
-                if (not issue_url.startswith("http") and not issue_url.startswith("https")):
-                    issue_url = "https://www.jstor.org"+issue_url
-                issue_url_list.append(issue_url)
-
-        # filter out scraped issues by url
-        issue_url_list = filter_issues_urls(issue_url_list)
-
-        # loops through a dataframe of issue urls and captures metadata per issue
-        for issue_url in issue_url_list:
-            time.sleep(5 * random.random())
-            print("driver url: "+issue_url)
-            driver.get(issue_url)
-
-            try:
-                # Download Citations
-
-                WebDriverWait(driver, 10).until(
-                    expected_conditions.element_to_be_clickable(
-                        (
-                            By.XPATH,
-                            r".//toc-view-pharos-checkbox[@id='select_all_citations']/span[@slot='label']",
-                        )
-                    )
-                ).click()
-                
-                print("citations 1")
-
-                WebDriverWait(driver, 10).until(
-                    expected_conditions.element_to_be_clickable((By.ID, "bulk-cite-button"))
-                ).click()
-
-                print("citations 2")
-
-                time.sleep(10)
-
-                # click the link to download the bibtex
-                WebDriverWait(driver, 10).until(
-                    expected_conditions.element_to_be_clickable(
-                        (
-                            By.XPATH,
-                            r"//*[@id='bulk-citation-dropdown']/mfe-bulk-cite-pharos-dropdown-menu-item[5]",
-                        )
-                    )
-                ).click()
-
-                print("citations 3")
-            except Exception as e:
-                print(e)
-                input()
-
-            old_name = os.path.join(directory, "scraper_data/citations.txt")
-            new_name = os.path.join(directory, "scraper_data/" + issue_url.split("/")[-1] + ".txt")
-
-            # Wait for download to complete
-            count = 0
-            while not os.path.isfile(old_name) and count <= 10:
-                time.sleep(1)
-                count += 1
-
-            files = WebDriverWait(driver, 20, 1).until(get_downloaded_files)
-            print("number of downloads: "+str(len(files)))
-            print(files[0])
-
-            # get the content of the first file remotely
-            content = get_file_content(driver, files[0])
-
-            # save the content in a local file in the working directory
-            with open(old_name, 'wb') as f:
-                f.write(content)
-
-            os.rename(old_name, new_name)
-
-            time.sleep(2)
-
-            with open(new_name) as bibtex_file:
-                citations_data = bibtexparser.load(bibtex_file)
-            
-            save_citations_data(pd.DataFrame(citations_data.entries), journal_url, issue_url)
-            
-            os.remove(new_name)
-
-        scrape_end = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-
-        # Append log file
-        with open(scraper_log_path, "a+") as log:
-            log.write("\n")
-            log.write("\nJournal: " + journal_url)
-            log.write("\nNumber of Issues scraped: " + str(len(issue_url_list)))
-            log.write("\nRotated IP: " + rotated)
-            log.write("\nStart time: " + scrape_start)
-            log.write("\nEnd time: " + scrape_end)
+    # Append log file
+    with open(scraper_log_path, "a+") as log:
+        log.write("\n")
+        log.write("\nJournal: " + journal_url)
+        log.write("\nNumber of Issues scraped: " + str(len(issue_url_list)))
+        log.write("\nStart time: " + scrape_start)
+        log.write("\nEnd time: " + scrape_end)
 
 def save_citations_data(citations_data, journal_url, issue_url):
-    # if 'altissn' not in citations_data:
-    #     citations_data['altissn'] = ""
+    print("saving citations: "+journal_url+" "+issue_url)
 
     # save the journal
     journal_data = citations_data.iloc[0].to_dict()
