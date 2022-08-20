@@ -19,4 +19,9 @@ REDIS_PORT="6379"
 # celery settings
 CELERY_BROKER_URL = "redis://"+REDIS_HOST+":"+REDIS_PORT
 CELERY_RESULT_BACKEND = "redis://"+REDIS_HOST+":"+REDIS_PORT
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+SCRAPE_MINUTE = '*'
+SCRAPE_HOUR = '*'
+SCRAPE_DAY_OF_WEEK = '*'
+SCRAPE_DAY_OF_MONTH = '*'
+SCRAPE_MONTH_OF_YEAR = '*'

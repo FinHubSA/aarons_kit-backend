@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "aarons_kit_api",
     "rest_framework",
-    "django_celery_results",  # optional but super convenient way to check results of the tasks right in django admin
+    # "django_celery_results",  # optional but super convenient way to check results of the tasks right in django admin
     "celery",
 ]
 
@@ -144,22 +144,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # celery settings
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"
-CELERY_TIMEZONE = "YourTimeZone"
+CELERY_TIMEZONE = "Africa/Johannesburg"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BROKER_URL = f'amqp://{os.environ.get("RABBITMQ_DEFAULT_USER")}:{os.environ.get("RABBITMQ_DEFAULT_PASS")}@rabbit//'
 CELERY_TASK_RESULT_EXPIRES = 18000
 
-CELERY_BEAT_SCHEDULE = {
-      'scrape-every-24-hours': {
-        'task': 'aarons_kit_api.tasks.scrape_masterlist_task',
-        'schedule': 30.0,
-        'args': (16, 16),
-        'options': {
-            'expires': 15.0,
-        },
-    },
-}
+SCRAPE_MINUTE = '0'
+SCRAPE_HOUR = '0'
+SCRAPE_DAY_OF_WEEK = '1'
+SCRAPE_DAY_OF_MONTH = '*'
+SCRAPE_MONTH_OF_YEAR = '*'
 
 ## Testing
 NOSE_ARGS = ['--nocapture','--nologcapture']

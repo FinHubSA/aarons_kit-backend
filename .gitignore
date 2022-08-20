@@ -92,9 +92,10 @@ coverage.xml
 
 # django
 local_settings.py
+**/scraper_data/logs
 
 # celery 
-celerybeat-schedule.* 
+celerybeat-schedule*
 
 # SageMath parsed files 
 *.sage.py 

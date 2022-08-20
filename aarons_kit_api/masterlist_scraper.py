@@ -38,7 +38,7 @@ def remote_driver_setup():
     chrome_options.add_argument(f"user-agent={USER_AGENT}")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_extension(
-        os.path.join(directory, 'scraper_data/extension_1_38_6_0.crx')
+        os.path.join(directory, 'scraper_data/tools/extension_1_38_6_0.crx')
     )
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option("useAutomationExtension", False)
@@ -81,7 +81,7 @@ def fetch_journal_data():
     directory = os.path.dirname(__file__)
     url = "https://www.jstor.org/kbart/collections/all-archive-titles?contentType=journals"
 
-    journal_data_path = os.path.join(directory, "scraper_data/journal_data.txt")
+    journal_data_path = os.path.join(directory, "scraper_data/logs/journal_data.txt")
 
     with urlopen(url) as response:
         body = response.read()
@@ -113,7 +113,7 @@ def get_journal_data():
 
     sm_journal_data = journal_data[["issn", "altISSN", "journalName","url"]]
     
-    save_db_journals(sm_journal_data)
+    # save_db_journals(sm_journal_data)
 
     return sm_journal_data
 
@@ -225,16 +225,17 @@ def scrape_issue_urls(driver, journal_url):
                 issue_url = "https://www.jstor.org"+issue_url
             issue_url_list.append(issue_url)
 
+    print("issue number before filter: "+str(len(issue_url_list)))
+
     issue_url_list = filter_issues_urls(issue_url_list)
 
-    # print("issue number: "+str(len(issue_url_list)))
+    print("issue number after filter: "+str(len(issue_url_list)))
 
     # filter out scraped issues by url
     return issue_url_list
 
 def download_citations(driver, issue_url):
     time.sleep(5 * random.random())
-    print("driver url: "+issue_url)
     driver.get(issue_url)
 
     try:
@@ -277,7 +278,7 @@ def scrape_journal(driver, journal_url):
     directory = os.path.dirname(__file__)
 
     scrape_start = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-    scraper_log_path = os.path.join(directory, "scraper_data/scraper_log.txt")
+    scraper_log_path = os.path.join(directory, "scraper_data/logs/scraper_log.txt")
 
     load_page(driver, journal_url)
 
@@ -290,8 +291,8 @@ def scrape_journal(driver, journal_url):
         
         download_citations(driver, issue_url)
 
-        old_name = os.path.join(directory, "scraper_data/citations.txt")
-        new_name = os.path.join(directory, "scraper_data/" + issue_url.split("/")[-1] + ".txt")
+        old_name = os.path.join(directory, "scraper_data/logs/citations.txt")
+        new_name = os.path.join(directory, "scraper_data/logs/" + issue_url.split("/")[-1] + ".txt")
 
         files = WebDriverWait(driver, 20, 1).until(get_downloaded_files)
         print("number of downloads: "+str(len(files)))
@@ -365,12 +366,16 @@ def save_citations_data(citations_data, journal_url, issue_url):
                 "url": record.get("url", ""),
             },
         )
+
         # store author
-        if str(record.get("author")) != "nan":
-            names = record.get("author").split("and")
-            for name in names:
-                author_result = Author.objects.get_or_create(authorName=name.strip())
-                article_result[0].authors.add(author_result[0])
+        try:
+            if record.get("author"):
+                names = record.get("author").split("and")
+                for name in names:
+                    author_result = Author.objects.get_or_create(authorName=name.strip())
+                    article_result[0].authors.add(author_result[0])
+        except:
+            print("failed to store authors for: "+record["url"])
 
 
 def get_downloaded_files(driver):
