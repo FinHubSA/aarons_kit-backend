@@ -1,48 +1,16 @@
-# aarons_kit-backend
+# Getting started with Django on Cloud Run
 
-brew install postgresql
+[![Open in Cloud Shell][shell_img]][shell_link]
 
-python3 -m venv env
+[shell_img]: http://gstatic.com/cloudssh/images/open-btn.png
+[shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/GoogleCloudPlatform/python-docs-samples&page=editor&open_in_editor=run/django/README.md
 
-source env/bin/activate
+This repository is an example of how to run a [Django](https://www.djangoproject.com/) 
+app on Google Cloud Run (fully managed). 
 
-# To leave the environment run:
-deactivate
+The Django application used in this tutorial is the [Writing your first Django app](https://docs.djangoproject.com/en/3.2/#first-steps),
+after completing [Part 1](https://docs.djangoproject.com/en/3.2/intro/tutorial01/) and [Part 2](https://docs.djangoproject.com/en/3.2/intro/tutorial02/).
 
-pip3 install -r requirements.txt
 
-# If you get error of path not found on uWSGI install run this
-sudo ln -s /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/config-3.8-darwin <INSERT YOUR NOT-FOUND-PATH HERE WITHOUT libpython3.8.a FILENAME>
-
-# To build after changing code
-docker-compose build
-
-# To run in background
-docker-compose up -d
-
-# To run tests
-
-- Connect to api app in docker
-- Run this command to view the container ids:
-```
-docker ps
-```
-- Run this command to get into the postgres docker container:
-```
-docker exec -it app_container_id bash
-```
-- To run tests do this command:
-```
-python3 manage.py test
-```
-
-# To extract references
-- Run the following
-```
-pip install wheel
-pip install refextract 
-brew install libmagic
-python3
-from refextract import extract_references_from_file
-```
-
+# Tutorial
+See our [Running Django on Cloud Run (fully managed)](https://cloud.google.com/python/django/run) tutorial for instructions for setting up and deploying this sample application.

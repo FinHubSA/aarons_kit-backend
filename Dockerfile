@@ -1,27 +1,37 @@
-FROM python:3.9.9
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PATH="/scripts:${PATH}"
+# Use an official lightweight Python image.
+# https://hub.docker.com/_/python
+FROM python:3.10-slim
 
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+
+# Removes output stream buffering, allowing for more efficient logging
+ENV PYTHONUNBUFFERED 1
+
+# Install dependencies
 COPY requirements.txt .
-WORKDIR /app
-COPY aarons_kit /aarons_kit
-COPY scripts /scripts
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip3 install --upgrade pip && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends gcc libc-dev python3-dev postgresql && \
-    pip3 install -r ../requirements.txt && \
-    chmod +x /scripts/* && \
-    mkdir -p /vol/web/media && \
-    mkdir -p /vol/web/static && \
-    useradd user && \
-    chown -R user:user /vol && \
-    chmod -R 755 /vol/web && \
-    chown -R user:user /app && \
-    chmod -R 755 /app
+# Copy local code to the container image.
+COPY . .
 
-USER user
-
-CMD ["entrypoint.sh"]
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+# Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 aarons_kit.wsgi:application

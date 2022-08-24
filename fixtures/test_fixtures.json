@@ -1,6 +1,6 @@
 [
     {
-        "model": "aarons_kit_api.Journal",
+        "model": "api.Journal",
         "pk": 1,
         "fields": {
             "journalName": "Journal of Animal Ecology",
@@ -9,7 +9,7 @@
         }
     },
     {
-        "model": "aarons_kit_api.Issue",
+        "model": "api.Issue",
         "pk": 1,
         "fields": {
             "year": 1954,
@@ -20,7 +20,7 @@
         }
     },
     {
-        "model": "aarons_kit_api.Article",
+        "model": "api.Article",
         "pk": 1,
         "fields": {
             "title": "The Occurrence of Mytilicola intestinalis (Steuer) on the East Coast of England",
@@ -31,14 +31,14 @@
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 1,
         "fields": {
             "authorName": "G. D. Waugh"
         }
     },
     {
-        "model": "aarons_kit_api.Article",
+        "model": "api.Article",
         "pk": 2,
         "fields": {
             "title": "The Mathematics of Bird Population Growth and Decline",
@@ -49,21 +49,21 @@
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 2,
         "fields": {
             "authorName": "R. Capildeo"
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 3,
         "fields": {
             "authorName": "J. B. S. Haldane"
         }
     },
     {
-        "model": "aarons_kit_api.Article",
+        "model": "api.Article",
         "pk": 3,
         "fields": {
             "title": "The Larval Inhabitants of Cow Pats",
@@ -74,7 +74,7 @@
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 4,
         "fields": {
             "authorName": "B. R. Laurence"
