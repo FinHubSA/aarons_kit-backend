@@ -24,8 +24,6 @@ services:
     ports:
      - "5432:5432"
     restart: always
-    volumes:
-     - production_db_volume:/var/lib/postgresql/data/
     env_file:
      - .live.env
 
