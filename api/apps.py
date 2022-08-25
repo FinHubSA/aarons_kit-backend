@@ -15,5 +15,5 @@
 from django.apps import AppConfig
 
 
-class PollsConfig(AppConfig):
+class ApiConfig(AppConfig):
     name = "api"
