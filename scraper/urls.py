@@ -12,11 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+
+from . import views
 
 urlpatterns = [
-    path("", include("api.urls")),
-    path("", include("scraper.urls")),
-    path("admin/", admin.site.urls),
+    path(
+        "scraper/enqueue",
+        views.enqueue_scraper_task,
+        name="enqueue_scraper_task",
+    ),
+    path(
+        "scraper/run",
+        views.scrape_metadata_task,
+        name="scrape_metadata_task",
+    ),
 ]

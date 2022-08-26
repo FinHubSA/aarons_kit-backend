@@ -20,7 +20,6 @@ from api.serializers import (
 
 ##### articles #####
 
-
 @api_view(["POST"])
 def store_metadata(request):
     articles_metadata = json.loads(request.data["metadata"])

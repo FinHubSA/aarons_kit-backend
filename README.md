@@ -11,8 +11,8 @@ You may need to use `python3` instead of `python` when following this guide if `
 - If you already have it make sure it's using the correct account.
 - Check the project list. If they are from another account then change the gcloud account.
 `gcloud projects list`
-- Change the gcloud account
-`gcloud auth login `
+- Change the gcloud account to correct one
+`gcloud auth login`
 
 ### Get Cloud SQL Auth Proxy
 

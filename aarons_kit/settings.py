@@ -93,6 +93,7 @@ INSTALLED_APPS = [
     "aarons_kit",
     "rest_framework",
     "storages",
+    "scraper.apps.ScraperConfig",
 ]
 
 MIDDLEWARE = [
@@ -153,6 +154,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Google tasks
+
+PROJECT_NAME = "aarons-kit-360209"
+QUEUE_REGION = "europe-west6"
+QUEUE_ID = "scraper-queue"
 
 # Internationalization
 
