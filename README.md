@@ -8,6 +8,12 @@ You may need to use `python3` instead of `python` when following this guide if `
 
 [Installation notes](https://cloud.google.com/sdk/docs/install).
 
+- If you already have it make sure it's using the correct account.
+- Check the project list. If they are from another account then change the gcloud account.
+`gcloud projects list`
+- Change the gcloud account
+`gcloud auth login `
+
 ### Get Cloud SQL Auth Proxy
 
 Follow the relevant steps [here](https://cloud.google.com/python/django/run#connect_sql_locally).
