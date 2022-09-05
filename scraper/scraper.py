@@ -265,29 +265,26 @@ def filter_issues_urls(issue_url_list):
     return filtered_list
 
 def load_page(driver, journal_url):
-    page_loaded = False
 
-    while not page_loaded:
-        # Retrieving journal data
+    try:
         driver.get(journal_url)
         time.sleep(5)
         driver.maximize_window()
 
-        try:
-            WebDriverWait(driver, 5).until(
-                expected_conditions.presence_of_element_located(
-                    (By.ID, "onetrust-consent-sdk")
-                )
+        WebDriverWait(driver, 5).until(
+            expected_conditions.presence_of_element_located(
+                (By.ID, "onetrust-consent-sdk")
             )
-            print("passed")
-            rotated = "False"
-            page_loaded = True
-        except:
-            print("Failed to access journal page")
-            
-            # Connect to new server
-            # expressvpn(directory, vpn_list(directory))
-            rotated = "True"
+        )
+        print("passed")
+        
+    except:
+        print("Failed to access journal page")
+
+        driver = remote_driver_setup()
+        journal = get_journals_to_scrape(False)
+        scrape_journal(driver, journal)
+
 
 def accept_cookies(driver, journal_url):
     try:
