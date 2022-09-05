@@ -125,10 +125,12 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = "aarons_kit.wsgi.application"
 
+db_settings = env.db()
+
 # Database
 # [START cloudrun_django_database_config]
 # Use django-environ to parse the connection string
-DATABASES = {"default": env.db()}
+DATABASES = {"default": db_settings}
 
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
@@ -186,3 +188,17 @@ GS_DEFAULT_ACL = "publicRead"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+## Testing
+NOSE_ARGS = ['--nocapture','--nologcapture']
+
+####################
+## Local Settings ##
+####################
+
+try:
+    from .local_settings import update_db_settings
+    db_settings = update_db_settings(db_settings)
+    DATABASES = {"default": db_settings}
+except ImportError:
+    pass

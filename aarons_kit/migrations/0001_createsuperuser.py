@@ -52,7 +52,7 @@ def createsuperuser(apps: StateApps, schema_editor: DatabaseSchemaEditor) -> Non
 class Migration(migrations.Migration):
 
     initial = True
-    dependencies = []
+    dependencies = [("auth", "__latest__")]
     operations = [migrations.RunPython(createsuperuser)]
 
 

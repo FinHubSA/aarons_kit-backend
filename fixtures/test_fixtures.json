@@ -5,7 +5,9 @@
         "fields": {
             "journalName": "Journal of Animal Ecology",
             "issn": "123",
-            "altISSN": "456"
+            "altISSN": "456",
+            "lastVolume": 85,
+            "lastVolumeIssue": 6
         }
     },
     {

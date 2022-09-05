@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from google.cloud import tasks_v2
 from google.protobuf import timestamp_pb2
 
-from .scraper import scrape_all_journals
+from .scraper import scrape_journal, remote_driver_setup, get_journals_to_scrape, update_journal_data
 
 from api.models import (
     Journal,
@@ -46,17 +46,6 @@ def enqueue_scraper_task(request):
         }
     }
 
-    # if isinstance(payload, dict):
-    #     # convert dict to JSON string
-    #     payload = json.dumps(payload)
-
-    # if payload is not None:
-    #     # The API expects a payload of type bytes
-    #     converted_payload = payload.encode()
-
-    #     # Add the payload to the request body
-    #     task['app_engine_http_request']['body'] = converted_payload
-
     # use the client to build and send the task
     response = client.create_task(parent=parent, task=task)
     
@@ -68,5 +57,31 @@ def enqueue_scraper_task(request):
 
 @api_view(["POST"])
 def scrape_metadata_task(request):
+
     print("starting scrapping")
-    scrape_all_journals()
+    driver = remote_driver_setup()
+
+    update_journal_data()
+
+    journal = get_journals_to_scrape(False)
+    
+    if journal is None:
+        return Response(
+            {"message": "Found no journals to scrape"}, status=status.HTTP_200_OK
+        )
+    
+    # number of scrapped issues currently
+    scrapped_issues = journal.numberOfIssuesScrapped
+
+    scrape_journal(driver, journal)
+
+    journal = Journal.objects.get(journalID=journal.journalID)
+
+    # number of scrapped newly scrapped issues
+    new_scrapped_issues = journal.numberOfIssuesScrapped - scrapped_issues
+
+    print("scrapped "+str(new_scrapped_issues)+" issues for the journal '"+journal.journalName+"'")
+
+    return Response(
+        {"message": "scrapped "+str(new_scrapped_issues)+" issues for the journal '"+journal.journalName+"'"}, status=status.HTTP_200_OK
+    )

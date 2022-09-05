@@ -13,6 +13,8 @@ You may need to use `python3` instead of `python` when following this guide if `
 `gcloud projects list`
 - Change the gcloud account to correct one
 `gcloud auth login`
+- To push docker container images to gcp container registry
+`gcloud auth configure-docker`
 
 ### Get Cloud SQL Auth Proxy
 
