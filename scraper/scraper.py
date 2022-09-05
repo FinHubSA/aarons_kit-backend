@@ -57,8 +57,13 @@ def scrape_journal(driver, journal):
 
     accept_cookies(driver, journal_url)
 
-    issue_url_list = scrape_issue_urls(driver, journal_url)
-    number_of_issues = len(issue_url_list)
+    issue_url_list, original_issue_url_list = scrape_issue_urls(driver, journal_url)
+    number_of_issues = len(original_issue_url_list)
+
+    if len(issue_url_list) == 0:
+        journal.numberOfIssuesScrapped = len(original_issue_url_list)
+        save_journal(journal, number_of_issues, {})
+        return
 
     # loops through a dataframe of issue urls and captures metadata per issue
     for issue_url in issue_url_list:
@@ -241,7 +246,7 @@ def save_db_journals(db_journal_data):
 # Gets a journal that hasn't been scrapped at all or with a new issue to be scrapped
 def get_journals_to_scrape(get_all):
     result = Journal.objects.filter(
-        ~Q(numberOfIssues=F('numberOfIssuesScrapped')) |
+        Q(numberOfIssues__gt=F('numberOfIssuesScrapped')) |
         ~Q(lastVolume=F('lastVolumeScrapped')) | 
         ~Q(lastVolumeIssue=F('lastVolumeIssueScrapped'))
     )
@@ -337,13 +342,14 @@ def scrape_issue_urls(driver, journal_url):
             issue_url_list.append(issue_url)
 
     print("issue number before filter: "+str(len(issue_url_list)))
+    original_issue_url_list = issue_url_list
 
     issue_url_list = filter_issues_urls(issue_url_list)
 
     print("issue number after filter: "+str(len(issue_url_list)))
 
     # filter out scraped issues by url
-    return issue_url_list
+    return issue_url_list, original_issue_url_list
 
 def download_citations(driver, issue_url):
     time.sleep(5 * random.random())
@@ -389,9 +395,15 @@ def download_citations(driver, issue_url):
 # This must run atomically
 def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
 
+    if 'volume' in citations_data:
+        citations_data['volume'] = (pd.to_numeric(citations_data['volume'], errors='coerce').fillna(0))
+    
+    if 'number' in citations_data:
+        citations_data['number'] = (pd.to_numeric(citations_data['number'], errors='coerce').fillna(0))
+
     journal_data = citations_data.iloc[0].to_dict()
 
-    print("saving citations: "+issue_url+" number: "+journal_data.get("volume","")+" issue: "+journal_data.get("number",""))
+    print("saving citations: "+issue_url+" number: "+str(journal_data.get("volume",""))+" issue: "+str(journal_data.get("number","")))
 
     # save the issue
     issue, issue_created = save_issue(issue_url, journal, journal_data)
@@ -405,14 +417,14 @@ def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
     save_article_author_relations(articles_urls, authors_names, article_author_names)
 
 def save_issue(issue_url, journal, journal_data):
-    
+
     issue, issue_created = Issue.objects.get_or_create(
         url=issue_url,
         defaults={
             "journal": journal,
             "url": issue_url,
-            "volume": journal_data.get("volume",""),
-            "number": journal_data.get("number",""),
+            "volume": journal_data.get("volume","0"),
+            "number": journal_data.get("number","0"),
             "year": journal_data["year"],
         },
     )
@@ -426,7 +438,7 @@ def save_journal(journal, number_of_issues, journal_data):
 
     journal.numberOfIssues = number_of_issues
 
-    if number_of_issues == number_of_issues_scrapped:
+    if number_of_issues <= number_of_issues_scrapped:
         journal.numberOfIssuesScrapped = number_of_issues
         journal.lastVolumeScrapped = journal.lastVolume
         journal.lastVolumeIssueScrapped = journal.lastVolumeIssue
