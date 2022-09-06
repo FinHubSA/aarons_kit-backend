@@ -7,7 +7,13 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
 
-from scraper.scraper import scrape_journal, save_issue_articles, remote_driver_setup, update_journal_data, get_journals_to_scrape
+from scraper.scraper import (
+    scrape_journal,
+    save_issue_articles,
+    remote_driver_setup,
+    update_journal_data,
+    get_journals_to_scrape,
+)
 
 from api.models import (
     Journal,
@@ -19,9 +25,8 @@ from api.models import (
 client = Client()
 # Create your tests here.
 class TestScraper(TestCase):
-
     def test_update_journal_data(self):
-        
+
         update_journal_data()
 
         journal = Journal.objects.get(
@@ -31,15 +36,15 @@ class TestScraper(TestCase):
         self.assertEqual(journal.journalName, "14th Century English Mystics Newsletter")
         self.assertEqual(journal.lastVolume, "9")
         self.assertEqual(journal.lastVolumeIssue, "4")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(journal.lastVolumeScraped, "")
+        self.assertEqual(journal.lastVolumeIssueScraped, "")
 
         # update to different values
-        journal.lastVolume='1'
-        journal.lastVolumeIssue='1'
-        
+        journal.lastVolume = "1"
+        journal.lastVolumeIssue = "1"
+
         journal.save()
-        
+
         journal = Journal.objects.get(
             journalName="14th Century English Mystics Newsletter"
         )
@@ -47,8 +52,8 @@ class TestScraper(TestCase):
         self.assertEqual(journal.journalName, "14th Century English Mystics Newsletter")
         self.assertEqual(journal.lastVolume, "1")
         self.assertEqual(journal.lastVolumeIssue, "1")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(journal.lastVolumeScraped, "")
+        self.assertEqual(journal.lastVolumeIssueScraped, "")
 
         # update again from the jstor file
         update_journal_data()
@@ -60,8 +65,8 @@ class TestScraper(TestCase):
         self.assertEqual(journal.journalName, "14th Century English Mystics Newsletter")
         self.assertEqual(journal.lastVolume, "9")
         self.assertEqual(journal.lastVolumeIssue, "4")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(journal.lastVolumeScraped, "")
+        self.assertEqual(journal.lastVolumeIssueScraped, "")
 
     def test_citation_save(self):
 
@@ -74,7 +79,12 @@ class TestScraper(TestCase):
             journalName="Academy of Management Learning & Education"
         )
 
-        save_issue_articles(pd.DataFrame(citations_data.entries), journal, "https://www.jstor.org/stable/i26400176", 58)
+        save_issue_articles(
+            pd.DataFrame(citations_data.entries),
+            journal,
+            "https://www.jstor.org/stable/i26400176",
+            58,
+        )
 
         # Test journal
         journal = Journal.objects.get(
@@ -83,10 +93,10 @@ class TestScraper(TestCase):
 
         self.assertEqual(journal.issn, "1537260X")
         self.assertEqual(journal.altISSN, "19449585")
-        self.assertEqual(journal.lastVolumeScrapped, "15")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "4")
+        self.assertEqual(journal.lastVolumeScraped, "15")
+        self.assertEqual(journal.lastVolumeIssueScraped, "4")
         self.assertEqual(journal.numberOfIssues, 58)
-        self.assertEqual(journal.numberOfIssuesScrapped, 1)
+        self.assertEqual(journal.numberOfIssuesScraped, 1)
 
         # Test issue
         issue = Issue.objects.get(url="https://www.jstor.org/stable/i26400176")
@@ -94,7 +104,10 @@ class TestScraper(TestCase):
 
         # Test articles
         article = Article.objects.get(url="http://www.jstor.org/stable/26400179")
-        self.assertEqual(article.title, "Publish and Politics: An Examination of Business School Faculty Salaries in Ontario")
+        self.assertEqual(
+            article.title,
+            "Publish and Politics: An Examination of Business School Faculty Salaries in Ontario",
+        )
         authors = article.authors.all()
         self.assertEqual(len(authors), 2)
         self.assertEqual(authors[0].authorName, "YING HONG")
@@ -104,28 +117,24 @@ class TestScraper(TestCase):
         driver = remote_driver_setup()
 
         update_journal_data()
-        
-        journal = Journal.objects.get(
-            journalName="Technical Writing Review"
-        )
+
+        journal = Journal.objects.get(journalName="Technical Writing Review")
 
         self.assertEqual(journal.issn, "26377772")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(journal.lastVolumeScraped, "")
+        self.assertEqual(journal.lastVolumeIssueScraped, "")
         self.assertEqual(journal.numberOfIssues, 0)
-        self.assertEqual(journal.numberOfIssuesScrapped, 0)
+        self.assertEqual(journal.numberOfIssuesScraped, 0)
 
         scrape_journal(driver, journal)
 
         driver.quit()
 
         # Test journal
-        journal = Journal.objects.get(
-            journalName="Technical Writing Review"
-        )
+        journal = Journal.objects.get(journalName="Technical Writing Review")
 
         self.assertEqual(journal.issn, "26377772")
-        self.assertEqual(journal.lastVolumeScrapped, "4")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "2")
+        self.assertEqual(journal.lastVolumeScraped, "4")
+        self.assertEqual(journal.lastVolumeIssueScraped, "2")
         self.assertEqual(journal.numberOfIssues, 2)
-        self.assertEqual(journal.numberOfIssuesScrapped, 2)
+        self.assertEqual(journal.numberOfIssuesScraped, 2)

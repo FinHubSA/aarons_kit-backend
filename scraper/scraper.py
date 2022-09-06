@@ -30,15 +30,15 @@ from api.models import (
 
 # This is the main method for scrapping all journals
 def scrape_all_journals():
-    
+
     driver = remote_driver_setup()
 
     update_journal_data()
-    
+
     journals = get_journals_to_scrape(True)
 
     if journals is not None:
-        # we'll iterate all journals and only skip scrapped issues
+        # we'll iterate all journals and only skip scraped issues
         for journal in journals:
             scrape_journal(driver, journal)
 
@@ -61,27 +61,29 @@ def scrape_journal(driver, journal):
     number_of_issues = len(original_issue_url_list)
 
     if len(issue_url_list) == 0:
-        journal.numberOfIssuesScrapped = len(original_issue_url_list)
+        journal.numberOfIssuesScraped = len(original_issue_url_list)
         save_journal(journal, number_of_issues, {})
         return
 
     # loops through a dataframe of issue urls and captures metadata per issue
     for issue_url in issue_url_list:
-        
+
         download_citations(driver, issue_url)
 
         old_name = os.path.join(directory, "data/logs/citations.txt")
-        new_name = os.path.join(directory, "data/logs/" + issue_url.split("/")[-1] + ".txt")
+        new_name = os.path.join(
+            directory, "data/logs/" + issue_url.split("/")[-1] + ".txt"
+        )
 
         files = WebDriverWait(driver, 20, 1).until(get_downloaded_files)
-        print("number of downloads: "+str(len(files)))
+        print("number of downloads: " + str(len(files)))
         print(files[0])
 
         # get the content of the first file remotely
         content = get_file_content(driver, files[0])
 
         # save the content in a local file in the working directory
-        with open(old_name, 'wb') as f:
+        with open(old_name, "wb") as f:
             f.write(content)
 
         os.rename(old_name, new_name)
@@ -90,9 +92,11 @@ def scrape_journal(driver, journal):
 
         with open(new_name) as bibtex_file:
             citations_data = bibtexparser.load(bibtex_file)
-        
-        save_issue_articles(pd.DataFrame(citations_data.entries), journal, issue_url, number_of_issues)
-        
+
+        save_issue_articles(
+            pd.DataFrame(citations_data.entries), journal, issue_url, number_of_issues
+        )
+
         os.remove(new_name)
 
     scrape_end = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
@@ -105,7 +109,8 @@ def scrape_journal(driver, journal):
         log.write("\nStart time: " + scrape_start)
         log.write("\nEnd time: " + scrape_end)
 
-    return {"message": "Scrapped {}".format(journal.journalName)}
+    return {"message": "Scraped {}".format(journal.journalName)}
+
 
 # Sets up the webdriver on the selenium grid machine.
 # The grid ochestrates the tests on the various machines that are setup.
@@ -119,39 +124,35 @@ def remote_driver_setup():
     chrome_options.add_argument(f"user-agent={USER_AGENT}")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_extension(
-        os.path.join(directory, 'data/tools/extension_1_38_6_0.crx')
+        os.path.join(directory, "data/tools/extension_1_38_6_0.crx")
     )
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option("useAutomationExtension", False)
     chrome_options.add_experimental_option(
         "prefs",
         {
-            # Set default directory for downloads. 
+            # Set default directory for downloads.
             # It doesn't matter here because the download happens in the remote machines file system
             # "download.default_directory": os.path.join(directory, 'data'),
-            
             # Auto download files
-            "download.prompt_for_download": False,  
-            
+            "download.prompt_for_download": False,
             # "download.directory_upgrade": True,
-
             # It will not show PDF directly in chrome
-            "plugins.always_open_pdf_externally": True,  
-
+            "plugins.always_open_pdf_externally": True,
             # gets rid of password saver popup
-            "credentials_enable_service": False,  
-
+            "credentials_enable_service": False,
             # gets rid of password saver popup
-            "profile.password_manager_enabled": False,  
+            "profile.password_manager_enabled": False,
         },
     )
 
     driver = webdriver.Remote(
         command_executor="https://selenium-browser-mrz6aygprq-oa.a.run.app/wd/hub",
-        options=chrome_options
+        options=chrome_options,
     )
 
     return driver
+
 
 # Downloads the list of journals as a txt from the jstor and returns it as a pandas dataframe
 def fetch_journal_data():
@@ -173,35 +174,45 @@ def fetch_journal_data():
 
     return df
 
+
 # Renames the columns and saves into DB if they aren't in already
 def update_journal_data():
 
     journal_data = fetch_journal_data()
 
     # remove the dash print_identifier
-    journal_data["print_identifier"] = journal_data["print_identifier"].str.replace("-","")
-    journal_data["online_identifier"] = journal_data["online_identifier"].str.replace("-","")
+    journal_data["print_identifier"] = journal_data["print_identifier"].str.replace(
+        "-", ""
+    )
+    journal_data["online_identifier"] = journal_data["online_identifier"].str.replace(
+        "-", ""
+    )
 
-    journal_data.rename(columns=
-        {
-            "publication_title":"journalName",
-            "print_identifier":"issn",
-            "online_identifier":"altISSN",
-            "title_url":"url",
-            "num_last_vol_online":"lastVolume",
-            "num_last_issue_online":"lastVolumeIssue",
-        } ,inplace=True)
+    journal_data.rename(
+        columns={
+            "publication_title": "journalName",
+            "print_identifier": "issn",
+            "online_identifier": "altISSN",
+            "title_url": "url",
+            "num_last_vol_online": "lastVolume",
+            "num_last_issue_online": "lastVolumeIssue",
+        },
+        inplace=True,
+    )
 
-    journal_data['issn'].fillna(journal_data['altISSN'], inplace=True)
-    journal_data['lastVolume'].fillna('', inplace=True)
-    journal_data['lastVolumeIssue'].fillna('', inplace=True)
-    
-    sm_journal_data = journal_data[["issn", "altISSN", "journalName","url","lastVolume","lastVolumeIssue"]]
-    
+    journal_data["issn"].fillna(journal_data["altISSN"], inplace=True)
+    journal_data["lastVolume"].fillna("", inplace=True)
+    journal_data["lastVolumeIssue"].fillna("", inplace=True)
+
+    sm_journal_data = journal_data[
+        ["issn", "altISSN", "journalName", "url", "lastVolume", "lastVolumeIssue"]
+    ]
+
     save_db_journals(sm_journal_data)
 
+
 def save_db_journals(db_journal_data):
-    
+
     # get all the records first
     journal_objects = Journal.objects.all()
 
@@ -209,7 +220,7 @@ def save_db_journals(db_journal_data):
 
     # convert to dict so as to iterate
     # journal_records = db_journal_data.to_dict('records')
-    journal_groups = db_journal_data.groupby('issn')
+    journal_groups = db_journal_data.groupby("issn")
 
     for record in journal_objects:
         journal_update = journal_groups.get_group(record.issn)
@@ -217,38 +228,42 @@ def save_db_journals(db_journal_data):
         if not journal_update.empty:
             record.lastVolume = journal_update.iloc[0]["lastVolume"]
             record.lastVolumeIssue = journal_update.iloc[0]["lastVolumeIssue"]
-    
+
     # update the records
     if journal_objects.exists():
         print("** doing bulk update **", journal_objects.count())
 
-        Journal.objects.bulk_update(journal_objects, ['lastVolume','lastVolumeIssue'])
+        Journal.objects.bulk_update(journal_objects, ["lastVolume", "lastVolumeIssue"])
 
         print("** after bulk update **")
 
     print("** doing bulk create")
-    journal_records = db_journal_data.to_dict('records')
-    
+    journal_records = db_journal_data.to_dict("records")
+
     # create those that aren't there
-    model_instances = [Journal(
-        altISSN=record['altISSN'],
-        issn=record['issn'],
-        journalName=record['journalName'],
-        url=record['url'],
-        lastVolume=record['lastVolume'],
-        lastVolumeIssue=record['lastVolumeIssue']
-    ) for record in journal_records]
+    model_instances = [
+        Journal(
+            altISSN=record["altISSN"],
+            issn=record["issn"],
+            journalName=record["journalName"],
+            url=record["url"],
+            lastVolume=record["lastVolume"],
+            lastVolumeIssue=record["lastVolumeIssue"],
+        )
+        for record in journal_records
+    ]
 
     Journal.objects.bulk_create(model_instances, ignore_conflicts=True)
 
     print("** done journals create")
 
-# Gets a journal that hasn't been scrapped at all or with a new issue to be scrapped
+
+# Gets a journal that hasn't been scraped at all or with a new issue to be scraped
 def get_journals_to_scrape(get_all):
     result = Journal.objects.filter(
-        Q(numberOfIssues__gt=F('numberOfIssuesScrapped')) |
-        ~Q(lastVolume=F('lastVolumeScrapped')) | 
-        ~Q(lastVolumeIssue=F('lastVolumeIssueScrapped'))
+        Q(numberOfIssues__gt=F("numberOfIssuesScraped"))
+        | ~Q(lastVolume=F("lastVolumeScraped"))
+        | ~Q(lastVolumeIssue=F("lastVolumeIssueScraped"))
     )
 
     if result:
@@ -256,13 +271,17 @@ def get_journals_to_scrape(get_all):
             return result
         else:
             return result[0]
-    
+
     return None
 
+
 def filter_issues_urls(issue_url_list):
-    remove_urls = Issue.objects.filter(url__in=issue_url_list).values_list('url', flat=True)
+    remove_urls = Issue.objects.filter(url__in=issue_url_list).values_list(
+        "url", flat=True
+    )
     filtered_list = list(set(issue_url_list) - set(remove_urls))
     return filtered_list
+
 
 def load_page(driver, journal_url):
 
@@ -277,7 +296,7 @@ def load_page(driver, journal_url):
             )
         )
         print("passed")
-        
+
     except:
         print("Failed to access journal page")
 
@@ -303,8 +322,9 @@ def accept_cookies(driver, journal_url):
 
     time.sleep(5)
 
+
 def scrape_issue_urls(driver, journal_url):
-    
+
     random.seed(time.time())
     issue_url_list = []
 
@@ -323,30 +343,33 @@ def scrape_issue_urls(driver, journal_url):
 
     # captures the year elements within the decade
     decade_List = driver.find_elements(By.XPATH, r".//dd//ul//li")
-    
+
     # print("decades number: "+str(len(decade_List)))
 
     # captures the issues of the year element and records the issue url
     for element in decade_List:
-        year_list = element.find_elements(By.XPATH, r".//ul//li//collection-view-pharos-link")
+        year_list = element.find_elements(
+            By.XPATH, r".//ul//li//collection-view-pharos-link"
+        )
         temp = element.get_attribute("data-year")
         if temp == None:
             continue
         for item in year_list:
             issue_url = item.get_attribute("href")
-            if (not issue_url.startswith("http") and not issue_url.startswith("https")):
-                issue_url = "https://www.jstor.org"+issue_url
+            if not issue_url.startswith("http") and not issue_url.startswith("https"):
+                issue_url = "https://www.jstor.org" + issue_url
             issue_url_list.append(issue_url)
 
-    print("issue number before filter: "+str(len(issue_url_list)))
+    print("issue number before filter: " + str(len(issue_url_list)))
     original_issue_url_list = issue_url_list
 
     issue_url_list = filter_issues_urls(issue_url_list)
 
-    print("issue number after filter: "+str(len(issue_url_list)))
+    print("issue number after filter: " + str(len(issue_url_list)))
 
     # filter out scraped issues by url
     return issue_url_list, original_issue_url_list
+
 
 def download_citations(driver, issue_url):
     time.sleep(5 * random.random())
@@ -362,7 +385,7 @@ def download_citations(driver, issue_url):
                 )
             )
         ).click()
-        
+
         # print("citations 1")
 
         WebDriverWait(driver, 10).until(
@@ -392,15 +415,26 @@ def download_citations(driver, issue_url):
 # This must run atomically
 def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
 
-    if 'volume' in citations_data:
-        citations_data['volume'] = (pd.to_numeric(citations_data['volume'], errors='coerce').fillna(0))
-    
-    if 'number' in citations_data:
-        citations_data['number'] = (pd.to_numeric(citations_data['number'], errors='coerce').fillna(0))
+    if "volume" in citations_data:
+        citations_data["volume"] = pd.to_numeric(
+            citations_data["volume"], errors="coerce"
+        ).fillna(0)
+
+    if "number" in citations_data:
+        citations_data["number"] = pd.to_numeric(
+            citations_data["number"], errors="coerce"
+        ).fillna(0)
 
     journal_data = citations_data.iloc[0].to_dict()
 
-    print("saving citations: "+issue_url+" number: "+str(journal_data.get("volume",""))+" issue: "+str(journal_data.get("number","")))
+    print(
+        "saving citations: "
+        + issue_url
+        + " number: "
+        + str(journal_data.get("volume", ""))
+        + " issue: "
+        + str(journal_data.get("number", ""))
+    )
 
     # save the issue
     issue, issue_created = save_issue(issue_url, journal, journal_data)
@@ -409,9 +443,12 @@ def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
     if issue_created:
         save_journal(journal, number_of_issues, journal_data)
 
-    articles_urls, authors_names, article_author_names = save_articles_and_authors(citations_data, issue)
+    articles_urls, authors_names, article_author_names = save_articles_and_authors(
+        citations_data, issue
+    )
 
     save_article_author_relations(articles_urls, authors_names, article_author_names)
+
 
 def save_issue(issue_url, journal, journal_data):
 
@@ -420,34 +457,41 @@ def save_issue(issue_url, journal, journal_data):
         defaults={
             "journal": journal,
             "url": issue_url,
-            "volume": journal_data.get("volume","0"),
-            "number": journal_data.get("number","0"),
+            "volume": journal_data.get("volume", "0"),
+            "number": journal_data.get("number", "0"),
             "year": journal_data["year"],
         },
     )
 
     return issue, issue_created
 
-def save_journal(journal, number_of_issues, journal_data):
-    number_of_issues_scrapped = journal.numberOfIssuesScrapped + 1
 
-    print("number of issues: "+str(number_of_issues)+" number of issues scrapped: "+str(number_of_issues_scrapped))
+def save_journal(journal, number_of_issues, journal_data):
+    number_of_issues_scraped = journal.numberOfIssuesScraped + 1
+
+    print(
+        "number of issues: "
+        + str(number_of_issues)
+        + " number of issues scraped: "
+        + str(number_of_issues_scraped)
+    )
 
     journal.numberOfIssues = number_of_issues
 
-    if number_of_issues <= number_of_issues_scrapped:
-        journal.numberOfIssuesScrapped = number_of_issues
-        journal.lastVolumeScrapped = journal.lastVolume
-        journal.lastVolumeIssueScrapped = journal.lastVolumeIssue
+    if number_of_issues <= number_of_issues_scraped:
+        journal.numberOfIssuesScraped = number_of_issues
+        journal.lastVolumeScraped = journal.lastVolume
+        journal.lastVolumeIssueScraped = journal.lastVolumeIssue
     else:
-        journal.numberOfIssuesScrapped = number_of_issues_scrapped
-        journal.lastVolumeScrapped = journal_data.get("volume","")
-        journal.lastVolumeIssueScrapped = journal_data.get("number","")
+        journal.numberOfIssuesScraped = number_of_issues_scraped
+        journal.lastVolumeScraped = journal_data.get("volume", "")
+        journal.lastVolumeIssueScraped = journal_data.get("number", "")
 
     journal.save()
 
+
 def save_articles_and_authors(citations_data, issue):
-    article_records = citations_data.to_dict('records')
+    article_records = citations_data.to_dict("records")
 
     article_author_names = {}
 
@@ -456,32 +500,37 @@ def save_articles_and_authors(citations_data, issue):
 
     articles_urls = []
     authors_names = []
-    
+
     for record in article_records:
 
-        articles.append(Article(
-            issue=issue,
-            title=record["title"],
-            abstract=record.get("abstract", ""),
-            url=record.get("url", "")
-        ))
+        articles.append(
+            Article(
+                issue=issue,
+                title=record["title"],
+                abstract=record.get("abstract", ""),
+                url=record.get("url", ""),
+            )
+        )
 
         articles_urls.append(record.get("url", ""))
 
         try:
             if record.get("author"):
-                
+
                 names = [x.strip() for x in record.get("author").split("and")]
                 article_author_names[record.get("url", "")] = names
 
                 for name in names:
-                    authors.append(Author(
-                        authorName=name
-                    ))
+                    authors.append(Author(authorName=name))
 
                     authors_names.append(name)
         except:
-            print("failed to store authors: "+str(record.get("author",""))+" url: "+record["url"])
+            print(
+                "failed to store authors: "
+                + str(record.get("author", ""))
+                + " url: "
+                + record["url"]
+            )
 
     # save articles and authors
     Article.objects.bulk_create(articles, ignore_conflicts=True)
@@ -489,15 +538,16 @@ def save_articles_and_authors(citations_data, issue):
 
     return articles_urls, authors_names, article_author_names
 
+
 def save_article_author_relations(articles_urls, authors_names, article_author_names):
-    
+
     saved_articles = Article.objects.filter(url__in=articles_urls)
     saved_authors = Author.objects.filter(authorName__in=authors_names)
 
     authors_dict = {}
     for author in saved_authors:
         authors_dict[author.authorName] = author
-    
+
     ArticleAuthorModel = Article.authors.through
     article_authors = []
 
@@ -509,49 +559,58 @@ def save_article_author_relations(articles_urls, authors_names, article_author_n
             for name in author_names:
                 # print("article id: "+str(article.articleID)+" author id: "+str(author.authorID))
                 author = authors_dict[name]
-                article_authors.append(ArticleAuthorModel(article_id=article.articleID, author_id=author.authorID))
+                article_authors.append(
+                    ArticleAuthorModel(
+                        article_id=article.articleID, author_id=author.authorID
+                    )
+                )
 
     ArticleAuthorModel.objects.bulk_create(article_authors)
+
 
 def get_downloaded_files(driver):
     if not driver.current_url.startswith("chrome://downloads"):
         driver.get("chrome://downloads/")
 
-    return  driver.execute_script( \
+    return driver.execute_script(
         "return  document.querySelector('downloads-manager')  "
         " .shadowRoot.querySelector('#downloadsList')         "
         " .items.filter(e => e.state === 'COMPLETE')          "
-        " .map(e => e.filePath || e.file_path || e.fileUrl || e.file_url); ")
+        " .map(e => e.filePath || e.file_path || e.fileUrl || e.file_url); "
+    )
+
 
 def get_file_content(driver, path):
-    elem = driver.execute_script( \
+    elem = driver.execute_script(
         "var input = window.document.createElement('INPUT'); "
         "input.setAttribute('type', 'file'); "
         "input.hidden = true; "
         "input.onchange = function (e) { e.stopPropagation() }; "
-        "return window.document.documentElement.appendChild(input); " )
+        "return window.document.documentElement.appendChild(input); "
+    )
 
-    elem._execute('sendKeysToElement', {'value': [ path ], 'text': path})
+    elem._execute("sendKeysToElement", {"value": [path], "text": path})
 
-    result = driver.execute_async_script( \
+    result = driver.execute_async_script(
         "var input = arguments[0], callback = arguments[1]; "
         "var reader = new FileReader(); "
         "reader.onload = function (ev) { callback(reader.result) }; "
         "reader.onerror = function (ex) { callback(ex.message) }; "
         "reader.readAsDataURL(input.files[0]); "
-        "input.remove(); "
-        , elem)
+        "input.remove(); ",
+        elem,
+    )
 
-    if not result.startswith('data:') :
+    if not result.startswith("data:"):
         raise Exception("Failed to get file content: %s" % result)
 
-    return base64.b64decode(result[result.find('base64,') + 7:])
+    return base64.b64decode(result[result.find("base64,") + 7 :])
 
 
 def save_current_page(path, driver):
-    #open file in write mode with encoding
+    # open file in write mode with encoding
     f = codecs.open(path, "w", "utf−8")
-    #obtain page source
+    # obtain page source
     h = driver.page_source
-    #write page source content to file
+    # write page source content to file
     f.write(h)

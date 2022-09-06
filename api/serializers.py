@@ -52,6 +52,6 @@ class ArticleSerializer(serializers.ModelSerializer):
             "articleJstorID",
             "title",
             "abstract",
-            "url",
+            "bucketURL",
             "authors",
         )

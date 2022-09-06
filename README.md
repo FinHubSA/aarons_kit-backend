@@ -69,7 +69,7 @@ python manage.py makemigrations api
 Submit a new build:
 
 ```
-gcloud builds submit --config cloudmigrate.yaml \
+gcloud builds submit --config cloudbuild.yaml \
     --substitutions _INSTANCE_NAME=aarons-kit,_REGION=europe-west6
 ```
 

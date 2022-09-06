@@ -19,7 +19,6 @@ from api.serializers import (
 )
 
 ##### articles #####
-
 @api_view(["POST"])
 def store_metadata(request):
     articles_metadata = json.loads(request.data["metadata"])
@@ -52,7 +51,7 @@ def store_metadata(request):
                 "articleJstorID": metadata["articleJstorID"],
                 "title": metadata["title"],
                 "abstract": metadata.get("abstract", ""),
-                "url": metadata.get("url", ""),
+                "bucketURL": metadata.get("url", None),
             },
         )
         # store author
@@ -68,7 +67,7 @@ def store_metadata(request):
 
 
 @api_view(["GET"])
-def get_available_articles(request):
+def get_all_articles(request):
     articles = Article.objects.all()
 
     # Pagination?
@@ -81,11 +80,10 @@ def get_available_articles(request):
 def get_article_by_title(request):
     title = request.GET.get("title")
 
-    article = Article.objects.get(title=title)
-    # article.get_related_data()
+    article = Article.objects.filter(title__trigram_similar=title)
 
     if request.method == "GET":
-        article_serializer = ArticleSerializer(article, many=False)
+        article_serializer = ArticleSerializer(article, many=True)
         return Response(article_serializer.data)
 
 
@@ -99,57 +97,50 @@ def get_articles_by_year_range(request):
 
 
 @api_view(["GET"])
-def check_article_by_title(request):
-    articles = Article.objects.all()
-
-    if request.method == "GET":
-        articles_serializer = ArticleSerializer(articles, many=True)
-        return Response(articles_serializer.data)
-
-
-@api_view(["GET"])
 def get_articles_by_author(request):
-    articles = Article.objects.all()
+    author_name = request.GET.get("authorName")
 
-    if request.method == "GET":
-        articles_serializer = ArticleSerializer(articles, many=True)
-        return Response(articles_serializer.data)
+    author = Author.objects.filter(authorName__trigram_similar=author_name).first()
+
+    if author:
+        articles = author.article_set.all()
+
+        if request.method == "GET":
+            articles_serializer = ArticleSerializer(articles, many=True)
+            return Response(articles_serializer.data)
 
 
 @api_view(["GET"])
 def get_articles_from_journal(request):
-    articles = Article.objects.all()
+    journal_name = request.GET.get("journalName")
 
-    if request.method == "GET":
-        articles_serializer = ArticleSerializer(articles, many=True)
-        return Response(articles_serializer.data)
+    journal = Journal.objects.filter(journalName__trigram_similar=journal_name).first()
 
+    if journal:
+        articles = Article.objects.filter(issue__journal__journalName=journal.journalName)
 
-@api_view(["GET"])
-def check_article_by_author(request):
-    articles = Article.objects.all()
-
-    if request.method == "GET":
-        articles_serializer = ArticleSerializer(articles, many=True)
-        return Response(articles_serializer.data)
+        if request.method == "GET":
+            articles_serializer = ArticleSerializer(articles, many=True)
+            return Response(articles_serializer.data)
 
 
 ##### journals #####
-
-
 @api_view(["GET"])
-def get_available_journals(request):
+def get_all_journals(request):
     journals = Journal.objects.all()
 
     if request.method == "GET":
-        journals_serializer = ArticleSerializer(journals, many=True)
+        journals_serializer = JournalSerializer(journals, many=True)
         return Response(journals_serializer.data)
 
 
 @api_view(["GET"])
-def check_article_by_journal_name(request):
-    journals = Journal.objects.all()
+def get_journal_by_name(request):
+    journal_name = request.GET.get("journalName")
+
+    journal = Journal.objects.filter(journalName__trigram_similar=journal_name)
 
     if request.method == "GET":
-        journals_serializer = ArticleSerializer(journals, many=True)
-        return Response(journals_serializer.data)
+        journal_serializer = JournalSerializer(journal, many=True)
+        return Response(journal_serializer.data)
+

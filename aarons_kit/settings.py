@@ -15,6 +15,7 @@
 import io
 import os
 from urllib.parse import urlparse
+import uuid
 
 import environ
 import google.auth
@@ -90,6 +91,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.postgres",
     "aarons_kit",
     "rest_framework",
     "storages",
@@ -130,7 +132,10 @@ db_settings = env.db()
 # Database
 # [START cloudrun_django_database_config]
 # Use django-environ to parse the connection string
-DATABASES = {"default": db_settings}
+DATABASES = {"default": env.db()}
+DATABASES["default"]["TEST"] = {
+    "NAME": os.getenv("TEST_DB_NAME", default="test-masterlist")
+}
 
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
@@ -190,7 +195,7 @@ GS_DEFAULT_ACL = "publicRead"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ## Testing
-NOSE_ARGS = ['--nocapture','--nologcapture']
+NOSE_ARGS = ["--nocapture", "--nologcapture"]
 
 ####################
 ## Local Settings ##
@@ -198,6 +203,7 @@ NOSE_ARGS = ['--nocapture','--nologcapture']
 
 try:
     from .local_settings import update_db_settings
+
     db_settings = update_db_settings(db_settings)
     DATABASES = {"default": db_settings}
 except ImportError:
