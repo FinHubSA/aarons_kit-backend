@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 
 class Journal(models.Model):
     journalID = models.AutoField(primary_key=True)
@@ -8,11 +8,9 @@ class Journal(models.Model):
     altISSN = models.CharField(max_length=50)
     journalName = models.CharField(max_length=500)
     numberOfIssues = models.IntegerField(default=0)
-    numberOfIssuesScrapped = models.IntegerField(default=0)
-    lastVolume = models.CharField(max_length=20, blank=True, default='')
-    lastVolumeIssue = models.CharField(max_length=20, blank=True, default='')
-    lastVolumeScrapped = models.CharField(max_length=20, blank=True, default='')
-    lastVolumeIssueScrapped = models.CharField(max_length=20, blank=True, default='')
+    numberOfIssuesScraped = models.IntegerField(default=0)
+    lastIssueDate = models.DateField(default=datetime.min)
+    lastIssueDateScraped = models.DateField(default=datetime.min)
     
     def __str__(self):
         return self.name

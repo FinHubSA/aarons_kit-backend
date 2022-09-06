@@ -38,7 +38,7 @@ def scrape_all_journals():
     journals = get_journals_to_scrape(True)
 
     if journals is not None:
-        # we'll iterate all journals and only skip scrapped issues
+        # we'll iterate all journals and only skip scraped issues
         for journal in journals:
             scrape_journal(driver, journal)
 
@@ -47,6 +47,8 @@ def scrape_all_journals():
 
 def scrape_journal(driver, journal):
     journal_url = journal.url
+
+    print("scrapping journal "+journal.url)
 
     directory = os.path.dirname(__file__)
 
@@ -61,7 +63,7 @@ def scrape_journal(driver, journal):
     number_of_issues = len(original_issue_url_list)
 
     if len(issue_url_list) == 0:
-        journal.numberOfIssuesScrapped = len(original_issue_url_list)
+        journal.numberOfIssuesScraped = len(original_issue_url_list)
         save_journal(journal, number_of_issues, {})
         return
 
@@ -105,7 +107,7 @@ def scrape_journal(driver, journal):
         log.write("\nStart time: " + scrape_start)
         log.write("\nEnd time: " + scrape_end)
 
-    return {"message": "Scrapped {}".format(journal.journalName)}
+    return {"message": "Scraped {}".format(journal.journalName)}
 
 # Sets up the webdriver on the selenium grid machine.
 # The grid ochestrates the tests on the various machines that are setup.
@@ -158,6 +160,9 @@ def fetch_journal_data():
     directory = os.path.dirname(__file__)
     url = "https://www.jstor.org/kbart/collections/all-archive-titles?contentType=journals"
 
+    if not os.path.exists(os.path.join(directory, "data/logs")):
+        os.makedirs(os.path.join(directory, "data/logs"))
+
     journal_data_path = os.path.join(directory, "data/logs/journal_data.txt")
 
     with urlopen(url) as response:
@@ -188,15 +193,12 @@ def update_journal_data():
             "print_identifier":"issn",
             "online_identifier":"altISSN",
             "title_url":"url",
-            "num_last_vol_online":"lastVolume",
-            "num_last_issue_online":"lastVolumeIssue",
+            "date_last_issue_online":"lastIssueDate",
         } ,inplace=True)
 
     journal_data['issn'].fillna(journal_data['altISSN'], inplace=True)
-    journal_data['lastVolume'].fillna('', inplace=True)
-    journal_data['lastVolumeIssue'].fillna('', inplace=True)
     
-    sm_journal_data = journal_data[["issn", "altISSN", "journalName","url","lastVolume","lastVolumeIssue"]]
+    sm_journal_data = journal_data[["issn", "altISSN", "journalName","url","lastIssueDate"]]
     
     save_db_journals(sm_journal_data)
 
@@ -215,14 +217,13 @@ def save_db_journals(db_journal_data):
         journal_update = journal_groups.get_group(record.issn)
 
         if not journal_update.empty:
-            record.lastVolume = journal_update.iloc[0]["lastVolume"]
-            record.lastVolumeIssue = journal_update.iloc[0]["lastVolumeIssue"]
+            record.lastIssueDate = journal_update.iloc[0]["lastIssueDate"]
     
     # update the records
     if journal_objects.exists():
         print("** doing bulk update **", journal_objects.count())
 
-        Journal.objects.bulk_update(journal_objects, ['lastVolume','lastVolumeIssue'])
+        Journal.objects.bulk_update(journal_objects, ['lastIssueDate'])
 
         print("** after bulk update **")
 
@@ -235,20 +236,18 @@ def save_db_journals(db_journal_data):
         issn=record['issn'],
         journalName=record['journalName'],
         url=record['url'],
-        lastVolume=record['lastVolume'],
-        lastVolumeIssue=record['lastVolumeIssue']
+        lastIssueDate=record['lastIssueDate']
     ) for record in journal_records]
 
     Journal.objects.bulk_create(model_instances, ignore_conflicts=True)
 
     print("** done journals create")
 
-# Gets a journal that hasn't been scrapped at all or with a new issue to be scrapped
+# Gets a journal that hasn't been scraped at all or with a new issue to be scraped
 def get_journals_to_scrape(get_all):
     result = Journal.objects.filter(
-        Q(numberOfIssues__gt=F('numberOfIssuesScrapped')) |
-        ~Q(lastVolume=F('lastVolumeScrapped')) | 
-        ~Q(lastVolumeIssue=F('lastVolumeIssueScrapped'))
+        Q(numberOfIssues__gt=F('numberOfIssuesScraped')) |
+        ~Q(lastIssueDate=F('lastIssueDateScraped'))
     )
 
     if result:
@@ -277,7 +276,7 @@ def load_page(driver, journal_url):
             )
         )
         print("passed")
-        
+
     except:
         print("Failed to access journal page")
 
@@ -390,6 +389,7 @@ def download_citations(driver, issue_url):
 
 
 # This must run atomically
+@transaction.atomic
 def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
 
     if 'volume' in citations_data:
@@ -410,7 +410,7 @@ def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
         save_journal(journal, number_of_issues, journal_data)
 
     articles_urls, authors_names, article_author_names = save_articles_and_authors(citations_data, issue)
-
+    
     save_article_author_relations(articles_urls, authors_names, article_author_names)
 
 def save_issue(issue_url, journal, journal_data):
@@ -429,20 +429,18 @@ def save_issue(issue_url, journal, journal_data):
     return issue, issue_created
 
 def save_journal(journal, number_of_issues, journal_data):
-    number_of_issues_scrapped = journal.numberOfIssuesScrapped + 1
+    number_of_issues_scraped = journal.numberOfIssuesScraped + 1
 
-    print("number of issues: "+str(number_of_issues)+" number of issues scrapped: "+str(number_of_issues_scrapped))
+    print("number of issues: "+str(number_of_issues)+" number of issues scraped: "+str(number_of_issues_scraped))
 
     journal.numberOfIssues = number_of_issues
 
-    if number_of_issues <= number_of_issues_scrapped:
-        journal.numberOfIssuesScrapped = number_of_issues
-        journal.lastVolumeScrapped = journal.lastVolume
-        journal.lastVolumeIssueScrapped = journal.lastVolumeIssue
+    if number_of_issues <= number_of_issues_scraped:
+        journal.numberOfIssuesScraped = number_of_issues
+        journal.lastIssueDateScraped = journal.lastIssueDate
     else:
-        journal.numberOfIssuesScrapped = number_of_issues_scrapped
-        journal.lastVolumeScrapped = journal_data.get("volume","")
-        journal.lastVolumeIssueScrapped = journal_data.get("number","")
+        journal.numberOfIssuesScraped = number_of_issues_scraped
+        journal.lastIssueDateScraped = journal_data["year"]+"-01-01"
 
     journal.save()
 

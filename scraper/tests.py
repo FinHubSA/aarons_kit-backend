@@ -29,10 +29,8 @@ class TestScraper(TestCase):
         )
 
         self.assertEqual(journal.journalName, "14th Century English Mystics Newsletter")
-        self.assertEqual(journal.lastVolume, "9")
-        self.assertEqual(journal.lastVolumeIssue, "4")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(str(journal.lastIssueDate), "1983-12-01")
+        self.assertEqual(str(journal.lastIssueDateScraped), "0001-01-01")
 
         # update to different values
         journal.lastVolume='1'
@@ -45,10 +43,8 @@ class TestScraper(TestCase):
         )
 
         self.assertEqual(journal.journalName, "14th Century English Mystics Newsletter")
-        self.assertEqual(journal.lastVolume, "1")
-        self.assertEqual(journal.lastVolumeIssue, "1")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(str(journal.lastIssueDate), "1983-12-01")
+        self.assertEqual(str(journal.lastIssueDateScraped), "0001-01-01")
 
         # update again from the jstor file
         update_journal_data()
@@ -58,10 +54,8 @@ class TestScraper(TestCase):
         )
 
         self.assertEqual(journal.journalName, "14th Century English Mystics Newsletter")
-        self.assertEqual(journal.lastVolume, "9")
-        self.assertEqual(journal.lastVolumeIssue, "4")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(str(journal.lastIssueDate), "1983-12-01")
+        self.assertEqual(str(journal.lastIssueDateScraped), "0001-01-01")
 
     def test_citation_save(self):
 
@@ -73,7 +67,7 @@ class TestScraper(TestCase):
         journal = Journal.objects.get(
             journalName="Academy of Management Learning & Education"
         )
-
+        
         save_issue_articles(pd.DataFrame(citations_data.entries), journal, "https://www.jstor.org/stable/i26400176", 58)
 
         # Test journal
@@ -83,10 +77,10 @@ class TestScraper(TestCase):
 
         self.assertEqual(journal.issn, "1537260X")
         self.assertEqual(journal.altISSN, "19449585")
-        self.assertEqual(journal.lastVolumeScrapped, "15")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "4")
+        self.assertEqual(str(journal.lastIssueDate), "2016-12-01")
+        self.assertEqual(str(journal.lastIssueDateScraped), "2016-01-01")
         self.assertEqual(journal.numberOfIssues, 58)
-        self.assertEqual(journal.numberOfIssuesScrapped, 1)
+        self.assertEqual(journal.numberOfIssuesScraped, 1)
 
         # Test issue
         issue = Issue.objects.get(url="https://www.jstor.org/stable/i26400176")
@@ -110,10 +104,10 @@ class TestScraper(TestCase):
         )
 
         self.assertEqual(journal.issn, "26377772")
-        self.assertEqual(journal.lastVolumeScrapped, "")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "")
+        self.assertEqual(str(journal.lastIssueDate), "1957-06-01")
+        self.assertEqual(str(journal.lastIssueDateScraped), "0001-01-01")
         self.assertEqual(journal.numberOfIssues, 0)
-        self.assertEqual(journal.numberOfIssuesScrapped, 0)
+        self.assertEqual(journal.numberOfIssuesScraped, 0)
 
         scrape_journal(driver, journal)
 
@@ -125,7 +119,7 @@ class TestScraper(TestCase):
         )
 
         self.assertEqual(journal.issn, "26377772")
-        self.assertEqual(journal.lastVolumeScrapped, "4")
-        self.assertEqual(journal.lastVolumeIssueScrapped, "2")
+        self.assertEqual(str(journal.lastIssueDate), "1957-06-01")
+        self.assertEqual(str(journal.lastIssueDateScraped), "1957-06-01")
         self.assertEqual(journal.numberOfIssues, 2)
-        self.assertEqual(journal.numberOfIssuesScrapped, 2)
+        self.assertEqual(journal.numberOfIssuesScraped, 2)
