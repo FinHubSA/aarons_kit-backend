@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 
 from google.cloud import tasks_v2
 from google.protobuf import timestamp_pb2
+from django.db import connection
 
 from .scraper import scrape_journal, remote_driver_setup, get_journals_to_scrape, update_journal_data
 
@@ -58,7 +59,9 @@ def enqueue_scraper_task(request):
 @api_view(["POST"])
 def scrape_metadata_task(request):
 
-    print("starting scrapping")
+    db_name = connection.settings_dict['NAME']
+    print("starting scrapping for db: "+db_name)
+    
     driver = remote_driver_setup()
 
     update_journal_data()
