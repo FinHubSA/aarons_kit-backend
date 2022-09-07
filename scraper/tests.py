@@ -7,7 +7,13 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
 
-from scraper.scraper import scrape_journal, save_issue_articles, remote_driver_setup, update_journal_data, get_journals_to_scrape
+from scraper.scraper import (
+    scrape_journal,
+    save_issue_articles,
+    remote_driver_setup,
+    update_journal_data,
+    get_journals_to_scrape,
+)
 
 from api.models import (
     Journal,
@@ -19,9 +25,8 @@ from api.models import (
 client = Client()
 # Create your tests here.
 class TestScraper(TestCase):
-
     def test_update_journal_data(self):
-        
+
         update_journal_data()
 
         journal = Journal.objects.get(
@@ -33,11 +38,11 @@ class TestScraper(TestCase):
         self.assertEqual(str(journal.lastIssueDateScraped), "0001-01-01")
 
         # update to different values
-        journal.lastVolume='1'
-        journal.lastVolumeIssue='1'
-        
+        journal.lastVolume = "1"
+        journal.lastVolumeIssue = "1"
+
         journal.save()
-        
+
         journal = Journal.objects.get(
             journalName="14th Century English Mystics Newsletter"
         )
@@ -67,8 +72,13 @@ class TestScraper(TestCase):
         journal = Journal.objects.get(
             journalName="Academy of Management Learning & Education"
         )
-        
-        save_issue_articles(pd.DataFrame(citations_data.entries), journal, "https://www.jstor.org/stable/i26400176", 58)
+
+        save_issue_articles(
+            pd.DataFrame(citations_data.entries),
+            journal,
+            "https://www.jstor.org/stable/i26400176",
+            58,
+        )
 
         # Test journal
         journal = Journal.objects.get(
@@ -87,8 +97,12 @@ class TestScraper(TestCase):
         self.assertEqual(issue.year, 2016)
 
         # Test articles
-        article = Article.objects.get(url="http://www.jstor.org/stable/26400179")
-        self.assertEqual(article.title, "Publish and Politics: An Examination of Business School Faculty Salaries in Ontario")
+        article = Article.objects.get(articleJstorID="10.2307/26400179")
+        self.assertEqual(article.articleJstorID, "10.2307/26400179")
+        self.assertEqual(
+            article.title,
+            "Publish and Politics: An Examination of Business School Faculty Salaries in Ontario",
+        )
         authors = article.authors.all()
         self.assertEqual(len(authors), 2)
         self.assertEqual(authors[0].authorName, "YING HONG")
@@ -98,10 +112,8 @@ class TestScraper(TestCase):
         driver = remote_driver_setup()
 
         update_journal_data()
-        
-        journal = Journal.objects.get(
-            journalName="Technical Writing Review"
-        )
+
+        journal = Journal.objects.get(journalName="Technical Writing Review")
 
         self.assertEqual(journal.issn, "26377772")
         self.assertEqual(str(journal.lastIssueDate), "1957-06-01")
@@ -114,9 +126,7 @@ class TestScraper(TestCase):
         driver.quit()
 
         # Test journal
-        journal = Journal.objects.get(
-            journalName="Technical Writing Review"
-        )
+        journal = Journal.objects.get(journalName="Technical Writing Review")
 
         self.assertEqual(journal.issn, "26377772")
         self.assertEqual(str(journal.lastIssueDate), "1957-06-01")

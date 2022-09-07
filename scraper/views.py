@@ -10,7 +10,12 @@ from google.cloud import tasks_v2
 from google.protobuf import timestamp_pb2
 from django.db import connection
 
-from .scraper import scrape_journal, remote_driver_setup, get_journals_to_scrape, update_journal_data
+from .scraper import (
+    scrape_journal,
+    remote_driver_setup,
+    get_journals_to_scrape,
+    update_journal_data,
+)
 
 from api.models import (
     Journal,
@@ -28,12 +33,15 @@ from api.serializers import (
 
 client = tasks_v2.CloudTasksClient()
 
+
 @api_view(["GET"])
 def enqueue_scraper_task(request):
     print("enquieing task")
 
     # construct the queue
-    parent = client.queue_path(settings.PROJECT_NAME, settings.QUEUE_REGION, queue=settings.QUEUE_ID)
+    parent = client.queue_path(
+        settings.PROJECT_NAME, settings.QUEUE_REGION, queue=settings.QUEUE_ID
+    )
 
     # construct the request body
     task = {
@@ -49,25 +57,26 @@ def enqueue_scraper_task(request):
 
     # use the client to build and send the task
     response = client.create_task(parent=parent, task=task)
-    
+
     print("Created task {}".format(response.name))
 
     return Response(
         {"message": "Created task {}".format(response.name)}, status=status.HTTP_200_OK
     )
 
+
 @api_view(["POST"])
 def scrape_metadata_task(request):
 
-    db_name = connection.settings_dict['NAME']
-    print("starting scrapping for db: "+db_name)
+    db_name = connection.settings_dict["NAME"]
+    print("starting scrapping for db: " + db_name)
 
     driver = remote_driver_setup()
 
     update_journal_data()
 
     journal = get_journals_to_scrape(False)
-    
+
     if journal is None:
         return Response(
             {"message": "Found no journals to scrape"}, status=status.HTTP_200_OK
@@ -83,8 +92,21 @@ def scrape_metadata_task(request):
     # number of scraped newly scraped issues
     new_scraped_issues = journal.numberOfIssuesScraped - scraped_issues
 
-    print("scraped "+str(new_scraped_issues)+" issues for the journal '"+journal.journalName+"'")
+    print(
+        "scraped "
+        + str(new_scraped_issues)
+        + " issues for the journal '"
+        + journal.journalName
+        + "'"
+    )
 
     return Response(
-        {"message": "scraped "+str(new_scraped_issues)+" issues for the journal '"+journal.journalName+"'"}, status=status.HTTP_200_OK
+        {
+            "message": "scraped "
+            + str(new_scraped_issues)
+            + " issues for the journal '"
+            + journal.journalName
+            + "'"
+        },
+        status=status.HTTP_200_OK,
     )

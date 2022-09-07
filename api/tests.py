@@ -19,28 +19,49 @@ class TestArticle(TestCase):
     def setUp(self):
         call_command("loaddata", "fixtures/test_fixtures", verbosity=0)
 
-    def test_get_available_articles(self):
-        response = client.get(reverse("get_available_articles"))
+    def test_get_all_articles(self):
+        response = client.get(reverse("get_all_articles"))
 
         articles = Article.objects.all()
 
         self.assertEqual(len(response.data), len(articles))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_get_article_by_title(self):
+    def test_get_articles_by_title(self):
+        incorrect_title = "The Inhabitanst of Cat Pats"
         title = "The Larval Inhabitants of Cow Pats"
 
-        response = client.get("%s?title=%s" % (reverse("get_article_by_title"), title))
+        response = client.get(
+            "%s?title=%s" % (reverse("get_article_by_title"), incorrect_title)
+        ).data[0]
 
         article = Article.objects.select_related("issue").get(title=title)
 
-        self.assertEqual(response.data["articleID"], article.articleID)
-        self.assertEqual(response.data["issue"], article.issue.issueID)
-        self.assertEqual(response.data["articleJstorID"], article.articleJstorID)
-        self.assertEqual(response.data["title"], article.title)
-        self.assertEqual(response.data["abstract"], article.abstract)
-        self.assertEqual(response.data["url"], article.url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response["articleID"], article.articleID)
+
+    def test_get_articles_by_author(self):
+        incorrect_author_name = "Lawrence"
+
+        response = client.get(
+            "%s?authorName=%s"
+            % (reverse("get_articles_by_author"), incorrect_author_name)
+        ).data[0]
+
+        article = Article.objects.get(title="The Larval Inhabitants of Cow Pats")
+
+        self.assertEqual(response["articleID"], article.articleID)
+
+    def test_get_articles_from_journal(self):
+        incorrect_journal_name = "Amimal Ecology"
+
+        response = client.get(
+            "%s?journalName=%s"
+            % (reverse("get_articles_from_journal"), incorrect_journal_name)
+        )
+
+        articles = Article.objects.all()
+
+        self.assertEqual(len(response.data), len(articles))
 
 
 class TestMetadata(TestCase):
@@ -75,12 +96,12 @@ class TestMetadata(TestCase):
         self.assertEqual(article_response_1.issue, issue_response)
         self.assertEqual(article_response_1.title, "Front Matter")
         self.assertEqual(article_response_1.abstract, "")
-        self.assertEqual(article_response_1.url, "")
+        self.assertEqual(article_response_1.bucketURL, None)
         article_response_2 = Article.objects.get(articleJstorID="2")
         self.assertEqual(article_response_2.issue, issue_response)
         self.assertEqual(article_response_2.title, "TO OUR READERS")
         self.assertEqual(article_response_2.abstract, "")
-        self.assertEqual(article_response_2.url, "")
+        self.assertEqual(article_response_2.bucketURL, None)
 
         # Test authors
         author_1 = Author.objects.get(authorName="blah")

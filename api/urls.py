@@ -22,17 +22,12 @@ urlpatterns = [
         views.store_metadata,
         name="store_metadata",
     ),
-    path("api/articles", views.get_available_articles, name="get_available_articles"),
+    path("api/articles", views.get_all_articles, name="get_all_articles"),
     path("api/articles/title", views.get_article_by_title, name="get_article_by_title"),
     path(
         "api/articles/year",
         views.get_articles_by_year_range,
         name="get_articles_by_year_range",
-    ),
-    path(
-        "api/articles/check",
-        views.check_article_by_title,
-        name="check_article_by_title",
     ),
     path(
         "api/articles/author",
@@ -45,18 +40,8 @@ urlpatterns = [
         name="get_articles_from_journal",
     ),
     path(
-        "api/author/check",
-        views.check_article_by_author,
-        name="check_article_by_author",
-    ),
-    path(
         "api/journals/titles",
-        views.get_available_journals,
-        name="get_available_journals",
-    ),
-    path(
-        "api/journals/check",
-        views.check_article_by_journal_name,
-        name="check_article_by_journal_name",
+        views.get_all_journals,
+        name="get_all_journals",
     ),
 ]

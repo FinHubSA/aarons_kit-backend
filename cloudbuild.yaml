@@ -12,15 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START cloudrun_django_cloudmigrate]
+# [START cloudrun_django_cloudbuild]
 steps:
   - id: "build image"
     name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}", "."]
+    args:
+      ["build", "-t", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:$COMMIT_SHA", "."]
 
   - id: "push image"
     name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"]
+    args: ["push", "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:$COMMIT_SHA"]
 
   - id: "apply migrations"
     name: "gcr.io/google-appengine/exec-wrapper"
@@ -57,6 +58,36 @@ steps:
         "--no-input",
       ]
 
+  - id: "test"
+    name: "gcr.io/google-appengine/exec-wrapper"
+    args:
+      [
+        "-i",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}",
+        "-s",
+        "${PROJECT_ID}:${_REGION}:${_INSTANCE_NAME}",
+        "-e",
+        "SETTINGS_NAME=${_SECRET_SETTINGS_NAME}",
+        "--",
+        "python",
+        "manage.py",
+        "test",
+      ]
+
+  - id: "deploy"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "${_SERVICE_NAME}",
+        "--image",
+        "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:$COMMIT_SHA",
+        "--region",
+        "${_REGION}",
+      ]
+
 substitutions:
   _INSTANCE_NAME: django-instance
   _REGION: us-central1
@@ -65,4 +96,4 @@ substitutions:
 
 images:
   - "gcr.io/${PROJECT_ID}/${_SERVICE_NAME}"
-# [END cloudrun_django_cloudmigrate]
+# [END cloudrun_django_cloudbuild]

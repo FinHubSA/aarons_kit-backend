@@ -27,8 +27,8 @@
         "fields": {
             "title": "The Occurrence of Mytilicola intestinalis (Steuer) on the East Coast of England",
             "issue": 1,
-            "abstract": "",
-            "url": "",
+            "abstract": "A test abstract 1.",
+            "bucketURL": "www.test-url1.com",
             "articleJstorID": "1"
         }
     },
@@ -37,17 +37,6 @@
         "pk": 1,
         "fields": {
             "authorName": "G. D. Waugh"
-        }
-    },
-    {
-        "model": "api.Article",
-        "pk": 2,
-        "fields": {
-            "title": "The Mathematics of Bird Population Growth and Decline",
-            "issue": 1,
-            "abstract": "",
-            "url": "",
-            "articleJstorID": "2"
         }
     },
     {
@@ -65,21 +54,35 @@
         }
     },
     {
+        "model": "api.Author",
+        "pk": 4,
+        "fields": {
+            "authorName": "B. R. Laurence"
+        }
+    },
+    {
+        "model": "api.Article",
+        "pk": 2,
+        "fields": {
+            "title": "The Mathematics of Bird Population Growth and Decline",
+            "issue": 1,
+            "abstract": "A test abstract 2",
+            "bucketURL": "www.test-url2.com",
+            "articleJstorID": "2"
+        }
+    },
+    {
         "model": "api.Article",
         "pk": 3,
         "fields": {
             "title": "The Larval Inhabitants of Cow Pats",
             "issue": 1,
             "abstract": "",
-            "url": "",
-            "articleJstorID": "3"
-        }
-    },
-    {
-        "model": "api.Author",
-        "pk": 4,
-        "fields": {
-            "authorName": "B. R. Laurence"
+            "bucketURL": "www.test-url3.com",
+            "articleJstorID": "3",
+            "authors": [
+                4
+            ]
         }
     }
 ]
