@@ -43,7 +43,7 @@ steps:
 substitutions:
   _SERVICE: django
   _VERSION: manual
-  _REGION: us-central1
+  _REGION: europe-west6
   _PLATFORM: managed
   _DB_USER: django
   _DB_NAME: django

@@ -93,7 +93,7 @@ steps:
 
 substitutions:
   _INSTANCE_NAME: django-instance
-  _REGION: us-central1
+  _REGION: europe-west6
   _SERVICE_NAME: api-service
   _SECRET_SETTINGS_NAME: django_settings
 
