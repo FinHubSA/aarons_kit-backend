@@ -576,7 +576,7 @@ def save_article_author_relations(articles_ids, authors_names, article_author_na
                     )
                 )
 
-    ArticleAuthorModel.objects.bulk_create(article_authors)
+    ArticleAuthorModel.objects.bulk_create(article_authors, ignore_conflicts=True)
 
     print("completed article author relations")
 
