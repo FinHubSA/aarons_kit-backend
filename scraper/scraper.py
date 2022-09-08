@@ -20,6 +20,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.remote import remote_connection
 
 from api.models import (
     Journal,
@@ -147,8 +148,15 @@ def remote_driver_setup():
         },
     )
 
+    selenium_connection = remote_connection.RemoteConnection(
+        "https://selenium-browser-mrz6aygprq-oa.a.run.app/wd/hub"
+    )
+    # timeout is in seconds
+    selenium_connection.set_timeout(600)
+
     driver = webdriver.Remote(
-        command_executor="https://selenium-browser-mrz6aygprq-oa.a.run.app/wd/hub",
+        selenium_connection,
+        # command_executor = "https://selenium-browser-mrz6aygprq-oa.a.run.app/wd/hub",
         options=chrome_options,
     )
 
@@ -497,7 +505,7 @@ def save_articles_and_authors(citations_data, issue):
 
     for record in article_records:
 
-        if record["title"] == "Front Matter" | record["title"] == "Back Matter":
+        if record["title"] == "Front Matter" or record["title"] == "Back Matter":
             continue
 
         articles.append(
@@ -523,21 +531,26 @@ def save_articles_and_authors(citations_data, issue):
 
                     authors_names.append(name)
         except:
-            print(
-                "failed to store authors: "
-                + str(record.get("author", ""))
-                + " url: "
-                + record["url"]
-            )
+            # print(
+            #     "failed to store authors: "
+            #     + str(record.get("author", ""))
+            #     + " url: "
+            #     + record["url"]
+            # )
+            pass
 
     # save articles and authors
     Article.objects.bulk_create(articles, ignore_conflicts=True)
     Author.objects.bulk_create(authors, ignore_conflicts=True)
 
+    print("completed bulk author and article save")
+
     return articles_ids, authors_names, article_author_names
 
 
 def save_article_author_relations(articles_ids, authors_names, article_author_names):
+
+    print("saving article author relations")
 
     saved_articles = Article.objects.filter(articleJstorID__in=articles_ids)
     saved_authors = Author.objects.filter(authorName__in=authors_names)
@@ -565,6 +578,7 @@ def save_article_author_relations(articles_ids, authors_names, article_author_na
 
     ArticleAuthorModel.objects.bulk_create(article_authors)
 
+    print("completed article author relations")
 
 def get_downloaded_files(driver):
     if not driver.current_url.startswith("chrome://downloads"):
