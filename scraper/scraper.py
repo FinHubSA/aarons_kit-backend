@@ -188,6 +188,7 @@ def update_journal_data():
     journal_data["print_identifier"] = journal_data["print_identifier"].str.replace(
         "-", ""
     )
+
     journal_data["online_identifier"] = journal_data["online_identifier"].str.replace(
         "-", ""
     )
@@ -266,6 +267,7 @@ def get_journals_to_scrape(get_all):
 
 
 def filter_issues_urls(issue_url_list):
+
     remove_urls = Issue.objects.filter(url__in=issue_url_list).values_list(
         "url", flat=True
     )
@@ -442,11 +444,13 @@ def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
 
 
 def save_issue(issue_url, journal, journal_data):
+    issue_id = issue_url.rsplit('/', 1)[-1]
 
     issue, issue_created = Issue.objects.get_or_create(
         url=issue_url,
         defaults={
             "journal": journal,
+            "issueJstorID": issue_id,
             "url": issue_url,
             "volume": journal_data.get("volume", "0"),
             "number": journal_data.get("number", "0"),
@@ -492,6 +496,9 @@ def save_articles_and_authors(citations_data, issue):
     authors_names = []
 
     for record in article_records:
+
+        if record["title"] == "Front Matter" | record["title"] == "Back Matter":
+            continue
 
         articles.append(
             Article(
