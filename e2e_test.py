@@ -28,7 +28,7 @@ SUFFIX = uuid.uuid4().hex[:10]
 
 SAMPLE_VERSION = os.environ.get("SAMPLE_VERSION", None)
 GOOGLE_CLOUD_PROJECT = os.environ["GOOGLE_CLOUD_PROJECT"]
-REGION = "us-central1"
+REGION = "europe-west6"
 PLATFORM = "managed"
 
 SERVICE = f"api-{SUFFIX}"
