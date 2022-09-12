@@ -41,12 +41,14 @@ def scrape_all_journals():
     if journals is not None:
         # we'll iterate all journals and only skip scraped issues
         for journal in journals:
-            scrape_journal(driver, journal)
+            scrape_journal(driver, journal, -1)
 
     driver.quit()
 
-
-def scrape_journal(driver, journal):
+# count is the amount of new issues to scrape
+# For unlimited count of scraping put a negative number
+# Default is unlimited
+def scrape_journal(driver, journal, issue_scrape_count = -1):
     journal_url = journal.url
 
     print("scrapping journal "+journal.url)
@@ -56,7 +58,7 @@ def scrape_journal(driver, journal):
     scrape_start = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
     scraper_log_path = os.path.join(directory, "data/logs/scraper_log.txt")
 
-    load_page(driver, journal_url)
+    load_page(driver, journal_url, issue_scrape_count)
 
     accept_cookies(driver, journal_url)
 
@@ -68,8 +70,12 @@ def scrape_journal(driver, journal):
         save_journal(journal, number_of_issues, {})
         return
 
+    count = 0
     # loops through a dataframe of issue urls and captures metadata per issue
     for issue_url in issue_url_list:
+
+        if count == issue_scrape_count:
+            break
 
         download_citations(driver, issue_url)
 
@@ -102,6 +108,8 @@ def scrape_journal(driver, journal):
 
         os.remove(new_name)
 
+        count = count + 1
+
     scrape_end = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
     # Append log file
@@ -117,7 +125,7 @@ def scrape_journal(driver, journal):
 # Sets up the webdriver on the selenium grid machine.
 # The grid ochestrates the tests on the various machines that are setup.
 # We only setup the chrome instaled machine for the scraper.
-def remote_driver_setup():
+def remote_driver_setup(timeout = None):
     # Set directory to be current file
     directory = os.path.dirname(__file__)
 
@@ -152,7 +160,8 @@ def remote_driver_setup():
         "https://selenium-browser-mrz6aygprq-oa.a.run.app/wd/hub"
     )
     # timeout is in seconds
-    selenium_connection.set_timeout(600)
+    if not (timeout is None):
+        selenium_connection.set_timeout(timeout)
 
     driver = webdriver.Remote(
         selenium_connection,
@@ -283,7 +292,7 @@ def filter_issues_urls(issue_url_list):
     return filtered_list
 
 
-def load_page(driver, journal_url):
+def load_page(driver, journal_url, issue_scrape_count):
 
     try:
         driver.get(journal_url)
@@ -302,7 +311,7 @@ def load_page(driver, journal_url):
 
         driver = remote_driver_setup()
         journal = get_journals_to_scrape(False)
-        scrape_journal(driver, journal)
+        scrape_journal(driver, journal, issue_scrape_count)
 
 
 def accept_cookies(driver, journal_url):
