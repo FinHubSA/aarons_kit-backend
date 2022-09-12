@@ -71,7 +71,7 @@ def scrape_metadata_task(request):
     db_name = connection.settings_dict["NAME"]
     print("starting scrapping for db: " + db_name)
 
-    driver = remote_driver_setup()
+    driver = remote_driver_setup(600)
 
     update_journal_data()
 
@@ -85,7 +85,10 @@ def scrape_metadata_task(request):
     # number of scraped issues currently
     scraped_issues = journal.numberOfIssuesScraped
 
-    scrape_journal(driver, journal)
+    scrape_journal(driver, journal, 5)
+
+    # quit driver
+    driver.quit()
 
     journal = Journal.objects.get(journalID=journal.journalID)
 

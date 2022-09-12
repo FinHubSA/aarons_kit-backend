@@ -132,10 +132,10 @@ db_settings = env.db()
 # Database
 # [START cloudrun_django_database_config]
 # Use django-environ to parse the connection string
-DATABASES = {"default": env.db()}
-DATABASES["default"]["TEST"] = {
-    "NAME": os.getenv("TEST_DB_NAME", default="test-masterlist")
-}
+DATABASES = {"default": db_settings}
+# DATABASES["default"]["TEST"] = {
+#     "NAME": os.getenv("TEST_DB_NAME", default="test-masterlist")
+# }
 
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
