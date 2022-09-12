@@ -85,7 +85,7 @@ def scrape_metadata_task(request):
     # number of scraped issues currently
     scraped_issues = journal.numberOfIssuesScraped
 
-    scrape_journal(driver, journal, 5)
+    scrape_journal(driver, journal, 20)
 
     # quit driver
     driver.quit()
