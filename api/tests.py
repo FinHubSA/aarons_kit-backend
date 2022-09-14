@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.core.management import call_command
 from django.test import TestCase, Client
@@ -72,7 +73,8 @@ class TestMetadata(TestCase):
             metadata = json.load(f)
 
         response = client.post(
-            reverse("store_metadata"),
+            "%s?apiKey=%s"
+            % (reverse("store_metadata"), os.environ.get("METADATA_API_KEY")),
             data={"metadata": json.dumps(metadata)},
             headers=headers,
         )
