@@ -1,26 +1,24 @@
 # Create your views here.
 import json
+import os
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from api.models import (
-    Journal,
-    Issue,
-    Article,
-    Author,
-)
-from api.serializers import (
-    JournalSerializer,
-    IssueSerializer,
-    ArticleSerializer,
-    AuthorSerializer,
-)
+from api.models import Journal, Issue, Article, Author
+from api.serializers import JournalSerializer, ArticleSerializer
 
 ##### articles #####
 @api_view(["POST"])
 def store_metadata(request):
+    api_key = request.query_params.get("apiKey")
+
+    if not api_key or api_key != os.environ.get("METADATA_API_KEY"):
+        return Response(
+            {"message": "Forbidden"}, status=status.HTTP_403_FORBIDDEN
+        )
+
     articles_metadata = json.loads(request.data["metadata"])
 
     for metadata in articles_metadata:
@@ -78,12 +76,9 @@ def get_all_articles(request):
 
 @api_view(["GET"])
 def get_article_by_title(request):
-    # TODO: error handle no title, reject anything other than title, do same for others
     title = request.query_params.get("title")
 
     article = Article.objects.filter(title__trigram_similar=title)[:10]
-
-    print(Article.objects.filter(title__trigram_similar=title).explain())
 
     if request.method == "GET":
         article_serializer = ArticleSerializer(article, many=True)
@@ -91,21 +86,10 @@ def get_article_by_title(request):
 
 
 @api_view(["GET"])
-def get_articles_by_year_range(request):
-    articles = Article.objects.all()
-
-    if request.method == "GET":
-        articles_serializer = ArticleSerializer(articles, many=True)
-        return Response(articles_serializer.data)
-
-
-@api_view(["GET"])
 def get_articles_by_author(request):
     author_name = request.query_params.get("authorName")
 
     author = Author.objects.filter(authorName__trigram_similar=author_name).first()
-
-    print(Author.objects.filter(authorName__trigram_similar=author_name).explain())
 
     if author:
         articles = author.article_set.all()
@@ -120,8 +104,6 @@ def get_articles_from_journal(request):
     journal_name = request.query_params.get("journalName")
 
     journal = Journal.objects.filter(journalName__trigram_similar=journal_name).first()
-
-    print(Journal.objects.filter(journalName__trigram_similar=journal_name).explain())
 
     if journal:
         articles = Article.objects.filter(

@@ -25,11 +25,6 @@ urlpatterns = [
     path("api/articles", views.get_all_articles, name="get_all_articles"),
     path("api/articles/title", views.get_article_by_title, name="get_article_by_title"),
     path(
-        "api/articles/year",
-        views.get_articles_by_year_range,
-        name="get_articles_by_year_range",
-    ),
-    path(
         "api/articles/author",
         views.get_articles_by_author,
         name="get_articles_by_author",
