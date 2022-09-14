@@ -1,3 +1,4 @@
+from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 from datetime import datetime
 
@@ -11,6 +12,15 @@ class Journal(models.Model):
     numberOfIssuesScraped = models.IntegerField(default=0)
     lastIssueDate = models.DateField(default=datetime.min)
     lastIssueDateScraped = models.DateField(default=datetime.min)
+
+    class Meta:
+        indexes = [
+            GinIndex(
+                name='journal_journalName_gin_idx', 
+                fields=['journalName'], 
+                opclasses=['gin_trgm_ops'],
+            ),
+        ]
 
 
 class Issue(models.Model):
@@ -29,6 +39,15 @@ class Author(models.Model):
     authorID = models.AutoField(primary_key=True)
     authorName = models.CharField(max_length=200, unique=True)
 
+    class Meta:
+        indexes = [
+            GinIndex(
+                name='author_authorName_gin_idx', 
+                fields=['authorName'], 
+                opclasses=['gin_trgm_ops'],
+            ),
+        ]
+
 
 class Article(models.Model):
     articleID = models.AutoField(primary_key=True)
@@ -39,3 +58,12 @@ class Article(models.Model):
     articleJstorID = models.CharField(max_length=50, unique=True)
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name="articles")
     authors = models.ManyToManyField(Author)
+
+    class Meta:
+        indexes = [
+            GinIndex(
+                name='article_title_gin_idx', 
+                fields=['title'], 
+                opclasses=['gin_trgm_ops'],
+            ),
+        ]

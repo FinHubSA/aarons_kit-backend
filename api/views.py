@@ -68,7 +68,7 @@ def store_metadata(request):
 
 @api_view(["GET"])
 def get_all_articles(request):
-    articles = Article.objects.all()
+    articles = Article.objects.all()[:50]
 
     # Pagination?
     if request.method == "GET":
@@ -78,9 +78,12 @@ def get_all_articles(request):
 
 @api_view(["GET"])
 def get_article_by_title(request):
-    title = request.GET.get("title")
+    # TODO: error handle no title, reject anything other than title, do same for others
+    title = request.query_params.get("title")
 
-    article = Article.objects.filter(title__trigram_similar=title)
+    article = Article.objects.filter(title__trigram_similar=title)[:10]
+
+    print(Article.objects.filter(title__trigram_similar=title).explain())
 
     if request.method == "GET":
         article_serializer = ArticleSerializer(article, many=True)
@@ -98,9 +101,11 @@ def get_articles_by_year_range(request):
 
 @api_view(["GET"])
 def get_articles_by_author(request):
-    author_name = request.GET.get("authorName")
+    author_name = request.query_params.get("authorName")
 
     author = Author.objects.filter(authorName__trigram_similar=author_name).first()
+
+    print(Author.objects.filter(authorName__trigram_similar=author_name).explain())
 
     if author:
         articles = author.article_set.all()
@@ -112,12 +117,16 @@ def get_articles_by_author(request):
 
 @api_view(["GET"])
 def get_articles_from_journal(request):
-    journal_name = request.GET.get("journalName")
+    journal_name = request.query_params.get("journalName")
 
     journal = Journal.objects.filter(journalName__trigram_similar=journal_name).first()
 
+    print(Journal.objects.filter(journalName__trigram_similar=journal_name).explain())
+
     if journal:
-        articles = Article.objects.filter(issue__journal__journalName=journal.journalName)
+        articles = Article.objects.filter(
+            issue__journal__journalName=journal.journalName
+        )
 
         if request.method == "GET":
             articles_serializer = ArticleSerializer(articles, many=True)
@@ -127,7 +136,7 @@ def get_articles_from_journal(request):
 ##### journals #####
 @api_view(["GET"])
 def get_all_journals(request):
-    journals = Journal.objects.all()
+    journals = Journal.objects.all()[:50]
 
     if request.method == "GET":
         journals_serializer = JournalSerializer(journals, many=True)
@@ -136,11 +145,10 @@ def get_all_journals(request):
 
 @api_view(["GET"])
 def get_journal_by_name(request):
-    journal_name = request.GET.get("journalName")
+    journal_name = request.query_params.get("journalName")
 
-    journal = Journal.objects.filter(journalName__trigram_similar=journal_name)
+    journal = Journal.objects.filter(journalName__trigram_similar=journal_name)[:10]
 
     if request.method == "GET":
         journal_serializer = JournalSerializer(journal, many=True)
         return Response(journal_serializer.data)
-
