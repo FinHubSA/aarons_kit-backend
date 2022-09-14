@@ -15,7 +15,6 @@
 import io
 import os
 from urllib.parse import urlparse
-import uuid
 
 import environ
 import google.auth
