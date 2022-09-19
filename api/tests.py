@@ -51,10 +51,10 @@ class TestArticle(TestCase):
         self.assertEqual(response.get("articleID"), None)
 
     def test_get_articles_by_author(self):
-        incorrect_author_name = "Lawrence"
+        author_name = "B. R. Laurence"
 
         response = client.get(
-            "%s?authorName=%s" % (reverse("get_articles"), incorrect_author_name)
+            "%s?authorName=%s" % (reverse("get_articles"), author_name)
         ).data[0]
 
         article = Article.objects.get(title="The Larval Inhabitants of Cow Pats")
@@ -62,11 +62,11 @@ class TestArticle(TestCase):
         self.assertEqual(response["articleID"], article.articleID)
 
     def test_get_article_jstor_ids_by_author(self):
-        incorrect_author_name = "Lawrence"
+        author_name = "B. R. Laurence"
 
         response = client.get(
             "%s?authorName=%s&%s=1"
-            % (reverse("get_articles"), incorrect_author_name, ONLY_JSTOR_ID)
+            % (reverse("get_articles"), author_name, ONLY_JSTOR_ID)
         ).data[0]
 
         article = Article.objects.get(title="The Larval Inhabitants of Cow Pats")
@@ -97,6 +97,22 @@ class TestArticle(TestCase):
 
         self.assertEqual(len(response.data), len(articles))
         self.assertEqual(response.data[0].get("articleID"), None)
+
+
+class TestAuthor(TestCase):
+    def setUp(self):
+        call_command("loaddata", "fixtures/test_fixtures", verbosity=0)
+
+    def test_get_authors_by_name(self):
+        incorrect_author_name = "B. R."
+
+        response = client.get(
+            "%s?authorName=%s" % (reverse("get_authors_by_name"), incorrect_author_name)
+        ).data
+
+        self.assertEqual(response[0]["authorName"], "B. R. Laurence")
+        self.assertEqual(response[1]["authorName"], "R. Capildeo")
+        self.assertEqual(response[2]["authorName"], "J. B. S. Haldane")
 
 
 class TestJournal(TestCase):
