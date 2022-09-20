@@ -62,6 +62,7 @@ class TestArticle(TestCase):
         self.assertEqual(response["articleID"], article.articleID)
 
     def test_get_article_jstor_ids_by_author(self):
+
         author_name = "B. R. Laurence"
 
         response = client.get(
