@@ -1,9 +1,10 @@
 # Create your views here.
+from django.contrib.postgres.search import TrigramSimilarity
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from api.models import Journal, Issue, Article, Author
-from api.serializers import JournalSerializer, ArticleSerializer
+from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer
 
 ONLY_JSTOR_ID = "onlyJstorID"
 
@@ -25,7 +26,6 @@ def get_articles(request):
 
         articles = Article.objects.all()[:50]
 
-        # Pagination?
         articles_serializer = ArticleSerializer(articles, many=True)
         return Response(articles_serializer.data)
 
@@ -42,7 +42,7 @@ def get_articles_by_title(title, only_jstor_id):
 
 
 def get_articles_by_author(author_name, only_jstor_id):
-    author = Author.objects.filter(authorName__trigram_similar=author_name).first()
+    author = Author.objects.get(authorName=author_name)
 
     if author:
         articles = author.article_set.all()
@@ -67,6 +67,24 @@ def get_articles_from_journal(journal_name, only_jstor_id):
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data)
+
+
+##### authors #####
+@api_view(["GET"])
+def get_authors_by_name(request):
+    author_name = request.query_params.get("authorName")
+
+    authors = (
+        Author.objects.annotate(
+            similarity=TrigramSimilarity("authorName", author_name),
+        )
+        .filter(similarity__gt=0.1)
+        .order_by("-similarity")[:10]
+    )
+
+    if authors:
+        authors_serializer = AuthorSerializer(authors, many=True)
+        return Response(authors_serializer.data)
 
 
 ##### journals #####
