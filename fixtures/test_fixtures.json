@@ -27,7 +27,10 @@
             "issue": 1,
             "abstract": "A test abstract 1.",
             "bucketURL": "www.test-url1.com",
-            "articleJstorID": "1"
+            "articleJstorID": "1",
+            "authors": [
+                3
+            ]
         }
     },
     {
@@ -65,8 +68,11 @@
             "title": "The Mathematics of Bird Population Growth and Decline",
             "issue": 1,
             "abstract": "A test abstract 2",
-            "bucketURL": "www.test-url2.com",
-            "articleJstorID": "2"
+            "bucketURL": null,
+            "articleJstorID": "2",
+            "authors": [
+                3
+            ]
         }
     },
     {
