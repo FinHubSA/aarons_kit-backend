@@ -480,7 +480,7 @@ def save_issue(issue_url, journal, journal_data):
 
 def save_journal(journal, number_of_issues, journal_data):
     number_of_issues_scraped = journal.numberOfIssuesScraped + 1
-
+    
     print(
         "number of issues: "
         + str(number_of_issues)

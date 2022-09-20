@@ -2,6 +2,7 @@ from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
+import requests
 
 from api.models import (
     Journal,
@@ -86,6 +87,18 @@ class TestArticle(TestCase):
 
         self.assertEqual(len(response.data), len(articles))
 
+    def test_pdf_upload(self):
+        headers = {"Content-Type": "multipart", "Accept": "multipart"}
+
+        response = requests.post(
+            "https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf",
+            data={'file': open('fixtures/test_article.pdf', 'rb'), "articleJstorID": "1"},
+            headers=headers,
+        )
+
+        self.assertContains(response.data["message"], "Article PDF successfully stored at:")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_get_article_jstor_ids_from_journal(self):
         incorrect_journal_name = "Amimal Ecology"
 
@@ -127,6 +140,7 @@ class TestJournal(TestCase):
 
         self.assertEqual(len(response.data), len(journals))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
 
     def test_get_journals_by_name(self):
 

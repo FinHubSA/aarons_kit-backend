@@ -5,8 +5,40 @@ from rest_framework.decorators import api_view
 
 from api.models import Journal, Issue, Article, Author
 from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer
+from storages.backends.gcloud import GoogleCloudStorage
+storage = GoogleCloudStorage()
 
 ONLY_JSTOR_ID = "onlyJstorID"
+
+@api_view(["POST"])
+def store_pdf(request):
+    article_id = request.data["articleJstorID"]
+
+    file = request.data["file"]
+    filename = file.name
+    
+    try:
+        target_path = '/articles/' + filename
+        path = storage.save(target_path, file)
+        bucket_url = storage.url(path)
+    except Exception as e:
+        print("Failed to upload!", e)
+        return Response(
+            {"message": "Failed to upload "+filename}, status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    if Article.objects.filter(articleJstorID=article_id).exists():
+        
+        article = Article.objects.get(
+            articleJstorID=article_id
+        )
+
+        article.bucketURL = bucket_url
+        article.save()
+
+    return Response(
+        {"message": "Article PDF successfully stored at: "+bucket_url}, status=status.HTTP_200_OK
+    )
 
 ##### articles #####
 @api_view(["GET"])
