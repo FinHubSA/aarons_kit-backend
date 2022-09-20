@@ -39,4 +39,9 @@ urlpatterns = [
         views.get_all_journals,
         name="get_all_journals",
     ),
+    path(
+        "api/articles/pdf",
+        views.store_pdf,
+        name="store_pdf",
+    ),
 ]

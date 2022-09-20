@@ -64,6 +64,21 @@ class TestArticle(TestCase):
 
         self.assertEqual(len(response.data), len(articles))
 
+    def test_pdf_upload(self):
+        headers = {"Content-Type": "multipart", "Accept": "multipart"}
+
+        pdf_file = {'file': open('fixtures/test_article.pdf', 'rb')}
+
+        response = client.post(
+            reverse("store_pdf"),
+            # files=[("attachment", ("MYPDF.pdf", open('fixtures/test_article.pdf', "rb").read()))],
+            data={'file': open('fixtures/test_article.pdf', 'rb'), "articleJstorID": "1"},
+            headers=headers,
+        )
+
+        self.assertEqual(response.data["message"], "Failed to upload test_article.pdf")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
 
 class TestMetadata(TestCase):
     def test_upload_metadata(self):
@@ -113,3 +128,4 @@ class TestMetadata(TestCase):
         self.assertEqual(len(author_2.article_set.all()), 1)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
