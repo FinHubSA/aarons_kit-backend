@@ -5,6 +5,7 @@ from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
 from rest_framework import status
+import requests
 
 from api.models import (
     Journal,
@@ -67,17 +68,14 @@ class TestArticle(TestCase):
     def test_pdf_upload(self):
         headers = {"Content-Type": "multipart", "Accept": "multipart"}
 
-        pdf_file = {'file': open('fixtures/test_article.pdf', 'rb')}
-
-        response = client.post(
-            reverse("store_pdf"),
-            # files=[("attachment", ("MYPDF.pdf", open('fixtures/test_article.pdf', "rb").read()))],
+        response = requests.post(
+            "https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf",
             data={'file': open('fixtures/test_article.pdf', 'rb'), "articleJstorID": "1"},
             headers=headers,
         )
 
-        self.assertEqual(response.data["message"], "Failed to upload test_article.pdf")
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertContains(response.data["message"], "Article PDF successfully stored at:")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 class TestMetadata(TestCase):

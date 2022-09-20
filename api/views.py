@@ -82,13 +82,14 @@ def store_pdf(request):
             {"message": "Failed to upload "+filename}, status=status.HTTP_401_UNAUTHORIZED
         )
 
-    article = Article.objects.get(
-        articleJstorID=article_id
-    )
+    if Article.objects.filter(articleJstorID=article_id).exists():
+        
+        article = Article.objects.get(
+            articleJstorID=article_id
+        )
 
-    article.bucketURL = bucket_url
-
-    article.save()
+        article.bucketURL = bucket_url
+        article.save()
 
     return Response(
         {"message": "Article PDF successfully stored at: "+bucket_url}, status=status.HTTP_200_OK
