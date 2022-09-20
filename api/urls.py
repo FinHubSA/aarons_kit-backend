@@ -18,6 +18,6 @@ from . import views
 
 urlpatterns = [
     path("api/articles", views.get_articles, name="get_articles"),
-    path("api/authors", views.get_authors_by_name, name="get_authors_by_name"),
+    path("api/authors", views.get_authors, name="get_authors"),
     path("api/journals", views.get_journals, name="get_journals"),
 ]

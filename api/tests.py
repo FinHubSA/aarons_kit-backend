@@ -7,7 +7,7 @@ from api.models import (
     Journal,
     Article,
 )
-from api.views import ONLY_JSTOR_ID
+from api.views import ONLY_JSTOR_ID, SCRAPING
 
 client = Client()
 
@@ -24,25 +24,22 @@ class TestArticle(TestCase):
         self.assertEqual(len(response.data), len(articles))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    # title
     def test_get_articles_by_title(self):
-        incorrect_title = "The Inhabitanst of Cat Pats"
         title = "The Larval Inhabitants of Cow Pats"
 
         response = client.get(
-            "%s?title=%s" % (reverse("get_articles"), incorrect_title)
+            "%s?title=%s" % (reverse("get_articles"), title)
         ).data[0]
 
-        article = Article.objects.select_related("issue").get(title=title)
-
-        self.assertEqual(response["articleID"], article.articleID)
+        self.assertEqual(response["title"], title)
 
     def test_get_article_jstor_ids_by_title(self):
-        incorrect_title = "The Inhabitanst of Cat Pats"
         title = "The Larval Inhabitants of Cow Pats"
 
         response = client.get(
             "%s?title=%s&%s=1"
-            % (reverse("get_articles"), incorrect_title, ONLY_JSTOR_ID),
+            % (reverse("get_articles"), title, ONLY_JSTOR_ID),
         ).data[0]
 
         article = Article.objects.select_related("issue").get(title=title)
@@ -50,6 +47,7 @@ class TestArticle(TestCase):
         self.assertEqual(response["articleJstorID"], article.articleJstorID)
         self.assertEqual(response.get("articleID"), None)
 
+    # author
     def test_get_articles_by_author(self):
         author_name = "B. R. Laurence"
 
@@ -75,29 +73,52 @@ class TestArticle(TestCase):
         self.assertEqual(response["articleJstorID"], article.articleJstorID)
         self.assertEqual(response.get("articleID"), None)
 
-    def test_get_articles_from_journal(self):
-        incorrect_journal_name = "Amimal Ecology"
+    def test_get_articles_by_author_to_scrape(self):
+        author_name = "J. B. S. Haldane"
 
         response = client.get(
-            "%s?journalName=%s" % (reverse("get_articles"), incorrect_journal_name)
-        )
+            "%s?authorName=%s&%s=1"
+            % (reverse("get_articles"), author_name, SCRAPING)
+        ).data
+
+        self.assertEqual(len(response), 1)
+        self.assertEqual(response[0].get("articleID"), 2)
+
+    # journal
+    def test_get_articles_from_journal(self):
+        journal_name = "Journal of Animal Ecology"
+
+        response = client.get(
+            "%s?journalName=%s" % (reverse("get_articles"), journal_name)
+        ).data
 
         articles = Article.objects.all()
 
-        self.assertEqual(len(response.data), len(articles))
+        self.assertEqual(len(response), len(articles))
 
     def test_get_article_jstor_ids_from_journal(self):
-        incorrect_journal_name = "Amimal Ecology"
+        journal_name = "Journal of Animal Ecology"
 
         response = client.get(
             "%s?journalName=%s&%s=1"
-            % (reverse("get_articles"), incorrect_journal_name, ONLY_JSTOR_ID)
-        )
+            % (reverse("get_articles"), journal_name, ONLY_JSTOR_ID)
+        ).data
 
         articles = Article.objects.all()
 
-        self.assertEqual(len(response.data), len(articles))
-        self.assertEqual(response.data[0].get("articleID"), None)
+        self.assertEqual(len(response), len(articles))
+        self.assertEqual(response[0].get("articleID"), None)
+
+    def test_get_articles_by_journal_to_scrape(self):
+        journal_name = "Journal of Animal Ecology"
+
+        response = client.get(
+            "%s?journalName=%s&%s=1"
+            % (reverse("get_articles"), journal_name, SCRAPING)
+        ).data
+
+        self.assertEqual(len(response), 1)
+        self.assertEqual(response[0].get("articleID"), 2)
 
 
 class TestAuthor(TestCase):
@@ -108,7 +129,7 @@ class TestAuthor(TestCase):
         incorrect_author_name = "B. R."
 
         response = client.get(
-            "%s?authorName=%s" % (reverse("get_authors_by_name"), incorrect_author_name)
+            "%s?authorName=%s" % (reverse("get_authors"), incorrect_author_name)
         ).data
 
         self.assertEqual(response[0]["authorName"], "B. R. Laurence")
@@ -135,8 +156,8 @@ class TestJournal(TestCase):
 
         response = client.get(
             "%s?journalName=%s" % (reverse("get_journals"), incorrect_journal_name)
-        ).data[0]
+        ).data
 
         journal = Journal.objects.get(journalName=journal_name)
 
-        self.assertEqual(response["journalID"], journal.journalID)
+        self.assertEqual(response[0]["journalID"], journal.journalID)
