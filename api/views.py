@@ -13,13 +13,13 @@ ONLY_JSTOR_ID = "onlyJstorID"
 
 @api_view(["POST"])
 def store_pdf(request):
-    article_id = request.data["articleJstorID"]
+    article_id = request.FILES["articleJstorID"]
 
-    file = request.data["file"]
+    file = request.FILES["file"]
     filename = file.name
-    
+
     try:
-        target_path = '/articles/' + filename
+        target_path = 'articles/' + filename
         path = storage.save(target_path, file)
         bucket_url = storage.url(path)
     except Exception as e:
