@@ -109,8 +109,6 @@ class TestArticle(TestCase):
 
         print(response.content)
 
-        # response_data = json.loads(response.content)
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_article_jstor_ids_from_journal(self):

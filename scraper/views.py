@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view
 from google.cloud import tasks_v2
 from google.protobuf import timestamp_pb2
 from django.db import connection
+import requests
+import time
 
 from .scraper import (
     scrape_journal,
@@ -64,9 +66,64 @@ def enqueue_scraper_task(request):
         {"message": "Created task {}".format(response.name)}, status=status.HTTP_200_OK
     )
 
+def authorize(headers):
+    print("** headers ** ", headers)
+
+    if not "Authorization" in headers:
+        print("Not Authorized")
+        return False, Response({"message": "Not Authorized"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    if not headers["Authorization"].startswith('Bearer '):
+        print("Wrong Authorization")
+        return False, Response({"message": "Wrong Authorization"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    # get the bearer token
+    token = headers["Authorization"][7:]
+    print("** token "+token)
+
+    response = requests.get("https://oauth2.googleapis.com/tokeninfo?id_token="+token).json()
+
+    print("** response **", response)
+    
+    # {
+    #     "aud": "https://api-service-mrz6aygprq-oa.a.run.app/scraper/run",
+    #     "azp": "100386201458136714087",
+    #     "email": "scraper-service@aarons-kit-360209.iam.gserviceaccount.com",
+    #     "email_verified": "true",
+    #     "exp": "1663914000",
+    #     "iat": "1663910400",
+    #     "iss": "https://accounts.google.com",
+    #     "sub": "100386201458136714087",
+    #     "alg": "RS256",
+    #     "kid": "209c057d3bdd8c08f2d5739788632673f7c6240f",
+    #     "typ": "JWT"
+    # }
+
+    if not "exp" in response:
+        print("Authorization Failed ")
+        return False, Response({"message": "Authorization Failed"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    expiry = int(response["exp"])
+    current_time = int(time.time())
+
+    print("** times ** ", str(expiry)+" - "+str(current_time))
+
+    if (expiry < current_time):
+        print("Authorization Expired")
+        return False, Response({"message": "Authorization Expired"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    return True, Response({"message": "Authorized"}, status=status.HTTP_200_OK)
+
 
 @api_view(["POST"])
 def scrape_metadata_task(request):
+
+    headers = request.headers
+
+    authorized, response = authorize(headers)
+
+    if not authorized:
+        return response
 
     db_name = connection.settings_dict["NAME"]
     print("starting scrapping for db: " + db_name)

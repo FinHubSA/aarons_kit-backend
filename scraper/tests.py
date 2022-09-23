@@ -133,3 +133,19 @@ class TestScraper(TestCase):
         self.assertEqual(str(journal.lastIssueDateScraped), "1957-06-01")
         self.assertEqual(journal.numberOfIssues, 2)
         self.assertEqual(journal.numberOfIssuesScraped, 2)
+    
+    def test_scraper_validation(self):
+        extra={"HTTP_Authorization":"Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
+
+        response = client.post(reverse("scrape_metadata_task"))
+
+        self.assertEqual(response.data["message"], "Not Authorized")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        response = client.post(reverse("scrape_metadata_task"), {}, **extra)
+
+        self.assertEqual(response.data["message"], "Authorization Failed")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+
