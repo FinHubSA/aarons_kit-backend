@@ -16,6 +16,11 @@ SCRAPING = "scraping"
 def store_pdf(request):
     article_id = request.FILES["articleJstorID"]
 
+    if not Article.objects.filter(articleJstorID=article_id).exists():
+        return Response(
+            {"message": "Article not found "}, status=status.HTTP_404_NOT_FOUND
+        )
+
     file = request.FILES["file"]
     filename = file.name
 
@@ -28,15 +33,13 @@ def store_pdf(request):
         return Response(
             {"message": "Failed to upload "+filename}, status=status.HTTP_401_UNAUTHORIZED
         )
-
-    if Article.objects.filter(articleJstorID=article_id).exists():
         
-        article = Article.objects.get(
-            articleJstorID=article_id
-        )
+    article = Article.objects.get(
+        articleJstorID=article_id
+    )
 
-        article.bucketURL = bucket_url
-        article.save()
+    article.bucketURL = bucket_url
+    article.save()
 
     return Response(
         {"message": "Article PDF successfully stored at: "+bucket_url}, status=status.HTTP_200_OK

@@ -109,7 +109,7 @@ class TestArticle(TestCase):
 
         print(response.content)
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_get_article_jstor_ids_from_journal(self):
         journal_name = "Journal of Animal Ecology"
