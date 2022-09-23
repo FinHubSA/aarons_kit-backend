@@ -14,7 +14,9 @@ SCRAPING = "scraping"
 
 @api_view(["POST"])
 def store_pdf(request):
-    article_id = request.FILES["articleJstorID"]
+    article_id = request.data["articleJstorID"]
+
+    print("** pdf upload article id "+article_id)
 
     if not Article.objects.filter(articleJstorID=article_id).exists():
         return Response(

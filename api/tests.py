@@ -101,11 +101,15 @@ class TestArticle(TestCase):
     def test_pdf_upload(self):
         
         files = {
-            'articleJstorID' : "1",
             'file': open('fixtures/test_article.pdf', 'rb')
         }
 
-        response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, verify=False)
+        data = {
+            'articleJstorID' : "1" #"10.2307/41985663"
+        }
+
+        response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
+        # response = client.post(reverse("store_pdf"), files=files, data=data, verify=False)
 
         print(response.content)
 
