@@ -61,8 +61,9 @@ def store_pdf(request):
 def update_article_bucket_url(request):
     article_id = request.data["articleJstorID"]
     filename = request.data["filename"]
+    bucket = request.data["bucket"]
 
-    bucket_url = "https://storage.googleapis.com/"+settings.GS_CLEAN_BUCKET_NAME+"/"+filename
+    bucket_url = "https://storage.googleapis.com/"+bucket+"/"+filename
 
     if not Article.objects.filter(articleJstorID=article_id).exists():
         return Response(

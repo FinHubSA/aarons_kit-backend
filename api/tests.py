@@ -4,6 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 import requests
 import json
+from django.conf import settings
 
 from api.models import (
     Journal,
@@ -118,7 +119,8 @@ class TestArticle(TestCase):
     def test_update_article_bucket_url(self):
         data = {
             'articleJstorID' : '1',
-            'filename': 'test_article.pdf'
+            'filename': 'test_article.pdf',
+            'bucket': settings.GS_CLEAN_BUCKET_NAME
         }
 
         # response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
