@@ -114,6 +114,25 @@ class TestArticle(TestCase):
         print(response.content)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    
+    def test_update_article_bucket_url(self):
+        data = {
+            'articleJstorID' : '1',
+            'filename': 'test_article.pdf'
+        }
+
+        # response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
+        response = client.post(reverse("update_article_bucket_url"), data=data, verify=False)
+
+        print(response.content)
+
+        article = Article.objects.get(articleJstorID="1")
+        self.assertEqual(
+            article.bucketURL,
+            "https://storage.googleapis.com/clean-aarons-kit-360209/test_article.pdf",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_article_jstor_ids_from_journal(self):
         journal_name = "Journal of Animal Ecology"

@@ -21,4 +21,5 @@ urlpatterns = [
     path("api/authors", views.get_authors, name="get_authors"),
     path("api/journals", views.get_journals, name="get_journals"),
     path("api/articles/pdf",views.store_pdf,name="store_pdf"),
+    path("api/articles/update/bucketurl",views.update_article_bucket_url,name="update_article_bucket_url"),
 ]

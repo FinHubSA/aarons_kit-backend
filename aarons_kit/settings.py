@@ -186,6 +186,8 @@ STATIC_URL = "/static/"
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 GS_DEFAULT_ACL = "publicRead"
+GS_UNSCANNED_BUCKET_NAME = "unscanned-aarons-kit-360209"
+GS_CLEAN_BUCKET_NAME = "clean-aarons-kit-360209"
 # [END cloudrun_django_static_config]
 
 # Default primary key field type
