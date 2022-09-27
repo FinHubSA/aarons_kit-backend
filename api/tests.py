@@ -4,6 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 import requests
 import json
+from django.conf import settings
 
 from api.models import (
     Journal,
@@ -101,13 +102,37 @@ class TestArticle(TestCase):
     def test_pdf_upload(self):
         
         files = {
-            'articleJstorID' : "1",
             'file': open('fixtures/test_article.pdf', 'rb')
         }
 
-        response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, verify=False)
+        data = {
+            'articleJstorID' : "1" #"10.2307/41985663"
+        }
+
+        response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
+        # response = client.post(reverse("store_pdf"), files=files, data=data, verify=False)
 
         print(response.content)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    
+    def test_update_article_bucket_url(self):
+        data = {
+            'articleJstorID' : '1',
+            'filename': 'test_article.pdf',
+            'bucket': settings.GS_CLEAN_BUCKET_NAME
+        }
+
+        # response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
+        response = client.post(reverse("update_article_bucket_url"), data=data, verify=False)
+
+        print(response.content)
+
+        article = Article.objects.get(articleJstorID="1")
+        self.assertEqual(
+            article.bucketURL,
+            "https://storage.googleapis.com/clean-aarons-kit-360209/test_article.pdf",
+        )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
