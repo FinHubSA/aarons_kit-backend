@@ -39,7 +39,8 @@ def store_pdf(request):
         blob = bucket.blob(filename)
 
         blob.upload_from_file(file)
-        bucket_url = "https://storage.googleapis.com/"+settings.GS_UNSCANNED_BUCKET_NAME+"/"+filename
+        unscanned_bucket_url = "https://storage.googleapis.com/"+settings.GS_UNSCANNED_BUCKET_NAME+"/"+filename
+        clean_bucket_url = "https://storage.googleapis.com/"+settings.GS_CLEAN_BUCKET_NAME+"/"+filename
     except Exception as e:
         print("Failed to upload!", e)
         return Response(
@@ -50,11 +51,11 @@ def store_pdf(request):
         articleJstorID=article_id
     )
 
-    article.bucketURL = bucket_url
+    article.bucketURL = unscanned_bucket_url
     article.save()
 
     return Response(
-        {"message": "Article PDF successfully stored at: "+bucket_url}, status=status.HTTP_200_OK
+        {"message": "Article PDF successfully stored", "bucket_url": clean_bucket_url}, status=status.HTTP_200_OK
     )
 
 @api_view(["POST"])
@@ -78,7 +79,7 @@ def update_article_bucket_url(request):
     article.save()
 
     return Response(
-        {"message": "Article bucket url successfully updated "+bucket_url}, status=status.HTTP_200_OK
+        {"message": "Article bucket url successfully updated", "bucket_url": bucket_url}, status=status.HTTP_200_OK
     )
 
 ##### articles #####
@@ -105,7 +106,6 @@ def get_articles(request):
             return Response(articles_serializer.data, status.HTTP_200_OK)
     except Exception:
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 def get_articles_by_title(title, only_jstor_id):
     articles = (
