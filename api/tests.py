@@ -99,6 +99,15 @@ class TestArticle(TestCase):
 
         self.assertEqual(len(response), len(articles))
 
+    def test_get_articles_page_size(self):
+        journal_name = "Journal of Animal Ecology"
+
+        response = client.get(
+            "%s?journalName=%s&page_size=1" % (reverse("get_articles"), journal_name)
+        ).data
+
+        self.assertEqual(len(response), 1)
+
     def test_pdf_upload(self):
         
         files = {
@@ -202,3 +211,5 @@ class TestJournal(TestCase):
         journal = Journal.objects.get(journalName=journal_name)
 
         self.assertEqual(response[0]["journalID"], journal.journalID)
+
+        

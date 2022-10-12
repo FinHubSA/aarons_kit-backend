@@ -60,6 +60,7 @@ class Article(models.Model):
     authors = models.ManyToManyField(Author)
 
     class Meta:
+        ordering = ["articleID"]
         indexes = [
             GinIndex(
                 name='article_title_gin_idx', 
