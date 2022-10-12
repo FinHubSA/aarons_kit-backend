@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib.postgres.search import TrigramSimilarity
+from django.core.paginator import Paginator
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -89,41 +90,56 @@ def get_articles(request):
         title = request.query_params.get("title")
         author_name = request.query_params.get("authorName")
         journal_name = request.query_params.get("journalName")
+        page = request.query_params.get("page")
+        page_size = request.query_params.get("page_size")
+
         only_jstor_id = request.query_params.get(ONLY_JSTOR_ID) == "1"
         scraping = request.query_params.get(SCRAPING) == "1"
+        
+        if not page:
+            page = 1
+
+        if not page_size:
+            page_size = 50
 
         if request.method == "GET":
             if title:
-                return get_articles_by_title(title, only_jstor_id)
+                return get_articles_by_title(title, only_jstor_id, page, page_size)
             elif author_name:
-                return get_articles_by_author(author_name, only_jstor_id, scraping)
+                return get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size)
             elif journal_name:
-                return get_articles_from_journal(journal_name, only_jstor_id, scraping)
+                return get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_size)
 
-            articles = Article.objects.all()[:50]
+            articles = Article.objects.all()
+
+            paginator = Paginator(articles, page_size)
+            articles = paginator.get_page(page)
 
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
     except Exception:
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-def get_articles_by_title(title, only_jstor_id):
+def get_articles_by_title(title, only_jstor_id, page, page_size):
     articles = (
         Article.objects.annotate(
             similarity=TrigramSimilarity("title", title),
         )
         .filter(similarity__gt=0.1)
-        .order_by("-similarity")[:10]
+        .order_by("-similarity")
     )
 
+    paginator = Paginator(articles, page_size) 
+    articles = paginator.get_page(page)
+
     if only_jstor_id:
-        return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
+        return Response(articles.object_list.values("articleJstorID"), status.HTTP_200_OK)
     else:
         article_serializer = ArticleSerializer(articles, many=True)
         return Response(article_serializer.data, status.HTTP_200_OK)
 
 
-def get_articles_by_author(author_name, only_jstor_id, scraping):
+def get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size):
     try:
         author = Author.objects.get(authorName=author_name)
     except Author.DoesNotExist:
@@ -135,14 +151,17 @@ def get_articles_by_author(author_name, only_jstor_id, scraping):
         if scraping:
             articles = articles.filter(bucketURL=None)
 
+        paginator = Paginator(articles, page_size)
+        articles = paginator.get_page(page)
+
         if only_jstor_id:
-            return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
+            return Response(articles.object_list.values("articleJstorID"), status.HTTP_200_OK)
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
 
 
-def get_articles_from_journal(journal_name, only_jstor_id, scraping):
+def get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_size):
     try:
         journal = Journal.objects.get(journalName=journal_name)
     except Journal.DoesNotExist:
@@ -156,8 +175,11 @@ def get_articles_from_journal(journal_name, only_jstor_id, scraping):
         if scraping:
             articles = articles.filter(bucketURL=None)
 
+        paginator = Paginator(articles, page_size)
+        articles = paginator.get_page(page)
+
         if only_jstor_id:
-            return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
+            return Response(articles.object_list.values("articleJstorID"), status.HTTP_200_OK)
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
