@@ -103,7 +103,7 @@ class TestArticle(TestCase):
         journal_name = "Journal of Animal Ecology"
 
         response = client.get(
-            "%s?journalName=%s&page_size=1" % (reverse("get_articles"), journal_name)
+            "%s?journalName=%s&page=1&page_size=1" % (reverse("get_articles"), journal_name)
         ).data
 
         self.assertEqual(len(response), 1)

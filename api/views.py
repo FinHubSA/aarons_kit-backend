@@ -84,6 +84,20 @@ def update_article_bucket_url(request):
     )
 
 ##### articles #####
+def get_articles_from_page(articles, page, page_size):
+
+    paginator = Paginator(articles, page_size)
+
+    print("* num page "+str(paginator.num_pages)+" "+str(page))
+    
+    if (page > paginator.num_pages):
+        print("* from page "+str(paginator.num_pages))
+        return Article.objects.none()
+
+    articles = paginator.get_page(page)
+
+    return articles.object_list
+
 @api_view(["GET"])
 def get_articles(request):
     try:
@@ -98,9 +112,13 @@ def get_articles(request):
         
         if not page:
             page = 1
+        else:
+            page = int(page)
 
         if not page_size:
             page_size = 50
+        else:
+            page_size = int(page_size)
 
         if request.method == "GET":
             if title:
@@ -110,10 +128,7 @@ def get_articles(request):
             elif journal_name:
                 return get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_size)
 
-            articles = Article.objects.all()
-
-            paginator = Paginator(articles, page_size)
-            articles = paginator.get_page(page)
+            articles = get_articles_from_page(Article.objects.all(), page, page_size)
 
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
@@ -129,11 +144,10 @@ def get_articles_by_title(title, only_jstor_id, page, page_size):
         .order_by("-similarity")
     )
 
-    paginator = Paginator(articles, page_size) 
-    articles = paginator.get_page(page)
+    articles = get_articles_from_page(articles, page, page_size)
 
     if only_jstor_id:
-        return Response(articles.object_list.values("articleJstorID"), status.HTTP_200_OK)
+        return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
     else:
         article_serializer = ArticleSerializer(articles, many=True)
         return Response(article_serializer.data, status.HTTP_200_OK)
@@ -151,11 +165,10 @@ def get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size
         if scraping:
             articles = articles.filter(bucketURL=None)
 
-        paginator = Paginator(articles, page_size)
-        articles = paginator.get_page(page)
+        articles = get_articles_from_page(articles, page, page_size)
 
         if only_jstor_id:
-            return Response(articles.object_list.values("articleJstorID"), status.HTTP_200_OK)
+            return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
@@ -175,11 +188,11 @@ def get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_
         if scraping:
             articles = articles.filter(bucketURL=None)
 
-        paginator = Paginator(articles, page_size)
-        articles = paginator.get_page(page)
+        print("* from page")
+        articles = get_articles_from_page(articles, page, page_size)
 
         if only_jstor_id:
-            return Response(articles.object_list.values("articleJstorID"), status.HTTP_200_OK)
+            return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
