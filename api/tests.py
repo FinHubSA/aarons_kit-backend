@@ -10,7 +10,7 @@ from api.models import (
     Journal,
     Article,
 )
-from api.views import ONLY_JSTOR_ID, SCRAPING
+from api.views import ONLY_JSTOR_ID, SCRAPED
 
 client = Client()
 
@@ -80,8 +80,8 @@ class TestArticle(TestCase):
         author_name = "J. B. S. Haldane"
 
         response = client.get(
-            "%s?authorName=%s&%s=1"
-            % (reverse("get_articles"), author_name, SCRAPING)
+            "%s?authorName=%s&%s=0"
+            % (reverse("get_articles"), author_name, SCRAPED)
         ).data
 
         self.assertEqual(len(response), 1)
@@ -162,8 +162,8 @@ class TestArticle(TestCase):
         journal_name = "Journal of Animal Ecology"
 
         response = client.get(
-            "%s?journalName=%s&%s=1"
-            % (reverse("get_articles"), journal_name, SCRAPING)
+            "%s?journalName=%s&%s=0"
+            % (reverse("get_articles"), journal_name, SCRAPED)
         ).data
 
         self.assertEqual(len(response), 1)

@@ -6,14 +6,14 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.conf import settings
 
-from api.models import Journal, Article, Author
+from api.models import Journal, Article, Author, Issue
 from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer
 # from storages.backends.gcloud import GoogleCloudStorage
 # storage = GoogleCloudStorage()
 from google.cloud import storage
 
 ONLY_JSTOR_ID = "onlyJstorID"
-SCRAPING = "scraping"
+SCRAPED = "scraped"
 
 @api_view(["POST"])
 def store_pdf(request):
@@ -104,17 +104,25 @@ def get_articles(request):
         title = request.query_params.get("title")
         author_name = request.query_params.get("authorName")
         journal_name = request.query_params.get("journalName")
+        journal_id = request.query_params.get("journalID")
+        issue_id = request.query_params.get("issueID")
+        
         page = request.query_params.get("page")
         page_size = request.query_params.get("page_size")
 
         only_jstor_id = request.query_params.get(ONLY_JSTOR_ID) == "1"
-        scraping = request.query_params.get(SCRAPING) == "1"
+        scraped = request.query_params.get('scraped')
         
         if not page:
             page = 1
         else:
             page = int(page)
 
+        if scraped:
+            scraped = int(scraped)
+        else:
+            scraped = -1
+            
         if not page_size:
             page_size = 50
         else:
@@ -124,9 +132,11 @@ def get_articles(request):
             if title:
                 return get_articles_by_title(title, only_jstor_id, page, page_size)
             elif author_name:
-                return get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size)
-            elif journal_name:
-                return get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_size)
+                return get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size)
+            elif journal_name or journal_id:
+                return get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size)
+            elif issue_id:
+                return get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size)
 
             articles = get_articles_from_page(Article.objects.all(), page, page_size)
 
@@ -153,7 +163,7 @@ def get_articles_by_title(title, only_jstor_id, page, page_size):
         return Response(article_serializer.data, status.HTTP_200_OK)
 
 
-def get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size):
+def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size):
     try:
         author = Author.objects.get(authorName=author_name)
     except Author.DoesNotExist:
@@ -162,8 +172,10 @@ def get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size
     if author:
         articles = author.article_set.all()
 
-        if scraping:
-            articles = articles.filter(bucketURL=None)
+        if scraped == 1:
+            articles = articles.filter(bucketURL__isnull=False)
+        elif scraped == 0:
+            articles = articles.filter(bucketURL__isnull=True)
 
         articles = get_articles_from_page(articles, page, page_size)
 
@@ -174,9 +186,12 @@ def get_articles_by_author(author_name, only_jstor_id, scraping, page, page_size
             return Response(articles_serializer.data, status.HTTP_200_OK)
 
 
-def get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_size):
+def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size):
     try:
-        journal = Journal.objects.get(journalName=journal_name)
+        if (journal_name):
+            journal = Journal.objects.get(journalName=journal_name)
+        else:
+            journal = Journal.objects.get(journalID=journal_id)
     except Journal.DoesNotExist:
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
@@ -185,8 +200,10 @@ def get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_
             issue__journal__journalName=journal.journalName
         )
 
-        if scraping:
-            articles = articles.filter(bucketURL=None)
+        if scraped == 1:
+            articles = articles.filter(bucketURL__isnull=False)
+        elif scraped == 0:
+            articles = articles.filter(bucketURL__isnull=True)
 
         print("* from page")
         articles = get_articles_from_page(articles, page, page_size)
@@ -197,6 +214,29 @@ def get_articles_from_journal(journal_name, only_jstor_id, scraping, page, page_
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
 
+def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
+    try:
+        issue = Issue.objects.get(issueID=issue_id)
+    except Journal.DoesNotExist:
+        return Response(None, status.HTTP_400_BAD_REQUEST)
+
+    if issue:
+        articles = Article.objects.filter(
+            issueID=issue.issueID
+        )
+
+        if scraped == 1:
+            articles = articles.filter(bucketURL__isnull=False)
+        elif scraped == 0:
+            articles = articles.filter(bucketURL__isnull=True)
+
+        articles = get_articles_from_page(articles, page, page_size)
+
+        if only_jstor_id:
+            return Response(articles.values("articleJstorID"), status.HTTP_200_OK)
+        else:
+            articles_serializer = ArticleSerializer(articles, many=True)
+            return Response(articles_serializer.data, status.HTTP_200_OK)
 
 ##### authors #####
 @api_view(["GET"])
