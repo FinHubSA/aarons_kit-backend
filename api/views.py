@@ -87,11 +87,8 @@ def update_article_bucket_url(request):
 def get_articles_from_page(articles, page, page_size):
 
     paginator = Paginator(articles, page_size)
-
-    print("* num page "+str(paginator.num_pages)+" "+str(page))
     
     if (page > paginator.num_pages):
-        print("* from page "+str(paginator.num_pages))
         return Article.objects.none()
 
     articles = paginator.get_page(page)
@@ -122,7 +119,7 @@ def get_articles(request):
             scraped = int(scraped)
         else:
             scraped = -1
-            
+
         if not page_size:
             page_size = 50
         else:
@@ -137,13 +134,22 @@ def get_articles(request):
                 return get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size)
             elif issue_id:
                 return get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size)
-
-            articles = get_articles_from_page(Article.objects.all(), page, page_size)
-
-            articles_serializer = ArticleSerializer(articles, many=True)
-            return Response(articles_serializer.data, status.HTTP_200_OK)
+            else: 
+                return get_all_articles(scraped)
     except Exception:
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+def get_all_articles(scraped):
+
+    if scraped == 1:
+        articles = Article.objects.filter(bucketURL__isnull=False)
+    elif scraped == 0:
+        articles = Article.objects.filter(bucketURL__isnull=True)
+    else:
+        articles = Article.objects.all()
+    
+    articles_serializer = ArticleSerializer(articles, many=True)
+    return Response(articles_serializer.data, status.HTTP_200_OK)
 
 def get_articles_by_title(title, only_jstor_id, page, page_size):
     articles = (
@@ -222,7 +228,7 @@ def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
 
     if issue:
         articles = Article.objects.filter(
-            issueID=issue.issueID
+            issue__issueID=issue.issueID
         )
 
         if scraped == 1:

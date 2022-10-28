@@ -90,14 +90,41 @@ class TestArticle(TestCase):
     # journal
     def test_get_articles_from_journal(self):
         journal_name = "Journal of Animal Ecology"
+        journal_id = 2
 
         response = client.get(
             "%s?journalName=%s" % (reverse("get_articles"), journal_name)
         ).data
 
-        articles = Article.objects.all()
+        articles = Article.objects.filter(
+            issue__journal__journalName=journal_name
+        )
 
         self.assertEqual(len(response), len(articles))
+
+        # test get by ID
+        response = client.get(
+            "%s?journalID=%s" % (reverse("get_articles"), journal_id)
+        ).data
+
+        articles = Article.objects.filter(
+            issue__journal__journalID = journal_id
+        )
+
+        self.assertEqual(len(response), len(articles))
+
+    # issue
+    def test_get_articles_by_issue(self):
+        issue_id = 2
+
+        response = client.get(
+            "%s?issueID=%s" % (reverse("get_articles"), issue_id)
+        ).data
+
+        articles = Article.objects.filter(issue__issueID = 2)
+
+        self.assertEqual(len(response), len(articles))
+
 
     def test_get_articles_page_size(self):
         journal_name = "Journal of Animal Ecology"
@@ -153,7 +180,9 @@ class TestArticle(TestCase):
             % (reverse("get_articles"), journal_name, ONLY_JSTOR_ID)
         ).data
 
-        articles = Article.objects.all()
+        articles = Article.objects.filter(
+            issue__journal__journalName=journal_name
+        )
 
         self.assertEqual(len(response), len(articles))
         self.assertEqual(response[0].get("articleID"), None)
