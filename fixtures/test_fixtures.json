@@ -9,6 +9,15 @@
         }
     },
     {
+        "model": "api.Journal",
+        "pk": 2,
+        "fields": {
+            "journalName": "Journal of Human Ecology",
+            "issn": "1234",
+            "altISSN": "4567"
+        }
+    },
+    {
         "model": "api.Issue",
         "pk": 1,
         "fields": {
@@ -16,6 +25,17 @@
             "volume": 23,
             "journal": 1,
             "issueJstorID": "1",
+            "number": "2"
+        }
+    },
+    {
+        "model": "api.Issue",
+        "pk": 2,
+        "fields": {
+            "year": 1954,
+            "volume": 23,
+            "journal": 2,
+            "issueJstorID": "2",
             "number": "2"
         }
     },
@@ -86,6 +106,20 @@
             "articleJstorID": "3",
             "authors": [
                 4
+            ]
+        }
+    },
+    {
+        "model": "api.Article",
+        "pk": 4,
+        "fields": {
+            "title": "The Mathematics Of The Soviet Union",
+            "issue": 2,
+            "abstract": "A test abstract 1.",
+            "bucketURL": "www.test-url4.com",
+            "articleJstorID": "4",
+            "authors": [
+                3
             ]
         }
     }

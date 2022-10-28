@@ -10,7 +10,7 @@ from api.models import (
     Journal,
     Article,
 )
-from api.views import ONLY_JSTOR_ID, SCRAPING
+from api.views import ONLY_JSTOR_ID, SCRAPED
 
 client = Client()
 
@@ -80,8 +80,8 @@ class TestArticle(TestCase):
         author_name = "J. B. S. Haldane"
 
         response = client.get(
-            "%s?authorName=%s&%s=1"
-            % (reverse("get_articles"), author_name, SCRAPING)
+            "%s?authorName=%s&%s=0"
+            % (reverse("get_articles"), author_name, SCRAPED)
         ).data
 
         self.assertEqual(len(response), 1)
@@ -90,20 +90,47 @@ class TestArticle(TestCase):
     # journal
     def test_get_articles_from_journal(self):
         journal_name = "Journal of Animal Ecology"
+        journal_id = 2
 
         response = client.get(
             "%s?journalName=%s" % (reverse("get_articles"), journal_name)
         ).data
 
-        articles = Article.objects.all()
+        articles = Article.objects.filter(
+            issue__journal__journalName=journal_name
+        )
 
         self.assertEqual(len(response), len(articles))
+
+        # test get by ID
+        response = client.get(
+            "%s?journalID=%s" % (reverse("get_articles"), journal_id)
+        ).data
+
+        articles = Article.objects.filter(
+            issue__journal__journalID = journal_id
+        )
+
+        self.assertEqual(len(response), len(articles))
+
+    # issue
+    def test_get_articles_by_issue(self):
+        issue_id = 2
+
+        response = client.get(
+            "%s?issueID=%s" % (reverse("get_articles"), issue_id)
+        ).data
+
+        articles = Article.objects.filter(issue__issueID = 2)
+
+        self.assertEqual(len(response), len(articles))
+
 
     def test_get_articles_page_size(self):
         journal_name = "Journal of Animal Ecology"
 
         response = client.get(
-            "%s?journalName=%s&page_size=1" % (reverse("get_articles"), journal_name)
+            "%s?journalName=%s&page=1&page_size=1" % (reverse("get_articles"), journal_name)
         ).data
 
         self.assertEqual(len(response), 1)
@@ -153,7 +180,9 @@ class TestArticle(TestCase):
             % (reverse("get_articles"), journal_name, ONLY_JSTOR_ID)
         ).data
 
-        articles = Article.objects.all()
+        articles = Article.objects.filter(
+            issue__journal__journalName=journal_name
+        )
 
         self.assertEqual(len(response), len(articles))
         self.assertEqual(response[0].get("articleID"), None)
@@ -162,8 +191,8 @@ class TestArticle(TestCase):
         journal_name = "Journal of Animal Ecology"
 
         response = client.get(
-            "%s?journalName=%s&%s=1"
-            % (reverse("get_articles"), journal_name, SCRAPING)
+            "%s?journalName=%s&%s=0"
+            % (reverse("get_articles"), journal_name, SCRAPED)
         ).data
 
         self.assertEqual(len(response), 1)
