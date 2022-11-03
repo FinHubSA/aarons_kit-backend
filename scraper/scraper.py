@@ -265,7 +265,7 @@ def save_db_journals(db_journal_data):
 
     Journal.objects.bulk_create(model_instances, ignore_conflicts=True)
 
-    print("** done journals create")
+    print("** done journals create ", len(journal_records))
 
 # Gets a journal that hasn't been scraped at all or with a new issue to be scraped
 def get_journals_to_scrape(get_all):

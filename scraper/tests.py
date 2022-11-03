@@ -113,26 +113,20 @@ class TestScraper(TestCase):
 
         update_journal_data()
 
-        journal = Journal.objects.get(journalName="Technical Writing Review")
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
-        self.assertEqual(journal.issn, "26377772")
-        self.assertEqual(str(journal.lastIssueDate), "1957-06-01")
-        self.assertEqual(str(journal.lastIssueDateScraped), "0001-01-01")
-        self.assertEqual(journal.numberOfIssues, 0)
+        self.assertEqual(journal.issn, "01482076")
         self.assertEqual(journal.numberOfIssuesScraped, 0)
 
-        scrape_journal(driver, journal)
+        scrape_journal(driver, journal, 1)
 
         driver.quit()
 
         # Test journal
-        journal = Journal.objects.get(journalName="Technical Writing Review")
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
-        self.assertEqual(journal.issn, "26377772")
-        self.assertEqual(str(journal.lastIssueDate), "1957-06-01")
-        self.assertEqual(str(journal.lastIssueDateScraped), "1957-06-01")
-        self.assertEqual(journal.numberOfIssues, 2)
-        self.assertEqual(journal.numberOfIssuesScraped, 2)
+        self.assertEqual(journal.issn, "01482076")
+        self.assertEqual(journal.numberOfIssuesScraped, 1)
     
     def test_scraper_validation(self):
         extra={"HTTP_Authorization":"Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
