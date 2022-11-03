@@ -9,6 +9,7 @@ from django.conf import settings
 from api.models import (
     Journal,
     Article,
+    Issue,
 )
 from api.views import ONLY_JSTOR_ID, SCRAPED
 
@@ -241,4 +242,31 @@ class TestJournal(TestCase):
 
         self.assertEqual(response[0]["journalID"], journal.journalID)
 
-        
+class TestIssue(TestCase):
+    def setUp(self):
+        call_command("loaddata", "fixtures/test_fixtures", verbosity=0)
+
+    def test_get_issues(self):
+        response = client.get(reverse("get_issues"))
+
+        issues = Issue.objects.all()
+
+        self.assertEqual(len(response.data), len(issues))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_issues_by_journal(self):
+        journal_name = "Journal of Animal Ecology"
+        journal = Journal.objects.get(journalName=journal_name)
+
+        response = client.get(
+            "%s?journalID=%s" % (reverse("get_issues"), journal.journalID)
+        ).data
+
+        print("response size",len(response))
+        issues = Issue.objects.filter(
+            journal__journalID=journal.journalID
+        )
+
+        self.assertEqual(len(response), len(issues))
+
+
