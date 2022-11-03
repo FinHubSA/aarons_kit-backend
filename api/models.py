@@ -35,7 +35,7 @@ class Issue(models.Model):
     )
 
     class Meta:
-        ordering = ["year", "volume", "number"]
+        ordering = ["-year", "number", "volume"]
 
 class Author(models.Model):
     authorID = models.AutoField(primary_key=True)
