@@ -101,7 +101,7 @@ class TestArticle(TestCase):
             issue__journal__journalName=journal_name
         )
 
-        self.assertEqual(len(response), len(articles))
+        self.assertGreaterEqual(len(response), len(articles))
 
         # test get by ID
         response = client.get(
@@ -185,7 +185,7 @@ class TestArticle(TestCase):
             issue__journal__journalName=journal_name
         )
 
-        self.assertEqual(len(response), len(articles))
+        self.assertGreaterEqual(len(response), len(articles))
         self.assertEqual(response[0].get("articleID"), None)
 
     def test_get_articles_by_journal_to_scrape(self):

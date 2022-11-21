@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.conf import settings
 
+import traceback
 from api.models import Journal, Article, Author, Issue
 from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer
 # from storages.backends.gcloud import GoogleCloudStorage
@@ -171,12 +172,18 @@ def get_articles_by_title(title, only_jstor_id, page, page_size):
 
 def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size):
     try:
-        author = Author.objects.get(authorName=author_name)
+        authors = (
+            Author.objects.annotate(
+                similarity=TrigramSimilarity("authorName", author_name),
+            )
+            .filter(similarity__gt=0.1)
+            .order_by("-similarity")
+        )
     except Author.DoesNotExist:
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
-    if author:
-        articles = author.article_set.all()
+    if authors:
+        articles = Article.objects.filter(authors__in=authors) 
 
         if scraped == 1:
             articles = articles.filter(bucketURL__isnull=False)
@@ -195,15 +202,21 @@ def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size)
 def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size):
     try:
         if (journal_name):
-            journal = Journal.objects.get(journalName=journal_name)
+            journals = (
+                Journal.objects.annotate(
+                    similarity=TrigramSimilarity("journalName", journal_name),
+                )
+                .filter(similarity__gt=0.1)
+                .order_by("-similarity")
+            )
         else:
-            journal = Journal.objects.get(journalID=journal_id)
+            journals = Journal.objects.filter(journalID=journal_id)
     except Journal.DoesNotExist:
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
-    if journal:
+    if journals:
         articles = Article.objects.filter(
-            issue__journal__journalName=journal.journalName
+            issue__journal__in=journals
         )
 
         if scraped == 1:
@@ -211,7 +224,6 @@ def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, pa
         elif scraped == 0:
             articles = articles.filter(bucketURL__isnull=True)
 
-        print("* from page")
         articles = get_articles_from_page(articles, page, page_size)
 
         if only_jstor_id:
