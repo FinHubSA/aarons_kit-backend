@@ -171,7 +171,14 @@ def get_articles_by_title(title, only_jstor_id, page, page_size):
 
 def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size):
     try:
-        author = Author.objects.get(authorName=author_name)
+        author = (
+            Author.objects.annotate(
+                similarity=TrigramSimilarity("authorName", author_name),
+            )
+            .filter(similarity__gt=0.1)
+            .order_by("-similarity")[:1]
+            .get()
+        )
     except Author.DoesNotExist:
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
@@ -195,7 +202,14 @@ def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size)
 def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size):
     try:
         if (journal_name):
-            journal = Journal.objects.get(journalName=journal_name)
+            journal = (
+                Journal.objects.annotate(
+                    similarity=TrigramSimilarity("journalName", journal_name),
+                )
+                .filter(similarity__gt=0.1)
+                .order_by("-similarity")[:1]
+                .get()
+            )
         else:
             journal = Journal.objects.get(journalID=journal_id)
     except Journal.DoesNotExist:
