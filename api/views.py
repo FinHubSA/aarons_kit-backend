@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from django.conf import settings
 
 from api.models import Journal, Article, Author, Issue
-from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer
+from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer
 # from storages.backends.gcloud import GoogleCloudStorage
 # storage = GoogleCloudStorage()
 from google.cloud import storage
@@ -277,6 +277,35 @@ def get_authors_by_name(author_name):
 
     return Response(None, status.HTTP_200_OK)
 
+##### issues #####
+@api_view(["GET"])
+def get_issues(request):
+    try:
+        journal_id = request.query_params.get("journalID")
+
+        print("getting issues ", journal_id)
+        if request.method == "GET":
+            if journal_id:
+                return get_issues_by_journal(journal_id)
+
+            issues = Issue.objects.all()[:50]
+
+            issues_serializer = IssueSerializer(issues, many=True)
+            return Response(issues_serializer.data, status.HTTP_200_OK)
+    except Exception:
+        return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+def get_issues_by_journal(journal_id):
+    
+    issues = Issue.objects.filter(
+        journal__journalID=journal_id
+    )
+
+    if issues:
+        issues_serializer = IssueSerializer(issues, many=True)
+        return Response(issues_serializer.data, status.HTTP_200_OK)
+
+    return Response(None, status.HTTP_200_OK)
 
 ##### journals #####
 @api_view(["GET"])

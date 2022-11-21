@@ -34,6 +34,8 @@ class Issue(models.Model):
         Journal, on_delete=models.CASCADE, related_name="issues"
     )
 
+    class Meta:
+        ordering = ["-year", "number", "volume"]
 
 class Author(models.Model):
     authorID = models.AutoField(primary_key=True)
