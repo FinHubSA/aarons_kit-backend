@@ -11,7 +11,7 @@ from api.models import (
     Article,
     Issue,
 )
-from api.views import ONLY_JSTOR_ID, SCRAPED
+from api.views import ONLY_JSTOR_ID, SCRAPED, update_article_account
 
 client = Client()
 
@@ -136,24 +136,33 @@ class TestArticle(TestCase):
 
         self.assertEqual(len(response), 1)
 
+
     def test_pdf_upload(self):
         
+        algorand_address = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY5HFKQ'
+
         files = {
             'file': open('fixtures/test_article.pdf', 'rb')
         }
 
         data = {
-            'articleJstorID' : "1" #"10.2307/41985663"
+            'articleJstorID' : '1', #"10.2307/41985663"
+            'algorandAddress': algorand_address
         }
 
-        response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
-        # response = client.post(reverse("store_pdf"), files=files, data=data, verify=False)
+        # response = requests.post("https://api-service-mrz6aygprq-oa.a.run.app/api/articles/pdf", files=files, data=data, verify=False)
+        response = client.post(reverse("store_pdf"), files=files, data=data, verify=False)
 
-        print(response.content)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-    
+        update_article_account(1, algorand_address)
+
+        account = Article.objects.get(articleJstorID=1).account
+        
+        self.assertEqual(account.algorandAddress, algorand_address)
+
     def test_update_article_bucket_url(self):
+        
         data = {
             'articleJstorID' : '1',
             'filename': 'test_article.pdf',

@@ -5,9 +5,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.conf import settings
+from urllib.request import urlopen
 
 import traceback
-from api.models import Journal, Article, Author, Issue
+from api.models import Journal, Article, Author, Issue, Account
 from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer
 # from storages.backends.gcloud import GoogleCloudStorage
 # storage = GoogleCloudStorage()
@@ -19,12 +20,23 @@ SCRAPED = "scraped"
 @api_view(["POST"])
 def store_pdf(request):
     article_id = request.data["articleJstorID"]
+    algorand_address = request.data["algorandAddress"]
 
-    print("** pdf upload article id "+article_id)
+    # print("** pdf upload article id "+article_id)
 
     if not Article.objects.filter(articleJstorID=article_id).exists():
+        print("article not found")
         return Response(
             {"message": "Article not found "}, status=status.HTTP_404_NOT_FOUND
+        )
+
+    article = Article.objects.get(
+        articleJstorID=article_id
+    )
+
+    if article.bucketURL:
+        return Response(
+            {"message": "Article already scraped "}, status=status.HTTP_403_FORBIDDEN
         )
 
     file = request.FILES["file"]
@@ -41,24 +53,37 @@ def store_pdf(request):
         blob = bucket.blob(filename)
 
         blob.upload_from_file(file)
-        unscanned_bucket_url = "https://storage.googleapis.com/"+settings.GS_UNSCANNED_BUCKET_NAME+"/"+filename
+        # unscanned_bucket_url = "https://storage.googleapis.com/"+settings.GS_UNSCANNED_BUCKET_NAME+"/"+filename
         clean_bucket_url = "https://storage.googleapis.com/"+settings.GS_CLEAN_BUCKET_NAME+"/"+filename
     except Exception as e:
         print("Failed to upload!", e)
         return Response(
             {"message": "Failed to upload "+filename}, status=status.HTTP_401_UNAUTHORIZED
         )
-        
-    article = Article.objects.get(
-        articleJstorID=article_id
-    )
-
-    article.bucketURL = unscanned_bucket_url
-    article.save()
+    
+    update_article_account(article_id, algorand_address)
 
     return Response(
         {"message": "Article PDF successfully stored", "bucket_url": clean_bucket_url}, status=status.HTTP_200_OK
     )
+
+def update_article_account(article_id, algorand_address):
+    if algorand_address:
+        article = Article.objects.get(
+            articleJstorID=article_id
+        )
+
+        account, account_created = Account.objects.get_or_create(
+            algorandAddress=algorand_address,
+            defaults={
+                "algorandAddress": algorand_address
+            },
+        )
+
+        # article.bucketURL = unscanned_bucket_url
+        article.account = account
+        article.save()
+
 
 @api_view(["POST"])
 def update_article_bucket_url(request):
@@ -67,6 +92,13 @@ def update_article_bucket_url(request):
     bucket = request.data["bucket"]
 
     bucket_url = "https://storage.googleapis.com/"+bucket+"/"+filename
+
+    code = urlopen(bucket_url).code
+
+    if code != 200:
+        return Response(
+            {"message": "Article pdf not found "}, status=status.HTTP_404_NOT_FOUND
+        )
 
     if not Article.objects.filter(articleJstorID=article_id).exists():
         return Response(
@@ -79,7 +111,7 @@ def update_article_bucket_url(request):
 
     article.bucketURL = bucket_url
     article.save()
-
+        
     return Response(
         {"message": "Article bucket url successfully updated", "bucket_url": bucket_url}, status=status.HTTP_200_OK
     )
