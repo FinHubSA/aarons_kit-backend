@@ -50,6 +50,11 @@ class Author(models.Model):
             ),
         ]
 
+class Account(models.Model):
+    accountID = models.AutoField(primary_key=True)
+    algorandAddress = models.CharField(max_length=100, unique=True)
+    donationsReceived = models.IntegerField(default=0)
+    donationsPaid = models.IntegerField(default=0)
 
 class Article(models.Model):
     articleID = models.AutoField(primary_key=True)
@@ -60,6 +65,9 @@ class Article(models.Model):
     articleJstorID = models.CharField(max_length=50, unique=True)
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name="articles")
     authors = models.ManyToManyField(Author)
+    account = models.ForeignKey(
+        Account, on_delete=models.SET_NULL, related_name="articles", blank=True, null=True
+    )
 
     class Meta:
         ordering = ["articleID"]
@@ -70,3 +78,5 @@ class Article(models.Model):
                 opclasses=['gin_trgm_ops'],
             ),
         ]
+
+

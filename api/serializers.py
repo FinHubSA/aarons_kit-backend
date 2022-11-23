@@ -54,4 +54,5 @@ class ArticleSerializer(serializers.ModelSerializer):
             "abstract",
             "bucketURL",
             "authors",
+            "account"
         )
