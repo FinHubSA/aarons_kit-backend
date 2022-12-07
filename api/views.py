@@ -19,10 +19,11 @@ SCRAPED = "scraped"
 
 @api_view(["POST"])
 def store_pdf(request):
-    article_id = request.data["articleJstorID"]
-    algorand_address = request.data["algorandAddress"]
+    article_id = request.data.get("articleJstorID","")
+    algorand_address = request.data.get("algorandAddress", "")
 
-    # print("** pdf upload article id "+article_id)
+    print("** article ID ", article_id)
+    print("** algo address ", algorand_address)
 
     if not Article.objects.filter(articleJstorID=article_id).exists():
         print("article not found")
