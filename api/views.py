@@ -1,6 +1,7 @@
 # Create your views here.
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.paginator import Paginator
+from django.db.models import Q, Count
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -9,7 +10,7 @@ from urllib.request import urlopen
 
 import traceback
 from api.models import Journal, Article, Author, Issue, Account
-from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer
+from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer, AccountSerializer
 # from storages.backends.gcloud import GoogleCloudStorage
 # storage = GoogleCloudStorage()
 from google.cloud import storage
@@ -384,3 +385,18 @@ def get_journals_by_name(journal_name):
         return Response(journals_serializer.data, status.HTTP_200_OK)
 
     return Response(None, status.HTTP_200_OK)
+
+
+##### accounts #####
+@api_view(["GET"])
+def get_accounts(request):
+
+    accounts = Account.objects.annotate(scraped=Count('articles', filter=Q(articles__bucketURL__isnull=False))).filter(scraped__gte=0)
+
+    try:
+        account_serializer = AccountSerializer(accounts, many=True)
+        return Response(account_serializer.data, status.HTTP_200_OK)
+    except Exception as e:
+        print(e)
+        return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
