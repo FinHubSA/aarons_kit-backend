@@ -1,6 +1,8 @@
 from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
+from collections import OrderedDict
+
 from rest_framework import status
 import requests
 import json
@@ -10,11 +12,11 @@ from api.models import (
     Journal,
     Article,
     Issue,
+    Account
 )
 from api.views import ONLY_JSTOR_ID, SCRAPED, update_article_account
 
 client = Client()
-
 
 class TestArticle(TestCase):
     def setUp(self):
@@ -278,4 +280,28 @@ class TestIssue(TestCase):
 
         self.assertEqual(len(response), len(issues))
 
+class TestAccount(TestCase):
 
+    def setUp(self):
+        Journal.objects.create(journalID=1,issn="1")
+
+        Issue.objects.create(issueID=1, issueJstorID=1, year='2022', volume=1, number=1, journal_id=1)
+
+        Account.objects.create(accountID=1,algorandAddress="1")
+        Account.objects.create(accountID=2,algorandAddress="2")
+
+        Article.objects.create(articleID=1, title="1", abstract="1", issue_id=1, account_id=1, articleJstorID=1)
+        Article.objects.create(articleID=2, title="2", abstract="2", issue_id=1, account_id=1, articleJstorID=2, bucketURL="www.ex2.com")
+        Article.objects.create(articleID=3, title="3", abstract="3", issue_id=1, account_id=2, articleJstorID=3, bucketURL="www.ex3.com")
+        Article.objects.create(articleID=4, title="4", abstract="4", issue_id=1, account_id=2, articleJstorID=4, bucketURL="www.ex4.com")
+        Article.objects.create(articleID=5, title="5", abstract="5", issue_id=1, account_id=2, articleJstorID=5, bucketURL="www.ex5.com")
+
+    def test_get_total_scraped(self):
+        
+        response = client.get(reverse("get_accounts")).data
+
+        self.assertEqual(response[0]['accountID'], 2)
+        self.assertEqual(response[0]['scraped'], 3)
+
+        self.assertEqual(response[1]['accountID'], 1)
+        self.assertEqual(response[1]['scraped'], 1)
