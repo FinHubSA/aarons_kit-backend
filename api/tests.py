@@ -67,11 +67,19 @@ class TestArticle(TestCase):
 
     def test_get_article_jstor_ids_by_author(self):
 
-        author_name = "B. R. Laurence"
+        exact_author_name = "B. R. Laurence"
+        author_name = "Laurence"
 
         response = client.get(
-            "%s?authorName=%s&%s=1"
+            "%s?authorName=%s&%s=1&exact=0.9"
             % (reverse("get_articles"), author_name, ONLY_JSTOR_ID)
+        ).data
+
+        self.assertEqual(response["message"], "no articles found")
+
+        response = client.get(
+            "%s?exact=1&authorName=%s&%s=1"
+            % (reverse("get_articles"), exact_author_name, ONLY_JSTOR_ID)
         ).data[0]
 
         article = Article.objects.get(title="The Larval Inhabitants of Cow Pats")
@@ -300,8 +308,20 @@ class TestAccount(TestCase):
         
         response = client.get(reverse("get_accounts")).data
 
-        self.assertEqual(response[0]['accountID'], 2)
-        self.assertEqual(response[0]['scraped'], 3)
-
-        self.assertEqual(response[1]['accountID'], 1)
-        self.assertEqual(response[1]['scraped'], 1)
+        json_result = json.dumps(response)
+        expected_json_result = json.dumps(
+            [{  
+                'accountID': 1, 
+                'algorandAddress': '1', 
+                'scraped': 1, 
+                'donationsReceived': 0, 
+                'donationsPaid': 0
+            }, 
+            {
+                'accountID': 2, 
+                'algorandAddress': '2', 
+                'scraped': 3, 
+                'donationsReceived': 0, 
+                'donationsPaid': 0
+            }])
+        self.assertEqual(json_result, expected_json_result)

@@ -2,6 +2,26 @@ from django.contrib.postgres.indexes import GinIndex
 from django.db import models
 from datetime import datetime
 
+# These are used to populate demo data
+# For instance for demo articles insert: 
+#   objects = DemoArticleManager()
+# In the Article class
+class DemoJournalManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(issues__articles__bucketURL__isnull=False)
+
+class DemoIssueManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(articles__bucketURL__isnull=False)
+
+class DemoAuthorManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(article__bucketURL__isnull=False)
+
+class DemoArticleManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(bucketURL__isnull=False)
+
 class Journal(models.Model):
     journalID = models.AutoField(primary_key=True)
     issn = models.CharField(max_length=50, unique=True)
@@ -21,7 +41,6 @@ class Journal(models.Model):
                 opclasses=['gin_trgm_ops'],
             ),
         ]
-
 
 class Issue(models.Model):
     issueID = models.AutoField(primary_key=True)
@@ -78,5 +97,4 @@ class Article(models.Model):
                 opclasses=['gin_trgm_ops'],
             ),
         ]
-
 

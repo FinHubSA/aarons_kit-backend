@@ -1,0 +1,6092 @@
+[
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1,
+  "fields": {
+    "authorName": "Ritamary Bradley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2,
+  "fields": {
+    "authorName": "Valerie M. Lagorio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 14,
+  "fields": {
+    "authorName": "Anna Maria Reynolds"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 14,
+  "fields": {
+    "authorName": "Anna Maria Reynolds"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 18,
+  "fields": {
+    "authorName": "Marion Glasscoe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 18,
+  "fields": {
+    "authorName": "Marion Glasscoe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 21,
+  "fields": {
+    "authorName": "Martin Israel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 45,
+  "fields": {
+    "authorName": "Mary Teresa Brady"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 52,
+  "fields": {
+    "authorName": "Margot King"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 62,
+  "fields": {
+    "authorName": "Robert E. Lewis"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 63,
+  "fields": {
+    "authorName": "Roberta Bux Bosse"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 64,
+  "fields": {
+    "authorName": "Peter Consacro"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 65,
+  "fields": {
+    "authorName": "John A. Alford"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 71,
+  "fields": {
+    "authorName": "John P.M. Clark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 76,
+  "fields": {
+    "authorName": "Mary Baldwin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 86,
+  "fields": {
+    "authorName": "Carl Dahlhaus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 86,
+  "fields": {
+    "authorName": "Carl Dahlhaus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 87,
+  "fields": {
+    "authorName": "Otto Biba"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 88,
+  "fields": {
+    "authorName": "Maynard Solomon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 89,
+  "fields": {
+    "authorName": "Walther Dürr"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 90,
+  "fields": {
+    "authorName": "Paul Banks"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 90,
+  "fields": {
+    "authorName": "Paul Banks"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 90,
+  "fields": {
+    "authorName": "Paul Banks"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 91,
+  "fields": {
+    "authorName": "Edmund M. Frederick"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 92,
+  "fields": {
+    "authorName": "Robert Winter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 92,
+  "fields": {
+    "authorName": "Robert Winter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 92,
+  "fields": {
+    "authorName": "Robert Winter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 93,
+  "fields": {
+    "authorName": "Jeffrey Kallberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 93,
+  "fields": {
+    "authorName": "Jeffrey Kallberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 93,
+  "fields": {
+    "authorName": "Jeffrey Kallberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 93,
+  "fields": {
+    "authorName": "Jeffrey Kallberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 93,
+  "fields": {
+    "authorName": "Jeffrey Kallberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 94,
+  "fields": {
+    "authorName": "Bruce Carr"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 94,
+  "fields": {
+    "authorName": "Bruce Carr"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 95,
+  "fields": {
+    "authorName": "William Weaver"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 96,
+  "fields": {
+    "authorName": "William Weber"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 96,
+  "fields": {
+    "authorName": "William Weber"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 97,
+  "fields": {
+    "authorName": "Barbara Milewski"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 98,
+  "fields": {
+    "authorName": "Peter Pesic"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 99,
+  "fields": {
+    "authorName": "Melinda Boyd"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 100,
+  "fields": {
+    "authorName": "Gayle Sherwood"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 101,
+  "fields": {
+    "authorName": "Leo Treitler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 102,
+  "fields": {
+    "authorName": "Cecelia Hopkins Porter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 103,
+  "fields": {
+    "authorName": "Laurence D. Berman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 103,
+  "fields": {
+    "authorName": "Laurence D. Berman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 104,
+  "fields": {
+    "authorName": "James A. Hepokoski"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 104,
+  "fields": {
+    "authorName": "James A. Hepokoski"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 104,
+  "fields": {
+    "authorName": "James A. Hepokoski"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 105,
+  "fields": {
+    "authorName": "Michael Musgrave"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 106,
+  "fields": {
+    "authorName": "Joseph Kerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 106,
+  "fields": {
+    "authorName": "Joseph Kerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 106,
+  "fields": {
+    "authorName": "Joseph Kerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 106,
+  "fields": {
+    "authorName": "Joseph Kerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 106,
+  "fields": {
+    "authorName": "Joseph Kerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 107,
+  "fields": {
+    "authorName": "Douglas Johnson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 107,
+  "fields": {
+    "authorName": "Douglas Johnson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 108,
+  "fields": {
+    "authorName": "John Platoff"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 108,
+  "fields": {
+    "authorName": "John Platoff"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 109,
+  "fields": {
+    "authorName": "Herbert Lindenberger"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 110,
+  "fields": {
+    "authorName": "Robert Moevs"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 111,
+  "fields": {
+    "authorName": "Ellen Ros"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 111,
+  "fields": {
+    "authorName": "Ellen Ros"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 112,
+  "fields": {
+    "authorName": ""
+  }
+},
+{
+  "model": "api.author",
+  "pk": 112,
+  "fields": {
+    "authorName": ""
+  }
+},
+{
+  "model": "api.author",
+  "pk": 112,
+  "fields": {
+    "authorName": ""
+  }
+},
+{
+  "model": "api.author",
+  "pk": 112,
+  "fields": {
+    "authorName": ""
+  }
+},
+{
+  "model": "api.author",
+  "pk": 112,
+  "fields": {
+    "authorName": ""
+  }
+},
+{
+  "model": "api.author",
+  "pk": 112,
+  "fields": {
+    "authorName": ""
+  }
+},
+{
+  "model": "api.author",
+  "pk": 113,
+  "fields": {
+    "authorName": "D. Kern Holoman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 113,
+  "fields": {
+    "authorName": "D. Kern Holoman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 113,
+  "fields": {
+    "authorName": "D. Kern Holoman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 114,
+  "fields": {
+    "authorName": "James Hepokoski"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 115,
+  "fields": {
+    "authorName": "Nicholas Marston"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 115,
+  "fields": {
+    "authorName": "Nicholas Marston"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 115,
+  "fields": {
+    "authorName": "Nicholas Marston"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 115,
+  "fields": {
+    "authorName": "Nicholas Marston"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 116,
+  "fields": {
+    "authorName": "Linda Correll Roesner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 116,
+  "fields": {
+    "authorName": "Linda Correll Roesner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 117,
+  "fields": {
+    "authorName": "Lawrence Rosenwald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 118,
+  "fields": {
+    "authorName": "Scott Burnham"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 118,
+  "fields": {
+    "authorName": "Scott Burnham"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 118,
+  "fields": {
+    "authorName": "Scott Burnham"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 119,
+  "fields": {
+    "authorName": "Joseph Horowitz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 120,
+  "fields": {
+    "authorName": "MARK EVERIST"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 121,
+  "fields": {
+    "authorName": "CLINTON D. YOUNG"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 122,
+  "fields": {
+    "authorName": "MARK SETO"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 123,
+  "fields": {
+    "authorName": "RACHANA VAJJHALA"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 124,
+  "fields": {
+    "authorName": "Lawrence Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 125,
+  "fields": {
+    "authorName": "James Parakilas"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 125,
+  "fields": {
+    "authorName": "James Parakilas"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 126,
+  "fields": {
+    "authorName": "Charles Fisk"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 126,
+  "fields": {
+    "authorName": "Charles Fisk"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 126,
+  "fields": {
+    "authorName": "Charles Fisk"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 127,
+  "fields": {
+    "authorName": "Ewelina Boczkowska"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 129,
+  "fields": {
+    "authorName": "Michael Klein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 130,
+  "fields": {
+    "authorName": "Owen J"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 130,
+  "fields": {
+    "authorName": "Owen J"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 131,
+  "fields": {
+    "authorName": "er"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 131,
+  "fields": {
+    "authorName": "er"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 132,
+  "fields": {
+    "authorName": "Richard Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 132,
+  "fields": {
+    "authorName": "Richard Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 132,
+  "fields": {
+    "authorName": "Richard Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 132,
+  "fields": {
+    "authorName": "Richard Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 132,
+  "fields": {
+    "authorName": "Richard Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 132,
+  "fields": {
+    "authorName": "Richard Kramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 133,
+  "fields": {
+    "authorName": "R. Allen Lott"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 134,
+  "fields": {
+    "authorName": "Barbara Turchin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 135,
+  "fields": {
+    "authorName": "Richard Taruskin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 136,
+  "fields": {
+    "authorName": "Bruce Vermazen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 138,
+  "fields": {
+    "authorName": "Marie Rolf"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 139,
+  "fields": {
+    "authorName": "Edward T. Cone"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 139,
+  "fields": {
+    "authorName": "Edward T. Cone"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 139,
+  "fields": {
+    "authorName": "Edward T. Cone"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 140,
+  "fields": {
+    "authorName": "Elizabeth Paley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 141,
+  "fields": {
+    "authorName": "Vera Micznik"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 141,
+  "fields": {
+    "authorName": "Vera Micznik"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 142,
+  "fields": {
+    "authorName": "Dana Gooley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 143,
+  "fields": {
+    "authorName": "Andrew Kirkman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 144,
+  "fields": {
+    "authorName": "John Daverio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 144,
+  "fields": {
+    "authorName": "John Daverio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 144,
+  "fields": {
+    "authorName": "John Daverio"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 145,
+  "fields": {
+    "authorName": "Celia Applegate"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 146,
+  "fields": {
+    "authorName": "Adam Krims"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 147,
+  "fields": {
+    "authorName": "Christopher Reynolds"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 148,
+  "fields": {
+    "authorName": "Vera Brodsky Lawrence"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 149,
+  "fields": {
+    "authorName": "Piero Weiss"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 150,
+  "fields": {
+    "authorName": "Roger Parker"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 150,
+  "fields": {
+    "authorName": "Roger Parker"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 151,
+  "fields": {
+    "authorName": "Matthew Brown"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 152,
+  "fields": {
+    "authorName": "Thomas Bauman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 152,
+  "fields": {
+    "authorName": "Thomas Bauman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 153,
+  "fields": {
+    "authorName": "Harry Goldschmidt"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 155,
+  "fields": {
+    "authorName": "Benjamin Marcus Korstvedt"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 156,
+  "fields": {
+    "authorName": "Michael Russ"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 157,
+  "fields": {
+    "authorName": "Karol Berger"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 158,
+  "fields": {
+    "authorName": "David A. Lowe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 159,
+  "fields": {
+    "authorName": "Louise Litterick"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 160,
+  "fields": {
+    "authorName": "Daniel Beller-McKenna"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 161,
+  "fields": {
+    "authorName": "Ralph P. Locke"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 161,
+  "fields": {
+    "authorName": "Ralph P. Locke"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 162,
+  "fields": {
+    "authorName": "Ernest H. S"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 163,
+  "fields": {
+    "authorName": "ers"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 163,
+  "fields": {
+    "authorName": "ers"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 164,
+  "fields": {
+    "authorName": "Stephen Hinton"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 166,
+  "fields": {
+    "authorName": "José A. Bowen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 167,
+  "fields": {
+    "authorName": "Delphine Mordey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 168,
+  "fields": {
+    "authorName": "Jann Pasler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 168,
+  "fields": {
+    "authorName": "Jann Pasler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 169,
+  "fields": {
+    "authorName": "David Code"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 170,
+  "fields": {
+    "authorName": "Davinia Caddy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 171,
+  "fields": {
+    "authorName": "Editors"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 173,
+  "fields": {
+    "authorName": "Kristina Muxfeldt"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 173,
+  "fields": {
+    "authorName": "Kristina Muxfeldt"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 174,
+  "fields": {
+    "authorName": "Warren Darcy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 174,
+  "fields": {
+    "authorName": "Warren Darcy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 175,
+  "fields": {
+    "authorName": "Lisa Fishman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 176,
+  "fields": {
+    "authorName": "Gabriella Dideriksen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 177,
+  "fields": {
+    "authorName": "Matthew Ringel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 180,
+  "fields": {
+    "authorName": "Stephen Rumph"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 181,
+  "fields": {
+    "authorName": "Peter Mercer-Taylor"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 181,
+  "fields": {
+    "authorName": "Peter Mercer-Taylor"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 182,
+  "fields": {
+    "authorName": "Fusako Hamao"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 183,
+  "fields": {
+    "authorName": "Renée Cox Lorraine"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 189,
+  "fields": {
+    "authorName": "Brian Primmer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 191,
+  "fields": {
+    "authorName": "Eric Frederick Jensen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 191,
+  "fields": {
+    "authorName": "Eric Frederick Jensen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 192,
+  "fields": {
+    "authorName": "Alfred Mann"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 193,
+  "fields": {
+    "authorName": "David Charlton"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 194,
+  "fields": {
+    "authorName": "Richard Swift"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 194,
+  "fields": {
+    "authorName": "Richard Swift"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 196,
+  "fields": {
+    "authorName": "Allen Forte"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 196,
+  "fields": {
+    "authorName": "Allen Forte"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 200,
+  "fields": {
+    "authorName": "William Kinderman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 200,
+  "fields": {
+    "authorName": "William Kinderman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 200,
+  "fields": {
+    "authorName": "William Kinderman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 200,
+  "fields": {
+    "authorName": "William Kinderman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 200,
+  "fields": {
+    "authorName": "William Kinderman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 200,
+  "fields": {
+    "authorName": "William Kinderman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 201,
+  "fields": {
+    "authorName": "Steven Paul Scher"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 202,
+  "fields": {
+    "authorName": "Lynn M. Sargeant"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 203,
+  "fields": {
+    "authorName": "Marina Frolova-Walker"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 205,
+  "fields": {
+    "authorName": "Russian Anthology"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 206,
+  "fields": {
+    "authorName": "John Gingerich"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 207,
+  "fields": {
+    "authorName": "Karen Henson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 208,
+  "fields": {
+    "authorName": "Lydia Hamessley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 209,
+  "fields": {
+    "authorName": "Ståle Wikshål"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 215,
+  "fields": {
+    "authorName": "Nicholas Temperley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 215,
+  "fields": {
+    "authorName": "Nicholas Temperley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 215,
+  "fields": {
+    "authorName": "Nicholas Temperley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 216,
+  "fields": {
+    "authorName": "Carolyn Abbate"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 216,
+  "fields": {
+    "authorName": "Carolyn Abbate"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 217,
+  "fields": {
+    "authorName": "Allen Gimbel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 219,
+  "fields": {
+    "authorName": "Thomas S. Grey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 219,
+  "fields": {
+    "authorName": "Thomas S. Grey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 220,
+  "fields": {
+    "authorName": "Martin Deasy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 221,
+  "fields": {
+    "authorName": "Jeffrey S. Sposato"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 222,
+  "fields": {
+    "authorName": "David Trippett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 223,
+  "fields": {
+    "authorName": "Philip Ross Bullock"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 224,
+  "fields": {
+    "authorName": "Shino Konishi"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 225,
+  "fields": {
+    "authorName": "Tracey Banivanua Mar"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 225,
+  "fields": {
+    "authorName": "Tracey Banivanua Mar"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 236,
+  "fields": {
+    "authorName": "Iain Davidson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 242,
+  "fields": {
+    "authorName": "Marjorie Griffin Cohen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 244,
+  "fields": {
+    "authorName": "Am"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 291,
+  "fields": {
+    "authorName": "Tim Rowse"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 300,
+  "fields": {
+    "authorName": "Ann McGrath"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 301,
+  "fields": {
+    "authorName": "Kristyn Harman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 303,
+  "fields": {
+    "authorName": "Maria Nugent"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 303,
+  "fields": {
+    "authorName": "Maria Nugent"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 304,
+  "fields": {
+    "authorName": "Tiffany Shellam"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 305,
+  "fields": {
+    "authorName": "Allison Cadzow"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 316,
+  "fields": {
+    "authorName": "Mary Anne Jebb"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 354,
+  "fields": {
+    "authorName": "Julia Martínez"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 360,
+  "fields": {
+    "authorName": "Richard Martin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 388,
+  "fields": {
+    "authorName": "Alex"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 388,
+  "fields": {
+    "authorName": "Alex"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 388,
+  "fields": {
+    "authorName": "Alex"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 468,
+  "fields": {
+    "authorName": "R.M.W. Dixon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 485,
+  "fields": {
+    "authorName": "O.M. (Max) Carroll"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 547,
+  "fields": {
+    "authorName": "Mir"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 548,
+  "fields": {
+    "authorName": "a Johnson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 675,
+  "fields": {
+    "authorName": "Richard M. Moyle"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 730,
+  "fields": {
+    "authorName": "RONALD M. BERNDT"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 730,
+  "fields": {
+    "authorName": "RONALD M. BERNDT"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 770,
+  "fields": {
+    "authorName": "R.M.W. DIXON"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 770,
+  "fields": {
+    "authorName": "R.M.W. DIXON"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 780,
+  "fields": {
+    "authorName": "Ronald M. Berndt"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 811,
+  "fields": {
+    "authorName": "Nancy M Williams"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 903,
+  "fields": {
+    "authorName": "Nancy M. Williams"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 954,
+  "fields": {
+    "authorName": "Isobel M. White"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 977,
+  "fields": {
+    "authorName": "GORDON M. BRYANT"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1195,
+  "fields": {
+    "authorName": "M. A. Smith"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1202,
+  "fields": {
+    "authorName": "M.C. Dillon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1236,
+  "fields": {
+    "authorName": "M. Quinlan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1237,
+  "fields": {
+    "authorName": "A-K. ECKERMANN"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1390,
+  "fields": {
+    "authorName": "er Poznansky"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1391,
+  "fields": {
+    "authorName": "Ralph C. Burr"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1392,
+  "fields": {
+    "authorName": "Hugh MacDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1392,
+  "fields": {
+    "authorName": "Hugh MacDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1392,
+  "fields": {
+    "authorName": "Hugh MacDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1394,
+  "fields": {
+    "authorName": "Stephen Parkany"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1395,
+  "fields": {
+    "authorName": "Bea Friedl"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1397,
+  "fields": {
+    "authorName": "Laurence Berman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1398,
+  "fields": {
+    "authorName": "Theodor Adorno"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1399,
+  "fields": {
+    "authorName": "Beate Perrey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1400,
+  "fields": {
+    "authorName": "Esteban Buch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1402,
+  "fields": {
+    "authorName": "Jonathan Dunsby"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1403,
+  "fields": {
+    "authorName": "Kofi Agawu"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1403,
+  "fields": {
+    "authorName": "Kofi Agawu"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1404,
+  "fields": {
+    "authorName": "Richard Leppert"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1404,
+  "fields": {
+    "authorName": "Richard Leppert"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1405,
+  "fields": {
+    "authorName": "Joseph Auner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1407,
+  "fields": {
+    "authorName": "William Rothstein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1408,
+  "fields": {
+    "authorName": "William A. Pastille"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1412,
+  "fields": {
+    "authorName": "Richard French"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1413,
+  "fields": {
+    "authorName": "Cosette Thompson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1415,
+  "fields": {
+    "authorName": "J. Peter Burkholder"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1415,
+  "fields": {
+    "authorName": "J. Peter Burkholder"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1416,
+  "fields": {
+    "authorName": "Philip Gossett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1416,
+  "fields": {
+    "authorName": "Philip Gossett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1417,
+  "fields": {
+    "authorName": "James Haar"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1418,
+  "fields": {
+    "authorName": "Malcolm Brown"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1419,
+  "fields": {
+    "authorName": "James Webster"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1419,
+  "fields": {
+    "authorName": "James Webster"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1419,
+  "fields": {
+    "authorName": "James Webster"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1420,
+  "fields": {
+    "authorName": "Charlotte Greenspan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1420,
+  "fields": {
+    "authorName": "Charlotte Greenspan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1421,
+  "fields": {
+    "authorName": "Lewis Lockwood"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1421,
+  "fields": {
+    "authorName": "Lewis Lockwood"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1422,
+  "fields": {
+    "authorName": "Guy A. Marco"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1423,
+  "fields": {
+    "authorName": "Siegmund Levarie"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1424,
+  "fields": {
+    "authorName": "Ernst Theodor Amadeus Hoffmann"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1425,
+  "fields": {
+    "authorName": "Max Knight"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1426,
+  "fields": {
+    "authorName": "Siegfried Kross"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1427,
+  "fields": {
+    "authorName": "Marc A. Weiner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1428,
+  "fields": {
+    "authorName": "Walter Frisch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1428,
+  "fields": {
+    "authorName": "Walter Frisch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1428,
+  "fields": {
+    "authorName": "Walter Frisch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1430,
+  "fields": {
+    "authorName": "Gerald Abraham"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1430,
+  "fields": {
+    "authorName": "Gerald Abraham"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1432,
+  "fields": {
+    "authorName": "Patrick McCreless"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1432,
+  "fields": {
+    "authorName": "Patrick McCreless"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1434,
+  "fields": {
+    "authorName": "Jacques Barzun"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1436,
+  "fields": {
+    "authorName": "Sharon Winklhofer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1436,
+  "fields": {
+    "authorName": "Sharon Winklhofer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1440,
+  "fields": {
+    "authorName": "Laurie McManus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1441,
+  "fields": {
+    "authorName": "Flora Willson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1442,
+  "fields": {
+    "authorName": "Christopher Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1443,
+  "fields": {
+    "authorName": "Benedict Taylor"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1444,
+  "fields": {
+    "authorName": "Adrian Daub"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1445,
+  "fields": {
+    "authorName": "Steven Rings"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1446,
+  "fields": {
+    "authorName": "Gary Schmidgall"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1448,
+  "fields": {
+    "authorName": "David B. Levy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1448,
+  "fields": {
+    "authorName": "David B. Levy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1449,
+  "fields": {
+    "authorName": "Susan Youens"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1449,
+  "fields": {
+    "authorName": "Susan Youens"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1449,
+  "fields": {
+    "authorName": "Susan Youens"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1449,
+  "fields": {
+    "authorName": "Susan Youens"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1452,
+  "fields": {
+    "authorName": "Matthew Head"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1452,
+  "fields": {
+    "authorName": "Matthew Head"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1453,
+  "fields": {
+    "authorName": "Byron Adams"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1454,
+  "fields": {
+    "authorName": "Charles Edward McGuire"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1455,
+  "fields": {
+    "authorName": "Susanna Garcia"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1456,
+  "fields": {
+    "authorName": "Tom Beghin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1457,
+  "fields": {
+    "authorName": "Jonathan Bellman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1458,
+  "fields": {
+    "authorName": "Jolanta T. Pekacz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1459,
+  "fields": {
+    "authorName": "Mark Tanner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1460,
+  "fields": {
+    "authorName": "Matthew Gelbart"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1461,
+  "fields": {
+    "authorName": "Peter Mondelli"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1462,
+  "fields": {
+    "authorName": "Steven Huebner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1462,
+  "fields": {
+    "authorName": "Steven Huebner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1462,
+  "fields": {
+    "authorName": "Steven Huebner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1463,
+  "fields": {
+    "authorName": "Inge Van Rij"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1464,
+  "fields": {
+    "authorName": "Katherine Kolb"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1465,
+  "fields": {
+    "authorName": "Cormac Newark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1466,
+  "fields": {
+    "authorName": "Sanna Pederson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1467,
+  "fields": {
+    "authorName": "Julian Johnson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1468,
+  "fields": {
+    "authorName": "Margaret Miner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1469,
+  "fields": {
+    "authorName": "Katherine Bergeron"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1470,
+  "fields": {
+    "authorName": "Lloyd Whitesell"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1472,
+  "fields": {
+    "authorName": "Michael Cherlin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1473,
+  "fields": {
+    "authorName": "Andrew Bonner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1474,
+  "fields": {
+    "authorName": "Gregory W. Harwood"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1475,
+  "fields": {
+    "authorName": "Ira Braus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1476,
+  "fields": {
+    "authorName": "Richard Mueller"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1477,
+  "fields": {
+    "authorName": "Christopher Hatch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1477,
+  "fields": {
+    "authorName": "Christopher Hatch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1478,
+  "fields": {
+    "authorName": "Edward Lippman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1480,
+  "fields": {
+    "authorName": "Mary Sue Morrow"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1483,
+  "fields": {
+    "authorName": "Gary Tomlinson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1483,
+  "fields": {
+    "authorName": "Gary Tomlinson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1484,
+  "fields": {
+    "authorName": "Michael Beckerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1484,
+  "fields": {
+    "authorName": "Michael Beckerman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1485,
+  "fields": {
+    "authorName": "Ruth A. Solie"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1486,
+  "fields": {
+    "authorName": "Hans Lenneberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1487,
+  "fields": {
+    "authorName": "Peter Bloom"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1487,
+  "fields": {
+    "authorName": "Peter Bloom"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1488,
+  "fields": {
+    "authorName": "Rufus Hallmark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1488,
+  "fields": {
+    "authorName": "Rufus Hallmark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1488,
+  "fields": {
+    "authorName": "Rufus Hallmark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1489,
+  "fields": {
+    "authorName": "William Cheng"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1490,
+  "fields": {
+    "authorName": "Sherry Lee"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1492,
+  "fields": {
+    "authorName": "Peter F. Ostwald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1492,
+  "fields": {
+    "authorName": "Peter F. Ostwald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1493,
+  "fields": {
+    "authorName": "Marcello Conati"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1494,
+  "fields": {
+    "authorName": "J. Rigbie Turner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1494,
+  "fields": {
+    "authorName": "J. Rigbie Turner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1495,
+  "fields": {
+    "authorName": "Pamela Susskind Pettler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1496,
+  "fields": {
+    "authorName": "Thomas A. Bauman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1497,
+  "fields": {
+    "authorName": "Raymond Knapp"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1497,
+  "fields": {
+    "authorName": "Raymond Knapp"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1497,
+  "fields": {
+    "authorName": "Raymond Knapp"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1497,
+  "fields": {
+    "authorName": "Raymond Knapp"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1498,
+  "fields": {
+    "authorName": "Stephen Downes"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1498,
+  "fields": {
+    "authorName": "Stephen Downes"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1499,
+  "fields": {
+    "authorName": "Bryan R. Simms"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1500,
+  "fields": {
+    "authorName": "Annegret Fauser"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1501,
+  "fields": {
+    "authorName": "Maiko Kawabata"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1502,
+  "fields": {
+    "authorName": "Joel Haney"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1503,
+  "fields": {
+    "authorName": "Laura Basini"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1504,
+  "fields": {
+    "authorName": "Carlo Caballero"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1504,
+  "fields": {
+    "authorName": "Carlo Caballero"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1507,
+  "fields": {
+    "authorName": "Alfred W. Cramer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1508,
+  "fields": {
+    "authorName": "Mark Burford"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1509,
+  "fields": {
+    "authorName": "Elaine Kelly"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1510,
+  "fields": {
+    "authorName": "Nicholas Cook"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1510,
+  "fields": {
+    "authorName": "Nicholas Cook"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1512,
+  "fields": {
+    "authorName": "Timothy L. Jackson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1513,
+  "fields": {
+    "authorName": "Elaine R. Sisman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1514,
+  "fields": {
+    "authorName": "Leon Botstein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1514,
+  "fields": {
+    "authorName": "Leon Botstein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1514,
+  "fields": {
+    "authorName": "Leon Botstein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1514,
+  "fields": {
+    "authorName": "Leon Botstein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1515,
+  "fields": {
+    "authorName": "John Roeder"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1516,
+  "fields": {
+    "authorName": "Allan W. Atlas"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1518,
+  "fields": {
+    "authorName": "Francesca Brittan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1519,
+  "fields": {
+    "authorName": "Balazs Mikusi"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1520,
+  "fields": {
+    "authorName": "Ryan Minor"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1521,
+  "fields": {
+    "authorName": "K. Knittel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1523,
+  "fields": {
+    "authorName": "Sylvia Kahan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1524,
+  "fields": {
+    "authorName": "Lee Rothfarb"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1529,
+  "fields": {
+    "authorName": "J. P. E. Harper-Scott"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1529,
+  "fields": {
+    "authorName": "J. P. E. Harper-Scott"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1530,
+  "fields": {
+    "authorName": "Timothy B. Cochran"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1532,
+  "fields": {
+    "authorName": "ra Kieffer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1535,
+  "fields": {
+    "authorName": "Philip Brett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1538,
+  "fields": {
+    "authorName": "Lisa Feurzeig"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1539,
+  "fields": {
+    "authorName": "David Gramit"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1539,
+  "fields": {
+    "authorName": "David Gramit"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1539,
+  "fields": {
+    "authorName": "David Gramit"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1540,
+  "fields": {
+    "authorName": "Maribeth Clark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1541,
+  "fields": {
+    "authorName": "Boman Desai"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1542,
+  "fields": {
+    "authorName": "Kiri Miller"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1543,
+  "fields": {
+    "authorName": "Tobias Plebuch"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1548,
+  "fields": {
+    "authorName": "James H. Johnson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1549,
+  "fields": {
+    "authorName": "William E. McDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1549,
+  "fields": {
+    "authorName": "William E. McDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1550,
+  "fields": {
+    "authorName": "Stanley R. Hauer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1552,
+  "fields": {
+    "authorName": "David Brodbeck"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1553,
+  "fields": {
+    "authorName": "Robert P. Morgan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1556,
+  "fields": {
+    "authorName": "BENEDICT TAYLOR"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1557,
+  "fields": {
+    "authorName": "HALINA GOLDBERG"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1558,
+  "fields": {
+    "authorName": "SINDHUMATHI REVULURI"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1559,
+  "fields": {
+    "authorName": "ADRIAN DAUB"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1560,
+  "fields": {
+    "authorName": "Paul Christiansen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1561,
+  "fields": {
+    "authorName": "Adrienne Fried Block"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1562,
+  "fields": {
+    "authorName": "Susan McClary"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1562,
+  "fields": {
+    "authorName": "Susan McClary"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1563,
+  "fields": {
+    "authorName": "Arman Schwartz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1566,
+  "fields": {
+    "authorName": "Glenn Stanley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1568,
+  "fields": {
+    "authorName": "Anthony Newcomb"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1571,
+  "fields": {
+    "authorName": "Ernest S"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1573,
+  "fields": {
+    "authorName": "Robert Stevenson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1574,
+  "fields": {
+    "authorName": "David Lawton"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1574,
+  "fields": {
+    "authorName": "David Lawton"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1575,
+  "fields": {
+    "authorName": "Jay Nicolaisen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1575,
+  "fields": {
+    "authorName": "Jay Nicolaisen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1576,
+  "fields": {
+    "authorName": "Mimi Segal Daitz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1578,
+  "fields": {
+    "authorName": "William S. Newman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1579,
+  "fields": {
+    "authorName": "Frank Tirro"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1582,
+  "fields": {
+    "authorName": "AMANDA LALONDE"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1583,
+  "fields": {
+    "authorName": "J. MACKENZIE PIERCE"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1584,
+  "fields": {
+    "authorName": "ERINN KNYT"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1586,
+  "fields": {
+    "authorName": "Michael C. Tusa"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1586,
+  "fields": {
+    "authorName": "Michael C. Tusa"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1586,
+  "fields": {
+    "authorName": "Michael C. Tusa"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1587,
+  "fields": {
+    "authorName": "Virginia Hancock"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1588,
+  "fields": {
+    "authorName": "Richard Kaplan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1589,
+  "fields": {
+    "authorName": "Franz Liszt"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1597,
+  "fields": {
+    "authorName": "M. M. Scott"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1613,
+  "fields": {
+    "authorName": "Barbara R. Bergmann"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1648,
+  "fields": {
+    "authorName": "Julie M. Schmid"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1650,
+  "fields": {
+    "authorName": "Steven M. Cahn"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1658,
+  "fields": {
+    "authorName": "S"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1680,
+  "fields": {
+    "authorName": "Chris M. Golde"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1683,
+  "fields": {
+    "authorName": "Stuart M. Kurl"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1686,
+  "fields": {
+    "authorName": "Robert M. O'Neil"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1686,
+  "fields": {
+    "authorName": "Robert M. O'Neil"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1686,
+  "fields": {
+    "authorName": "Robert M. O'Neil"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1706,
+  "fields": {
+    "authorName": "Paula M. Krebs"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1803,
+  "fields": {
+    "authorName": "VICTOR M. RODRÍGUEZ"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1842,
+  "fields": {
+    "authorName": "Joseph M. Dodge"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1843,
+  "fields": {
+    "authorName": "M. H. Hoeflich"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1874,
+  "fields": {
+    "authorName": "Michelle M. Tokarczyk"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1879,
+  "fields": {
+    "authorName": "Max Page"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1890,
+  "fields": {
+    "authorName": "James A. Abrahamson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1891,
+  "fields": {
+    "authorName": "Joseph M. Ballantyne"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1906,
+  "fields": {
+    "authorName": "Joseph M. Healey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1912,
+  "fields": {
+    "authorName": "M. Bruce Bennett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 1913,
+  "fields": {
+    "authorName": "A. Thomas Vawter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 2033,
+  "fields": {
+    "authorName": "Carl Bode"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3301,
+  "fields": {
+    "authorName": "Aleks"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3647,
+  "fields": {
+    "authorName": "Rita Steblin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3654,
+  "fields": {
+    "authorName": "Robert S. Winter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3655,
+  "fields": {
+    "authorName": "Richard Kurth"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3656,
+  "fields": {
+    "authorName": "Margaret Notley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3657,
+  "fields": {
+    "authorName": "Nicholas Baragwanath"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3658,
+  "fields": {
+    "authorName": "Suzannah Clark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3659,
+  "fields": {
+    "authorName": "Mary Ann Smart"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3659,
+  "fields": {
+    "authorName": "Mary Ann Smart"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3660,
+  "fields": {
+    "authorName": "Emily I. Dolan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3662,
+  "fields": {
+    "authorName": "Jacquelyn Sholes"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3663,
+  "fields": {
+    "authorName": "Colin Eatock"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3665,
+  "fields": {
+    "authorName": "Arthur Groos"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3665,
+  "fields": {
+    "authorName": "Arthur Groos"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3667,
+  "fields": {
+    "authorName": "David Lewin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3667,
+  "fields": {
+    "authorName": "David Lewin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3667,
+  "fields": {
+    "authorName": "David Lewin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3668,
+  "fields": {
+    "authorName": "Bryan Gilliam"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3668,
+  "fields": {
+    "authorName": "Bryan Gilliam"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3668,
+  "fields": {
+    "authorName": "Bryan Gilliam"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3673,
+  "fields": {
+    "authorName": "Thomas Grey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3676,
+  "fields": {
+    "authorName": "Graham H. Phipps"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3676,
+  "fields": {
+    "authorName": "Graham H. Phipps"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3678,
+  "fields": {
+    "authorName": "V. Kofi Agawu"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3679,
+  "fields": {
+    "authorName": "Fred Everett Maus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3680,
+  "fields": {
+    "authorName": "Edward R. Reilly"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3680,
+  "fields": {
+    "authorName": "Edward R. Reilly"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3681,
+  "fields": {
+    "authorName": "Jonathan Elkus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3681,
+  "fields": {
+    "authorName": "Jonathan Elkus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3682,
+  "fields": {
+    "authorName": "Richard L. Cohn"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3685,
+  "fields": {
+    "authorName": "Wayne C. Petty"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3688,
+  "fields": {
+    "authorName": "Kent W. Werth"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3691,
+  "fields": {
+    "authorName": "Leon Mayhew"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3692,
+  "fields": {
+    "authorName": "Donald J. Grout"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3694,
+  "fields": {
+    "authorName": "Richard L. Crocker"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3696,
+  "fields": {
+    "authorName": "Christopher Lewis"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3699,
+  "fields": {
+    "authorName": "László Somfai"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3701,
+  "fields": {
+    "authorName": "ROSS COLE"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3702,
+  "fields": {
+    "authorName": "JEAN-CHRISTOPHE BRANGER"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3703,
+  "fields": {
+    "authorName": "STEPHEN DOWNES"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3704,
+  "fields": {
+    "authorName": "R. Larry Todd"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3704,
+  "fields": {
+    "authorName": "R. Larry Todd"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3704,
+  "fields": {
+    "authorName": "R. Larry Todd"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3705,
+  "fields": {
+    "authorName": "Allan Keiler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3706,
+  "fields": {
+    "authorName": "Rena Charnin Mueller"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3707,
+  "fields": {
+    "authorName": "Donna M. Di Grazia"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3709,
+  "fields": {
+    "authorName": "Joan Backus"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3713,
+  "fields": {
+    "authorName": "Daniel Heartz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3715,
+  "fields": {
+    "authorName": "Rose Rosengard Subotnik"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3717,
+  "fields": {
+    "authorName": "Christoph Wolff"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3720,
+  "fields": {
+    "authorName": "Stephen E. Hefling"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3721,
+  "fields": {
+    "authorName": "Lawrence Archbold"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3722,
+  "fields": {
+    "authorName": "Ivan F. Waldbauer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3725,
+  "fields": {
+    "authorName": "Mark Everist"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3726,
+  "fields": {
+    "authorName": "William Gibbons"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3727,
+  "fields": {
+    "authorName": "Laura Dolp"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3729,
+  "fields": {
+    "authorName": "Peter J. Rabinowitz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3730,
+  "fields": {
+    "authorName": "Elinor Olin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3734,
+  "fields": {
+    "authorName": "Robert Fink"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3735,
+  "fields": {
+    "authorName": "Marianne Kielian-Gilbert"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3736,
+  "fields": {
+    "authorName": "Charles Rosen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3737,
+  "fields": {
+    "authorName": "Mary S. Woodside"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3740,
+  "fields": {
+    "authorName": "Brian Hyer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3742,
+  "fields": {
+    "authorName": "Champfleury"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3743,
+  "fields": {
+    "authorName": "Palomba Paves-Yashinsky"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3744,
+  "fields": {
+    "authorName": "Burton W. Peretti"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3745,
+  "fields": {
+    "authorName": "Margaret G. Cobb"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3746,
+  "fields": {
+    "authorName": "Richard Miller"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3750,
+  "fields": {
+    "authorName": "Nancy B. Reich"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3751,
+  "fields": {
+    "authorName": "MARTIN NEDBAL"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3752,
+  "fields": {
+    "authorName": "NATASHA LOGES"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3753,
+  "fields": {
+    "authorName": "ANDREAS GIGER"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3754,
+  "fields": {
+    "authorName": "Joel Lester"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3755,
+  "fields": {
+    "authorName": "Katherine Kolb Reeve"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3756,
+  "fields": {
+    "authorName": "Karen Painter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3757,
+  "fields": {
+    "authorName": "K. M. Knittel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3759,
+  "fields": {
+    "authorName": "Marshall Brown"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3760,
+  "fields": {
+    "authorName": "NICHOLAS COOK"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3761,
+  "fields": {
+    "authorName": "J. Q. DAVIES"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3762,
+  "fields": {
+    "authorName": "GLENDA DAWN GOSS"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3763,
+  "fields": {
+    "authorName": "CHRISTOPHER MORRIS"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3765,
+  "fields": {
+    "authorName": "Christopher H. Gibbs"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3767,
+  "fields": {
+    "authorName": "Dillon Parmer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3770,
+  "fields": {
+    "authorName": "John Rodgers"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3771,
+  "fields": {
+    "authorName": "Jay Reise"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3772,
+  "fields": {
+    "authorName": "Simon Karlinsky"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3773,
+  "fields": {
+    "authorName": "Benito V. Rivera"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3774,
+  "fields": {
+    "authorName": "Paul Hawkshaw"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3775,
+  "fields": {
+    "authorName": "John W. Clark"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3776,
+  "fields": {
+    "authorName": "Alain Frogley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3778,
+  "fields": {
+    "authorName": "Mark Evan Bonds"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3779,
+  "fields": {
+    "authorName": "Holly Watkins"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3779,
+  "fields": {
+    "authorName": "Holly Watkins"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3780,
+  "fields": {
+    "authorName": "David Hyun-Su Kim"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3781,
+  "fields": {
+    "authorName": "Ryan R Kangas"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3783,
+  "fields": {
+    "authorName": "Jeffrey Perry"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3784,
+  "fields": {
+    "authorName": "David Berry"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3785,
+  "fields": {
+    "authorName": "Matthew McDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3786,
+  "fields": {
+    "authorName": "Klaus Kropfinger"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3788,
+  "fields": {
+    "authorName": "Stephen McClatchie"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3789,
+  "fields": {
+    "authorName": "James Buhler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3792,
+  "fields": {
+    "authorName": "ra McColl"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3794,
+  "fields": {
+    "authorName": "Berthold Hoeckner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3795,
+  "fields": {
+    "authorName": "Nathan Platte"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3796,
+  "fields": {
+    "authorName": "Martin Marks"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3797,
+  "fields": {
+    "authorName": "Jeremy Barham"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3798,
+  "fields": {
+    "authorName": "Tobias Pontara"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3799,
+  "fields": {
+    "authorName": "Marcia J. Citron"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3800,
+  "fields": {
+    "authorName": "Daniel K. L. Chua"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3802,
+  "fields": {
+    "authorName": "Simon Perry"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3803,
+  "fields": {
+    "authorName": "Simon Morrison"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3804,
+  "fields": {
+    "authorName": "John Michael Cooper"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3806,
+  "fields": {
+    "authorName": "Carmel Raz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3807,
+  "fields": {
+    "authorName": "Robert D. Pearson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3808,
+  "fields": {
+    "authorName": "Stefan Knapik"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3809,
+  "fields": {
+    "authorName": "Claudio Vellutini"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3810,
+  "fields": {
+    "authorName": "Don Michael R"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3811,
+  "fields": {
+    "authorName": "el"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3812,
+  "fields": {
+    "authorName": "Dragana Jeremić Molnar"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3814,
+  "fields": {
+    "authorName": "ar Molnar"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3815,
+  "fields": {
+    "authorName": "Kevin Salfen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3816,
+  "fields": {
+    "authorName": "ROGER MOSELEY"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3817,
+  "fields": {
+    "authorName": "MICHAEL L. KLEIN"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3818,
+  "fields": {
+    "authorName": "KATHERINE FRY"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3819,
+  "fields": {
+    "authorName": "Jean-Michel Nectoux"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3819,
+  "fields": {
+    "authorName": "Jean-Michel Nectoux"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3820,
+  "fields": {
+    "authorName": "Élisabeth Bernard"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3822,
+  "fields": {
+    "authorName": "M. Elizabeth C. Bartlet"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3824,
+  "fields": {
+    "authorName": "H. Robert Cohen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3825,
+  "fields": {
+    "authorName": "Edgar Warren Williams"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3826,
+  "fields": {
+    "authorName": "David L. Brodbeck"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3828,
+  "fields": {
+    "authorName": "William Drabkin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3828,
+  "fields": {
+    "authorName": "William Drabkin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3829,
+  "fields": {
+    "authorName": "Clifford Cranna"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3830,
+  "fields": {
+    "authorName": "Larry Archbold"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3832,
+  "fields": {
+    "authorName": "Elizabeth Morgan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3833,
+  "fields": {
+    "authorName": "Sean M. Parr"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3834,
+  "fields": {
+    "authorName": "Dan Wang"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3835,
+  "fields": {
+    "authorName": "Naomi Perley"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3836,
+  "fields": {
+    "authorName": "Laura Moore Pruett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3837,
+  "fields": {
+    "authorName": "Emily Alane Erken"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3838,
+  "fields": {
+    "authorName": "Brent Wetters"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3839,
+  "fields": {
+    "authorName": "Brianna Wells"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3841,
+  "fields": {
+    "authorName": "Harold Powers"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3842,
+  "fields": {
+    "authorName": "Rol"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3843,
+  "fields": {
+    "authorName": "Jordan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3844,
+  "fields": {
+    "authorName": "Emma Kafalenos"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3845,
+  "fields": {
+    "authorName": "Deborah Stein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3848,
+  "fields": {
+    "authorName": "Richard Langham Smith"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3849,
+  "fields": {
+    "authorName": "James R. Briscoe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3852,
+  "fields": {
+    "authorName": "Richard Evidon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3853,
+  "fields": {
+    "authorName": "Brian Newhouse"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3855,
+  "fields": {
+    "authorName": "John H. Roberts"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3857,
+  "fields": {
+    "authorName": "Robert Trotter"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3861,
+  "fields": {
+    "authorName": "DKH"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3864,
+  "fields": {
+    "authorName": "Catherine Parsons Smith"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3865,
+  "fields": {
+    "authorName": "Jane F. Fulcher"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3867,
+  "fields": {
+    "authorName": "Philip V. Bohlman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3868,
+  "fields": {
+    "authorName": "Rolf Meyersohn"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3871,
+  "fields": {
+    "authorName": "David Larkin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3872,
+  "fields": {
+    "authorName": "Martin Knust"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3873,
+  "fields": {
+    "authorName": "Karen Leistra-Jones"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3874,
+  "fields": {
+    "authorName": "Marc Brooks"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3876,
+  "fields": {
+    "authorName": "Jennifer Ronyak"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3877,
+  "fields": {
+    "authorName": "Marianna Ritchey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3878,
+  "fields": {
+    "authorName": "Keith Chapin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3879,
+  "fields": {
+    "authorName": "Hilary Poriss"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3880,
+  "fields": {
+    "authorName": "Michael Strasser"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3881,
+  "fields": {
+    "authorName": "Rodney Stenning Edgecombe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3882,
+  "fields": {
+    "authorName": "Jan Swafford"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3883,
+  "fields": {
+    "authorName": "Styra Avins"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3884,
+  "fields": {
+    "authorName": "Kelly St. Pierre"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3885,
+  "fields": {
+    "authorName": "Gavin Williams"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3886,
+  "fields": {
+    "authorName": "Jessie Fillerup"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3888,
+  "fields": {
+    "authorName": "Gerald A. Mendelsohn"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3890,
+  "fields": {
+    "authorName": "Robert William Oldani"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3891,
+  "fields": {
+    "authorName": "Patrick J. Smith"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3892,
+  "fields": {
+    "authorName": "George Steiner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3894,
+  "fields": {
+    "authorName": "James McCalla"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3895,
+  "fields": {
+    "authorName": "Sieghard Br"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3896,
+  "fields": {
+    "authorName": "enburg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3903,
+  "fields": {
+    "authorName": "er Main"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3904,
+  "fields": {
+    "authorName": "Michael R. Rogers"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3908,
+  "fields": {
+    "authorName": "Susan E. Erickson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 3910,
+  "fields": {
+    "authorName": "James C. Kidd"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 6010,
+  "fields": {
+    "authorName": "Clive Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 6185,
+  "fields": {
+    "authorName": "Rebecca Wallis"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 6308,
+  "fields": {
+    "authorName": "Jim Bowler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 9518,
+  "fields": {
+    "authorName": "Ben T. Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 9601,
+  "fields": {
+    "authorName": "WILLIAM D. GRAMPP"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 10405,
+  "fields": {
+    "authorName": "SIDNEY C. SUFRIN"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 10807,
+  "fields": {
+    "authorName": "Arthur Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 10929,
+  "fields": {
+    "authorName": "Robert J. Gordon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 11744,
+  "fields": {
+    "authorName": "MACK A. MOORE"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 11746,
+  "fields": {
+    "authorName": "ARTHUR H. NORTHRUP"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 11747,
+  "fields": {
+    "authorName": "BERNARD T. PERRY"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 11749,
+  "fields": {
+    "authorName": "ALONZO METCALF"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 11750,
+  "fields": {
+    "authorName": "WILLIAM D. McLAUGHLIN"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 11751,
+  "fields": {
+    "authorName": "LEE NICHOLS"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 12545,
+  "fields": {
+    "authorName": "Rebecca Smith"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 12546,
+  "fields": {
+    "authorName": "Rick McHugh"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 12547,
+  "fields": {
+    "authorName": "Andrew Stettner"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 12975,
+  "fields": {
+    "authorName": "Greg Bowe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 12976,
+  "fields": {
+    "authorName": "Carol A. Twigg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 27337,
+  "fields": {
+    "authorName": "John E. Roemer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 27890,
+  "fields": {
+    "authorName": "Lynn McDonald"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 27891,
+  "fields": {
+    "authorName": "Peter Donahue"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 27892,
+  "fields": {
+    "authorName": "Brooke Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 31778,
+  "fields": {
+    "authorName": "Ray E. Boomhower"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 34418,
+  "fields": {
+    "authorName": "Carl Saal"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 34536,
+  "fields": {
+    "authorName": "E. G. Bowen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 34537,
+  "fields": {
+    "authorName": "T. Pearcy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35744,
+  "fields": {
+    "authorName": "Michelle C. Kegler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35745,
+  "fields": {
+    "authorName": "Regine Haardӧrfer"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35746,
+  "fields": {
+    "authorName": "Carla Berg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35747,
+  "fields": {
+    "authorName": "Cam Escoffery"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35748,
+  "fields": {
+    "authorName": "Lucja Bundy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35749,
+  "fields": {
+    "authorName": "Rebecca Williams"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 35750,
+  "fields": {
+    "authorName": "Patricia Dolan Mullen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 36090,
+  "fields": {
+    "authorName": "J. A. Ellis"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 36091,
+  "fields": {
+    "authorName": "C. A. Olsson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 36092,
+  "fields": {
+    "authorName": "E. Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 36093,
+  "fields": {
+    "authorName": "P. Greenwood"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 36094,
+  "fields": {
+    "authorName": "M. O. M. Van De Ven"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 36095,
+  "fields": {
+    "authorName": "G. C. Patton"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37232,
+  "fields": {
+    "authorName": "Alvin E. Roth"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37233,
+  "fields": {
+    "authorName": "Uriel G. Rothblum"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37234,
+  "fields": {
+    "authorName": "Abraham Neyman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37234,
+  "fields": {
+    "authorName": "Abraham Neyman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37235,
+  "fields": {
+    "authorName": "Peter DeMarzo"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37236,
+  "fields": {
+    "authorName": "Darrell Duffie"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37237,
+  "fields": {
+    "authorName": "Klaus Nehring"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37238,
+  "fields": {
+    "authorName": "Shigehiro Serizawa"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37239,
+  "fields": {
+    "authorName": "Stephen R. G. Jones"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37240,
+  "fields": {
+    "authorName": "W. Craig Riddell"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37241,
+  "fields": {
+    "authorName": "Karim M. Abadir"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37242,
+  "fields": {
+    "authorName": "Kaddour Hadri"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37243,
+  "fields": {
+    "authorName": "Elias Tzavalis"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37244,
+  "fields": {
+    "authorName": "Julie P. Gordon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37246,
+  "fields": {
+    "authorName": "Richard Blundell"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37246,
+  "fields": {
+    "authorName": "Richard Blundell"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37247,
+  "fields": {
+    "authorName": "Drew Fudenberg"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37248,
+  "fields": {
+    "authorName": "Alain Monfort"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37249,
+  "fields": {
+    "authorName": "Andrew Postlewaite"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37250,
+  "fields": {
+    "authorName": "Nancy Stokey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37251,
+  "fields": {
+    "authorName": "Peter J. Hammond"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37252,
+  "fields": {
+    "authorName": "Alberto Holly"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37253,
+  "fields": {
+    "authorName": "Kotaro Suzumura"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37256,
+  "fields": {
+    "authorName": "a Gosling"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37257,
+  "fields": {
+    "authorName": "Hidehiko Ichimura"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37258,
+  "fields": {
+    "authorName": "Costas Meghir"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37259,
+  "fields": {
+    "authorName": "Jonathan Weinstein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37260,
+  "fields": {
+    "authorName": "Muhamet Yildiz"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37261,
+  "fields": {
+    "authorName": "John K. -H. Quah"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37262,
+  "fields": {
+    "authorName": "Glenn W. Harrison"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37263,
+  "fields": {
+    "authorName": "John A. List"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37264,
+  "fields": {
+    "authorName": "Charles Towe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37265,
+  "fields": {
+    "authorName": "Zhongjun Qu"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37266,
+  "fields": {
+    "authorName": "Pierre Perron"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37267,
+  "fields": {
+    "authorName": "Yoram Halevy"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37268,
+  "fields": {
+    "authorName": "Arthur Lewbel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37269,
+  "fields": {
+    "authorName": "Laurens Cherchye"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37270,
+  "fields": {
+    "authorName": "Bram de Rock"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37271,
+  "fields": {
+    "authorName": "Frederic Vermeulen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37272,
+  "fields": {
+    "authorName": "Ignacio N. Lobato"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37273,
+  "fields": {
+    "authorName": "Carlos Velasco"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37274,
+  "fields": {
+    "authorName": "Eddie Dekel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37275,
+  "fields": {
+    "authorName": "Barton L. Lipman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37276,
+  "fields": {
+    "authorName": "Aldo Rustichini"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37277,
+  "fields": {
+    "authorName": "Todd Sarver"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37278,
+  "fields": {
+    "authorName": "John E. Pippinger"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37279,
+  "fields": {
+    "authorName": "Llad Phillips"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37280,
+  "fields": {
+    "authorName": "I. F. Pearce"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37281,
+  "fields": {
+    "authorName": "J. Wise"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37282,
+  "fields": {
+    "authorName": "Michael Manove"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37283,
+  "fields": {
+    "authorName": "Phillip Nelson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37284,
+  "fields": {
+    "authorName": "Robert C. Merton"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37285,
+  "fields": {
+    "authorName": "Kit Fine"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37286,
+  "fields": {
+    "authorName": "Dean T. Jamison"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37287,
+  "fields": {
+    "authorName": "Lawrence J. Lau"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37288,
+  "fields": {
+    "authorName": "Trout Rader"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37289,
+  "fields": {
+    "authorName": "Murray Brown"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37289,
+  "fields": {
+    "authorName": "Murray Brown"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37291,
+  "fields": {
+    "authorName": "Peter Jennergren"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37292,
+  "fields": {
+    "authorName": "James W. Friedman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37293,
+  "fields": {
+    "authorName": "Maurice D. Levi"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37294,
+  "fields": {
+    "authorName": "Paramesh Ray"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37295,
+  "fields": {
+    "authorName": "E. J. Hannan"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37296,
+  "fields": {
+    "authorName": "R. D. Terrell"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37297,
+  "fields": {
+    "authorName": "C. Christian von Weizsäcker"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37298,
+  "fields": {
+    "authorName": "Michael Peters"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37299,
+  "fields": {
+    "authorName": "Pradeep Dubey"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37301,
+  "fields": {
+    "authorName": "Bhaskar Dutta"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37302,
+  "fields": {
+    "authorName": "Gabrielle Demange"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37303,
+  "fields": {
+    "authorName": "Michel Truchon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37304,
+  "fields": {
+    "authorName": "Marc Nerlove"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37305,
+  "fields": {
+    "authorName": "Assaf Razin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37306,
+  "fields": {
+    "authorName": "Efraim Sadka"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37307,
+  "fields": {
+    "authorName": "John Garen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37308,
+  "fields": {
+    "authorName": "Jerry Hausman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37309,
+  "fields": {
+    "authorName": "Daniel McFadden"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37310,
+  "fields": {
+    "authorName": "G. B. A. Evans"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37311,
+  "fields": {
+    "authorName": "N. E. Savin"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37312,
+  "fields": {
+    "authorName": "S. E. Satchell"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37313,
+  "fields": {
+    "authorName": "R. W. Klein"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37314,
+  "fields": {
+    "authorName": "S. J. Brown"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37315,
+  "fields": {
+    "authorName": "Manash Ranjan Gupta"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37316,
+  "fields": {
+    "authorName": "G. Abraham-Frois"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37317,
+  "fields": {
+    "authorName": "E. Berrebi"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37318,
+  "fields": {
+    "authorName": "Toshihide Mitsui"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37319,
+  "fields": {
+    "authorName": "H. O. Stekler"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37320,
+  "fields": {
+    "authorName": "Arthur S. Goldberger"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37321,
+  "fields": {
+    "authorName": "E. Baudier"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37322,
+  "fields": {
+    "authorName": "Peter Jason Kalman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37323,
+  "fields": {
+    "authorName": "Sherwin Rosen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37324,
+  "fields": {
+    "authorName": "Charles H. Kriebel"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37325,
+  "fields": {
+    "authorName": "Lowell Bassett"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37326,
+  "fields": {
+    "authorName": "John Maybee"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37327,
+  "fields": {
+    "authorName": "James Quirk"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37328,
+  "fields": {
+    "authorName": "H. Lévy-Lambert"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37329,
+  "fields": {
+    "authorName": "Maurice March"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37331,
+  "fields": {
+    "authorName": "V. K. Chetty"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37332,
+  "fields": {
+    "authorName": "David H. Nissen"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37333,
+  "fields": {
+    "authorName": "W. M. Gorman"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37334,
+  "fields": {
+    "authorName": "N. C. Kakwani"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37335,
+  "fields": {
+    "authorName": "Martin H. Yeh"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37336,
+  "fields": {
+    "authorName": "J. N. K. Rao"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37337,
+  "fields": {
+    "authorName": "K. W. Rothschild"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37338,
+  "fields": {
+    "authorName": "Peter E. de Janosi"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37339,
+  "fields": {
+    "authorName": "G. D. N. Worswick"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37341,
+  "fields": {
+    "authorName": "H. P. Künzi"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37342,
+  "fields": {
+    "authorName": "Hollis B. Chenery"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37343,
+  "fields": {
+    "authorName": "Roger Dehem"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37344,
+  "fields": {
+    "authorName": "Jeffrey B. Nugent"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37345,
+  "fields": {
+    "authorName": "Richard C. Henshaw"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37346,
+  "fields": {
+    "authorName": "Julian L. Simon"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37347,
+  "fields": {
+    "authorName": "Dale W. Jorgenson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37348,
+  "fields": {
+    "authorName": "James A. Stephenson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37349,
+  "fields": {
+    "authorName": "Philippe Aghion"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37350,
+  "fields": {
+    "authorName": "Torsten Persson"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37351,
+  "fields": {
+    "authorName": "Patrick J. Kehoe"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37352,
+  "fields": {
+    "authorName": "Fabrizio Perri"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37353,
+  "fields": {
+    "authorName": "Edward J. Green"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37354,
+  "fields": {
+    "authorName": "Ruilin Zhou"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37380,
+  "fields": {
+    "authorName": "Avinash Dixit"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37404,
+  "fields": {
+    "authorName": "Rafael Repullo"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37939,
+  "fields": {
+    "authorName": "John Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 37939,
+  "fields": {
+    "authorName": "John Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 38495,
+  "fields": {
+    "authorName": "Oliver Hart"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 41896,
+  "fields": {
+    "authorName": "Richard S. Bower"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 43459,
+  "fields": {
+    "authorName": "B. P. L. Moore"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 43460,
+  "fields": {
+    "authorName": "Diane Meade"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 45738,
+  "fields": {
+    "authorName": "WILLIAM D. GULSBY"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 45739,
+  "fields": {
+    "authorName": "JOHN W. BOWERS"
+  }
+},
+{
+  "model": "api.author",
+  "pk": 45740,
+  "fields": {
+    "authorName": "KARL V. MILLER"
+  }
+}
+]

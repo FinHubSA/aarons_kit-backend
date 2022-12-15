@@ -138,13 +138,14 @@ def get_articles(request):
         journal_name = request.query_params.get("journalName")
         journal_id = request.query_params.get("journalID")
         issue_id = request.query_params.get("issueID")
-        
+        exact = request.query_params.get("exact")
+
         page = request.query_params.get("page")
         page_size = request.query_params.get("page_size")
 
         only_jstor_id = request.query_params.get(ONLY_JSTOR_ID) == "1"
         scraped = request.query_params.get('scraped')
-        
+
         if not page:
             page = 1
         else:
@@ -160,13 +161,18 @@ def get_articles(request):
         else:
             page_size = int(page_size)
 
+        if not exact:
+            exact = 0.1
+        else:
+            exact = float(exact)
+        
         if request.method == "GET":
             if title:
-                return get_articles_by_title(title, only_jstor_id, page, page_size)
+                return get_articles_by_title(title, only_jstor_id, page, page_size, exact)
             elif author_name:
-                return get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size)
+                return get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size, exact)
             elif journal_name or journal_id:
-                return get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size)
+                return get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size, exact)
             elif issue_id:
                 return get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size)
             else: 
@@ -186,12 +192,12 @@ def get_all_articles(scraped):
     articles_serializer = ArticleSerializer(articles, many=True)
     return Response(articles_serializer.data, status.HTTP_200_OK)
 
-def get_articles_by_title(title, only_jstor_id, page, page_size):
+def get_articles_by_title(title, only_jstor_id, page, page_size, exact):
     articles = (
         Article.objects.annotate(
             similarity=TrigramSimilarity("title", title),
         )
-        .filter(similarity__gt=0.1)
+        .filter(similarity__gte=exact)
         .order_by("-similarity")
     )
 
@@ -203,18 +209,19 @@ def get_articles_by_title(title, only_jstor_id, page, page_size):
         article_serializer = ArticleSerializer(articles, many=True)
         return Response(article_serializer.data, status.HTTP_200_OK)
 
-
-def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size):
+def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size, exact):
     try:
         authors = (
             Author.objects.annotate(
                 similarity=TrigramSimilarity("authorName", author_name),
             )
-            .filter(similarity__gt=0.1)
+            .filter(similarity__gte=exact)
             .order_by("-similarity")
         )
     except Author.DoesNotExist:
         return Response(None, status.HTTP_400_BAD_REQUEST)
+
+    print("** get by authors")
 
     if authors:
         articles = Article.objects.filter(authors__in=authors) 
@@ -231,16 +238,18 @@ def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size)
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
+    else:
+        return Response({"message": "no articles found"}, status.HTTP_200_OK)
 
 
-def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size):
+def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size, exact):
     try:
         if (journal_name):
             journals = (
                 Journal.objects.annotate(
                     similarity=TrigramSimilarity("journalName", journal_name),
                 )
-                .filter(similarity__gt=0.1)
+                .filter(similarity__gte=exact)
                 .order_by("-similarity")
             )
         else:
@@ -265,6 +274,8 @@ def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, pa
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
+    else:
+        return Response({"message": "no articles found"}, status.HTTP_200_OK)
 
 def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
     try:
@@ -289,6 +300,8 @@ def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
         else:
             articles_serializer = ArticleSerializer(articles, many=True)
             return Response(articles_serializer.data, status.HTTP_200_OK)
+    else:
+        return Response({"message": "no articles found"}, status.HTTP_200_OK)
 
 ##### authors #####
 @api_view(["GET"])
@@ -313,7 +326,7 @@ def get_authors_by_name(author_name):
         Author.objects.annotate(
             similarity=TrigramSimilarity("authorName", author_name),
         )
-        .filter(similarity__gt=0.1)
+        .filter(similarity__gte=0.1)
         .order_by("-similarity")[:10]
     )
 
@@ -376,7 +389,7 @@ def get_journals_by_name(journal_name):
         Journal.objects.annotate(
             similarity=TrigramSimilarity("journalName", journal_name),
         )
-        .filter(similarity__gt=0.1)
+        .filter(similarity__gte=0.1)
         .order_by("-similarity")[:10]
     )
 
