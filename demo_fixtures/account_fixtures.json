@@ -1,0 +1,65 @@
+[
+{
+  "model": "api.account",
+  "pk": 1,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNIA",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+},
+{
+  "model": "api.account",
+  "pk": 2,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNIB",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+},
+{
+  "model": "api.account",
+  "pk": 3,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNIC",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+},
+{
+  "model": "api.account",
+  "pk": 4,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNID",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+},
+{
+  "model": "api.account",
+  "pk": 5,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNIE",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+},
+{
+  "model": "api.account",
+  "pk": 6,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNIF",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+},
+{
+  "model": "api.account",
+  "pk": 7,
+  "fields": {
+    "algorandAddress": "AT5GUUUS5ATNF54QHTAPLJZHFZOYRA2YAW4TULI3OTL2SWAGF2ZJOXCNIG",
+    "donationsReceived": 0,
+    "donationsPaid": 0
+  }
+}
+]

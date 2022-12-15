@@ -59,6 +59,33 @@ Back in the cloned repository:
 
 Then visit http://localhost:8000/
 
+## Doing Aaron's Kit Demo
+
+Create a demo database demo_masterlist
+
+Change aarons_kit/settings.py to point to demo_masterlist
+
+Run migrations against that database
+
+```
+python manage.py makemigrations && \
+python manage.py makemigrations
+```
+
+Change the accounts addresses in demo_fixtures/demo_account_fixtures.json to the ones you want
+
+Load demo data into the database
+
+```
+python3 manage.py loaddata demo_fixtures/*.json
+```
+
+If data is already populated truncate the api_accounts table and then run
+
+```
+python3 manage.py loaddata demo_fixtures/demo_account_fixtures.json
+```
+
 ## Pushing updates to Cloud Run
 
 Make migrations (if any):
