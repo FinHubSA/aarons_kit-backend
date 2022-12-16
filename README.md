@@ -61,7 +61,7 @@ Then visit http://localhost:8000/
 
 ## Doing Aaron's Kit Demo
 
-Create a demo database demo_masterlist
+Create a demo database demo_masterlist if it's not already there
 
 Change aarons_kit/settings.py to point to demo_masterlist
 
@@ -85,6 +85,8 @@ If data is already populated truncate the api_accounts table and then run
 ```
 python3 manage.py loaddata demo_fixtures/demo_account_fixtures.json
 ```
+
+Then finally make sure your app is linking to demo_masterlist db. If you're using Google Secret Manager for db settings then create a new version of the django_settings and change masterlist to demo_masterlist.
 
 ## Pushing updates to Cloud Run
 
