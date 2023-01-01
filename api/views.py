@@ -8,9 +8,15 @@ from rest_framework.decorators import api_view
 from django.conf import settings
 from urllib.request import urlopen
 
-import traceback
 from api.models import Journal, Article, Author, Issue, Account
-from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer, AccountSerializer
+from api.serializers import (
+    AccountSerializer,
+    AuthorSerializer,
+    JournalSerializer,
+    ArticleSerializer,
+    IssueSerializer,
+)
+
 # from storages.backends.gcloud import GoogleCloudStorage
 # storage = GoogleCloudStorage()
 from google.cloud import storage
@@ -18,9 +24,10 @@ from google.cloud import storage
 ONLY_JSTOR_ID = "onlyJstorID"
 SCRAPED = "scraped"
 
+
 @api_view(["POST"])
 def store_pdf(request):
-    article_id = request.data.get("articleJstorID","")
+    article_id = request.data.get("articleJstorID", "")
     algorand_address = request.data.get("algorandAddress", "")
 
     print("** article ID ", article_id)
@@ -29,24 +36,23 @@ def store_pdf(request):
     if not Article.objects.filter(articleJstorID=article_id).exists():
         print("article not found")
         return Response(
-            {"message": "Article not found "}, status=status.HTTP_404_NOT_FOUND
+            {"message": "Article not found "}, status=status.HTTP_400_BAD_REQUEST
         )
 
-    article = Article.objects.get(
-        articleJstorID=article_id
-    )
+    article = Article.objects.get(articleJstorID=article_id)
 
     if article.bucketURL:
         return Response(
-            {"message": "Article already scraped "}, status=status.HTTP_403_FORBIDDEN
+            {"message": "Article already scraped "}, status=status.HTTP_400_BAD_REQUEST
         )
 
     file = request.FILES["file"]
     filename = file.name
 
-    if not filename.lower().endswith(('.pdf')):
+    if not filename.lower().endswith((".pdf")):
         return Response(
-            {"message": "Article file is not a PDF "}, status=status.HTTP_403_FORBIDDEN
+            {"message": "Article file is not a PDF "},
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
     try:
@@ -56,35 +62,25 @@ def store_pdf(request):
 
         blob.upload_from_file(file)
         # unscanned_bucket_url = "https://storage.googleapis.com/"+settings.GS_UNSCANNED_BUCKET_NAME+"/"+filename
-        clean_bucket_url = "https://storage.googleapis.com/"+settings.GS_CLEAN_BUCKET_NAME+"/"+filename
+        clean_bucket_url = (
+            "https://storage.googleapis.com/"
+            + settings.GS_CLEAN_BUCKET_NAME
+            + "/"
+            + filename
+        )
     except Exception as e:
         print("Failed to upload!", e)
         return Response(
-            {"message": "Failed to upload "+filename}, status=status.HTTP_401_UNAUTHORIZED
+            {"message": "Failed to upload " + filename},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
-    
+
     update_article_account(article_id, algorand_address)
 
     return Response(
-        {"message": "Article PDF successfully stored", "bucket_url": clean_bucket_url}, status=status.HTTP_200_OK
+        {"message": "Article PDF successfully stored", "bucket_url": clean_bucket_url},
+        status=status.HTTP_200_OK,
     )
-
-def update_article_account(article_id, algorand_address):
-    if algorand_address:
-        article = Article.objects.get(
-            articleJstorID=article_id
-        )
-
-        account, account_created = Account.objects.get_or_create(
-            algorandAddress=algorand_address,
-            defaults={
-                "algorandAddress": algorand_address
-            },
-        )
-
-        # article.bucketURL = unscanned_bucket_url
-        article.account = account
-        article.save()
 
 
 @api_view(["POST"])
@@ -93,42 +89,46 @@ def update_article_bucket_url(request):
     filename = request.data["filename"]
     bucket = request.data["bucket"]
 
-    bucket_url = "https://storage.googleapis.com/"+bucket+"/"+filename
+    bucket_url = "https://storage.googleapis.com/" + bucket + "/" + filename
 
     code = urlopen(bucket_url).code
 
     if code != 200:
         return Response(
-            {"message": "Article pdf not found "}, status=status.HTTP_404_NOT_FOUND
+            {"message": "Article pdf not found "}, status=status.HTTP_400_BAD_REQUEST
         )
 
     if not Article.objects.filter(articleJstorID=article_id).exists():
         return Response(
-            {"message": "Article not found "}, status=status.HTTP_404_NOT_FOUND
+            {"message": "Article not found "}, status=status.HTTP_400_BAD_REQUEST
         )
 
-    article = Article.objects.get(
-        articleJstorID=article_id
-    )
+    article = Article.objects.get(articleJstorID=article_id)
 
     article.bucketURL = bucket_url
     article.save()
-        
+
     return Response(
-        {"message": "Article bucket url successfully updated", "bucket_url": bucket_url}, status=status.HTTP_200_OK
+        {
+            "message": "Article bucket url successfully updated",
+            "bucket_url": bucket_url,
+        },
+        status=status.HTTP_200_OK,
     )
+
 
 ##### articles #####
 def get_articles_from_page(articles, page, page_size):
 
     paginator = Paginator(articles, page_size)
-    
-    if (page > paginator.num_pages):
+
+    if page > paginator.num_pages:
         return Article.objects.none()
 
     articles = paginator.get_page(page)
 
     return articles.object_list
+
 
 @api_view(["GET"])
 def get_articles(request):
@@ -144,7 +144,7 @@ def get_articles(request):
         page_size = request.query_params.get("page_size")
 
         only_jstor_id = request.query_params.get(ONLY_JSTOR_ID) == "1"
-        scraped = request.query_params.get('scraped')
+        scraped = request.query_params.get("scraped")
 
         if not page:
             page = 1
@@ -165,20 +165,35 @@ def get_articles(request):
             exact = 0.1
         else:
             exact = float(exact)
-        
+
         if request.method == "GET":
             if title:
-                return get_articles_by_title(title, only_jstor_id, page, page_size, exact)
+                return get_articles_by_title(
+                    title, only_jstor_id, page, page_size, exact
+                )
             elif author_name:
-                return get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size, exact)
+                return get_articles_by_author(
+                    author_name, only_jstor_id, scraped, page, page_size, exact
+                )
             elif journal_name or journal_id:
-                return get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size, exact)
+                return get_articles_by_journal(
+                    journal_name,
+                    journal_id,
+                    only_jstor_id,
+                    scraped,
+                    page,
+                    page_size,
+                    exact,
+                )
             elif issue_id:
-                return get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size)
-            else: 
+                return get_articles_by_issue(
+                    issue_id, only_jstor_id, scraped, page, page_size
+                )
+            else:
                 return get_all_articles(scraped)
     except Exception:
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 def get_all_articles(scraped):
 
@@ -188,9 +203,10 @@ def get_all_articles(scraped):
         articles = Article.objects.filter(bucketURL__isnull=True)
     else:
         articles = Article.objects.all()
-    
+
     articles_serializer = ArticleSerializer(articles, many=True)
     return Response(articles_serializer.data, status.HTTP_200_OK)
+
 
 def get_articles_by_title(title, only_jstor_id, page, page_size, exact):
     articles = (
@@ -209,6 +225,7 @@ def get_articles_by_title(title, only_jstor_id, page, page_size, exact):
         article_serializer = ArticleSerializer(articles, many=True)
         return Response(article_serializer.data, status.HTTP_200_OK)
 
+
 def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size, exact):
     try:
         authors = (
@@ -224,7 +241,7 @@ def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size,
     print("** get by authors")
 
     if authors:
-        articles = Article.objects.filter(authors__in=authors) 
+        articles = Article.objects.filter(authors__in=authors)
 
         if scraped == 1:
             articles = articles.filter(bucketURL__isnull=False)
@@ -242,9 +259,11 @@ def get_articles_by_author(author_name, only_jstor_id, scraped, page, page_size,
         return Response({"message": "no articles found"}, status.HTTP_200_OK)
 
 
-def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, page, page_size, exact):
+def get_articles_by_journal(
+    journal_name, journal_id, only_jstor_id, scraped, page, page_size, exact
+):
     try:
-        if (journal_name):
+        if journal_name:
             journals = (
                 Journal.objects.annotate(
                     similarity=TrigramSimilarity("journalName", journal_name),
@@ -258,9 +277,7 @@ def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, pa
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
     if journals:
-        articles = Article.objects.filter(
-            issue__journal__in=journals
-        )
+        articles = Article.objects.filter(issue__journal__in=journals)
 
         if scraped == 1:
             articles = articles.filter(bucketURL__isnull=False)
@@ -276,6 +293,7 @@ def get_articles_by_journal(journal_name, journal_id, only_jstor_id, scraped, pa
             return Response(articles_serializer.data, status.HTTP_200_OK)
     else:
         return Response({"message": "no articles found"}, status.HTTP_200_OK)
+
 
 def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
     try:
@@ -284,9 +302,7 @@ def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
     if issue:
-        articles = Article.objects.filter(
-            issue__issueID=issue.issueID
-        )
+        articles = Article.objects.filter(issue__issueID=issue.issueID)
 
         if scraped == 1:
             articles = articles.filter(bucketURL__isnull=False)
@@ -302,6 +318,7 @@ def get_articles_by_issue(issue_id, only_jstor_id, scraped, page, page_size):
             return Response(articles_serializer.data, status.HTTP_200_OK)
     else:
         return Response({"message": "no articles found"}, status.HTTP_200_OK)
+
 
 ##### authors #####
 @api_view(["GET"])
@@ -336,6 +353,7 @@ def get_authors_by_name(author_name):
 
     return Response(None, status.HTTP_200_OK)
 
+
 ##### issues #####
 @api_view(["GET"])
 def get_issues(request):
@@ -354,17 +372,17 @@ def get_issues(request):
     except Exception:
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 def get_issues_by_journal(journal_id):
-    
-    issues = Issue.objects.filter(
-        journal__journalID=journal_id
-    )
+
+    issues = Issue.objects.filter(journal__journalID=journal_id)
 
     if issues:
         issues_serializer = IssueSerializer(issues, many=True)
         return Response(issues_serializer.data, status.HTTP_200_OK)
 
     return Response(None, status.HTTP_200_OK)
+
 
 ##### journals #####
 @api_view(["GET"])
@@ -404,7 +422,9 @@ def get_journals_by_name(journal_name):
 @api_view(["GET"])
 def get_accounts(request):
 
-    accounts = Account.objects.annotate(scraped=Count('articles', filter=Q(articles__bucketURL__isnull=False))).filter(scraped__gte=0)
+    accounts = Account.objects.annotate(
+        scraped=Count("articles", filter=Q(articles__bucketURL__isnull=False))
+    ).filter(scraped__gte=0)
 
     try:
         account_serializer = AccountSerializer(accounts, many=True)
@@ -413,3 +433,28 @@ def get_accounts(request):
         print(e)
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+##### donate #####
+@api_view(["GET"])
+def distribute_donations(request):
+    # if balance of contract > threshold then get addresses + amount scraped
+    #   calculate total scraped
+    #   create batches of 16 txns
+    #   send all and wait on them
+    #   resend failed ones
+    pass
+
+
+##### util #####
+def update_article_account(article_id, algorand_address):
+    if algorand_address:
+        article = Article.objects.get(articleJstorID=article_id)
+
+        account, account_created = Account.objects.get_or_create(
+            algorandAddress=algorand_address,
+            defaults={"algorandAddress": algorand_address},
+        )
+
+        # article.bucketURL = unscanned_bucket_url
+        article.account = account
+        article.save()

@@ -21,7 +21,13 @@ urlpatterns = [
     path("api/authors", views.get_authors, name="get_authors"),
     path("api/issues", views.get_issues, name="get_issues"),
     path("api/journals", views.get_journals, name="get_journals"),
-    path("api/articles/pdf",views.store_pdf,name="store_pdf"),
-    path("api/accounts",views.get_accounts,name="get_accounts"),
-    path("api/articles/update/bucketurl",views.update_article_bucket_url,name="update_article_bucket_url"),
+    path("api/articles/pdf", views.store_pdf, name="store_pdf"),
+    path(
+        "api/articles/update/bucketurl",
+        views.update_article_bucket_url,
+        name="update_article_bucket_url",
+    ),
+    path(
+        "api/donate/distribute", views.distribute_donations, name="distribute_donations"
+    ),
 ]
