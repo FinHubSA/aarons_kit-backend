@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 import environ
 import google.auth
 from google.cloud import secretmanager
+from algosdk.v2client import algod
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -62,6 +63,18 @@ elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
 else:
     raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
 # [END cloudrun_django_secret_config]
+
+algod_url = env.get_value("ALGOD_URL_TESTNET")
+algod_token = env.get_value("NODE_API_KEY")
+headers = {
+    "X-API-Key": algod_token,
+}
+
+ALGOD_CLIENT = algod.AlgodClient(algod_token, algod_url, headers)
+SMART_CONTRACT_ADDRESS = env.get_value("APP_ADDRESS_TESTNET")
+SMART_CONTRACT_ID = env.get_value("APP_ID_TESTNET")
+SMART_CONTRACT_MANAGER_ADDRESS = env.get_value("DEPLOYMENT_ADDRESS")
+
 SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
