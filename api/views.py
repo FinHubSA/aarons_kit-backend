@@ -9,6 +9,8 @@ from django.conf import settings
 from urllib.request import urlopen
 
 import traceback
+import base64
+
 from api.models import Journal, Article, Author, Issue, Account
 from api.serializers import AuthorSerializer, JournalSerializer, ArticleSerializer, IssueSerializer, AccountSerializer
 # from storages.backends.gcloud import GoogleCloudStorage
@@ -412,4 +414,68 @@ def get_accounts(request):
     except Exception as e:
         print(e)
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(["GET"])
+def get_amount_for_distribution(request):
+    algod_client = settings.ALGOD_CLIENT
+    app_address = settings.SMART_CONTRACT_ADDRESS
+
+    smart_contract_info = algod_client.account_info(app_address)
+
+    print(smart_contract_info)
+
+    smart_contract_info['amount_for_distribution'] = smart_contract_info['amount'] - smart_contract_info['min-balance']
+    
+    return Response(smart_contract_info, status.HTTP_200_OK)
+
+@api_view(["GET"])
+def get_amount_distributed_todate(request):
+    algod_client = settings.ALGOD_CLIENT
+    app_id = settings.SMART_CONTRACT_ID
+
+    app = algod_client.application_info(app_id)
+    global_state = app['params']['global-state'] if "global-state" in app["params"] else []
+
+    app_info = decode_state(global_state)
+
+    print(f"global_state for app_id {app_id}: ", app_info)
+
+    return Response(app_info, status.HTTP_200_OK)
+
+def str_or_hex(v):
+    decoded: str = ""
+    try:
+        decoded = v.decode("utf-8")
+    except Exception:
+        decoded = v.hex()
+
+    return decoded
+
+
+def decode_state(state, raw=False):
+
+    decoded_state = {}
+
+    for sv in state:
+
+        raw_key = base64.b64decode(sv["key"])
+
+        key = raw_key if raw else str_or_hex(raw_key)
+        val = None
+
+        action = (
+            sv["value"]["action"] if "action" in sv["value"] else sv["value"]["type"]
+        )
+
+        if action == 1:
+            raw_val = base64.b64decode(sv["value"]["bytes"])
+            val = raw_val if raw else str_or_hex(raw_val)
+        elif action == 2:
+            val = sv["value"]["uint"]
+        elif action == 3:
+            val = None
+
+        decoded_state[key] = val
+
+    return decoded_state
 

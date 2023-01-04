@@ -325,3 +325,17 @@ class TestAccount(TestCase):
                 'donationsPaid': 0
             }])
         self.assertEqual(json_result, expected_json_result)
+
+    def test_amount_for_distribution(self):
+
+        response = client.get(reverse("get_amount_for_distribution")).data
+
+        self.assertEqual(response['address'], 'ZH6QHCFO4UKUHDKFMTJDAQDMENWOFRKAKQCOC4RWBE54MJKCOBXCPO6OHE')
+        self.assertEqual(response['amount_for_distribution'], response['amount'] - response['min-balance'])
+
+    def test_get_amount_distributed_todate(self):
+
+        response = client.get(reverse("get_amount_distributed_todate")).data
+
+        self.assertEqual(response['manager'], 'ZH6QHCFO4UKUHDKFMTJDAQDMENWOFRKAKQCOC4RWBE54MJKCOBXCPO6OHE')
+        self.assertEqual(True, True)
