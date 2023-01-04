@@ -31,4 +31,14 @@ urlpatterns = [
     path(
         "api/donate/distribute", views.distribute_donations, name="distribute_donations"
     ),
+    path(
+        "api/accounts/amount/for-distribution",
+        views.get_amount_for_distribution,
+        name="get_amount_for_distribution"
+    ),
+    path(
+        "api/accounts/amount/distributed-todate",
+        views.get_amount_distributed_todate,
+        name="get_amount_distributed_todate"
+    ),
 ]

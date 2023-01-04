@@ -293,6 +293,7 @@ def get_articles_by_journal(
         return Response(None, status.HTTP_400_BAD_REQUEST)
 
     if journals:
+
         articles = Article.objects.filter(issue__journal__in=journals)
 
         if scraped == 1:
@@ -444,6 +445,39 @@ def get_accounts(request):
         return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@api_view(["GET"])
+def get_amount_for_distribution(request):
+    algod_client = settings.ALGOD_CLIENT
+    app_address = settings.SMART_CONTRACT_ADDRESS
+
+    smart_contract_info = algod_client.account_info(app_address)
+
+    # print(smart_contract_info)
+
+    smart_contract_info["amount_for_distribution"] = (
+        smart_contract_info["amount"] - smart_contract_info["min-balance"]
+    )
+
+    return Response(smart_contract_info, status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def get_amount_distributed_todate(request):
+    algod_client = settings.ALGOD_CLIENT
+    app_id = settings.SMART_CONTRACT_ID
+
+    app = algod_client.application_info(app_id)
+    global_state = (
+        app["params"]["global-state"] if "global-state" in app["params"] else []
+    )
+
+    app_info = decode_state(global_state)
+
+    # print(f"global_state for app_id {app_id}: ", app_info)
+
+    return Response(app_info, status.HTTP_200_OK)
+
+
 ##### donate #####
 @api_view(["GET"])
 def distribute_donations(request):
@@ -452,18 +486,12 @@ def distribute_donations(request):
     MAX_TRIES = 5
     SLEEP = 1
 
-    app_id = int(env.get_value("APP_ID_TESTNET"))
-    app_addr = env.get_value("APP_ADDRESS_TESTNET")
-    manager_addr = env.get_value("DEPLOYMENT_ADDRESS")
+    algod_client = settings.ALGOD_CLIENT
+    app_id = int(settings.SMART_CONTRACT_ID)
+    app_address = settings.SMART_CONTRACT_ADDRESS
+    manager_address = settings.SMART_CONTRACT_MANAGER_ADDRESS
 
-    algod_url = env.get_value("ALGOD_URL_TESTNET")
-    algod_token = env.get_value("NODE_API_KEY")
-    headers = {
-        "X-API-Key": algod_token,
-    }
-    algod_client = AlgodClient(algod_token, algod_url, headers)
-
-    info = algod_client.account_info(app_addr)
+    info = algod_client.account_info(app_address)
 
     if info["amount"] >= DISTRIBUTION_THRESHOLD:
         # TODO: add choice of mainnet and testnet
@@ -479,7 +507,7 @@ def distribute_donations(request):
         # minimum_account_balance +
         # fees for each txn
         # fees for each inner txn per acount
-        manager_info = algod_client.account_info(manager_addr)
+        manager_info = algod_client.account_info(manager_address)
         funds_needed = (
             manager_info["min-balance"]
             + ((ceil(len(accounts) / 4) * 1000))
@@ -515,7 +543,7 @@ def distribute_donations(request):
                 atc_list[-1].add_transaction(
                     TransactionWithSigner(
                         txn=ApplicationNoOpTxn(
-                            sender=manager_addr,
+                            sender=manager_address,
                             sp=sp,
                             index=app_id,
                             app_args=args,
@@ -530,7 +558,7 @@ def distribute_donations(request):
             atc.add_method_call(
                 app_id=app_id,
                 method=take_snapshot_method,
-                sender=manager_addr,
+                sender=manager_address,
                 sp=algod_client.suggested_params(),
                 signer=signer,
                 method_args=[total_scraped],

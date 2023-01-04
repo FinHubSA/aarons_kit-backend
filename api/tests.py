@@ -447,6 +447,18 @@ class TestAccount(TestCase):
         )
         self.assertEqual(sorted(json_result), sorted(expected_json_result))
 
+    def test_amount_for_distribution(self):
+
+        response = client.get(reverse("get_amount_for_distribution")).data
+
+        self.assertEqual(response['amount_for_distribution'], response['amount'] - response['min-balance'])
+
+    def test_get_amount_distributed_todate(self):
+
+        response = client.get(reverse("get_amount_distributed_todate")).data
+
+        self.assertGreaterEqual(response['total_distributed'], 0)
+
     # def test_distribute_donations(self):
     #     response = client.get(reverse("distribute_donations")).data
     #     print(response)
