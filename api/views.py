@@ -481,10 +481,27 @@ def get_amount_distributed_todate(request):
 ##### donate #####
 @api_view(["GET"])
 def distribute_donations(request):
+    """
+    distribution workflow:
+    if the balance of the contract is above the threshold:
+    AND if the manager account has enough funds:
+    grab all accounts that have scraped at least one paper,
+    create a distribute_donations txn for every 4 accounts,
+    create an atomic group (batch) for every 16 txns,
+    take a snapshot of the contract (take_snapshot contract method),
+    submit batches
+    """
+
+    token = request.query_params.get("distributeToken")
+
+    if token != env.get_value("DISTRIBUTE_DONATIONS_TOKEN"):
+        return Response(None, status.HTTP_400_BAD_REQUEST)
+
     # TODO: increase after testing
-    DISTRIBUTION_THRESHOLD = 0
+    DISTRIBUTION_THRESHOLD = 1_000_000
     MAX_TRIES = 5
-    SLEEP = 1
+    SLEEP = 0.05
+    LONG_SLEEP = 5
 
     algod_client = settings.ALGOD_CLIENT
     app_id = int(settings.SMART_CONTRACT_ID)
@@ -505,7 +522,7 @@ def distribute_donations(request):
         accounts = get_accounts_scraped()
         # make sure manager has at least:
         # minimum_account_balance +
-        # fees for each txn
+        # fees for each txn +
         # fees for each inner txn per acount
         manager_info = algod_client.account_info(manager_address)
         funds_needed = (
@@ -611,7 +628,7 @@ def distribute_donations(request):
                     sleep(SLEEP)
 
             # give time for txns to be committed (hopefully)
-            sleep(4)
+            sleep(LONG_SLEEP)
 
             # check for confirmation
             unconfirmed_txns = []
@@ -639,9 +656,10 @@ def distribute_donations(request):
                                         txns[i], info["pool-error"]
                                     )
                                 )
+                        sleep(SLEEP)
                 else:
                     for txn in unconfirmed_txns:
-                        info = algod_client.pending_transaction_info(txns[i])
+                        info = algod_client.pending_transaction_info(txn)
                         if "confirmed-round" in info.keys():
                             print(
                                 "Txn {} confirmed in round {}".format(
@@ -668,7 +686,18 @@ def distribute_donations(request):
 
                 # give time for txns to be committed (hopefully)
                 tries += 1
-                sleep(4)
+                sleep(LONG_SLEEP)
+
+            if len(unconfirmed_txns) > 0 or len(failed_txns) > 0:
+                print(
+                    "Some/all txns were not confirmed/failed:\nUnconfirmed: {}\nFailed: {}".format(
+                        unconfirmed_txns, failed_txns
+                    )
+                )
+                return Response(
+                    {"unconfirmed": unconfirmed_txns, "failed": failed_txns},
+                    status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
         else:
             print(
                 "Manager has insufficient funds to run distribution ({} microALGO needed)".format(
@@ -678,6 +707,8 @@ def distribute_donations(request):
             return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(txns, status.HTTP_200_OK)
+
+    return Response(None, status.HTTP_200_OK)
 
 
 ##### util #####

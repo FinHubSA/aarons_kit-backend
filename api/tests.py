@@ -1,6 +1,9 @@
+from time import sleep
 import environ
 
+from algosdk.error import IndexerHTTPError
 from algosdk.v2client.algod import AlgodClient
+from algosdk.v2client.indexer import IndexerClient
 from django.core.management import call_command
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -10,7 +13,13 @@ import json
 from django.conf import settings
 
 from api.models import Journal, Article, Issue, Account
-from api.views import decode_state, ONLY_JSTOR_ID, SCRAPED, update_article_account
+from api.views import (
+    decode_state,
+    get_accounts_scraped,
+    ONLY_JSTOR_ID,
+    SCRAPED,
+    update_article_account,
+)
 
 client = Client()
 env = environ.Env(DEBUG=(bool, True))
@@ -451,105 +460,87 @@ class TestAccount(TestCase):
 
         response = client.get(reverse("get_amount_for_distribution")).data
 
-        self.assertEqual(response['amount_for_distribution'], response['amount'] - response['min-balance'])
+        self.assertEqual(
+            response["amount_for_distribution"],
+            response["amount"] - response["min-balance"],
+        )
 
     def test_get_amount_distributed_todate(self):
 
         response = client.get(reverse("get_amount_distributed_todate")).data
 
-        self.assertGreaterEqual(response['total_distributed'], 0)
+        self.assertGreaterEqual(response["total_distributed"], 0)
 
-    # def test_distribute_donations(self):
-    #     response = client.get(reverse("distribute_donations")).data
-    #     print(response)
+    def test_distribute_donations(self):
+        MAX_TRIES = 5
+        SLEEP = 5
 
-    #     app_id = int(env.get_value("APP_ID_TESTNET"))
-    #     app_addr = env.get_value("APP_ADDRESS_TESTNET")
-    #     manager_addr = env.get_value("DEPLOYMENT_ADDRESS")
+        algod_client: AlgodClient = settings.ALGOD_CLIENT
+        indexer_client: IndexerClient = settings.INDEXER_CLIENT
+        app_addr = settings.SMART_CONTRACT_ADDRESS
 
-    #     algod_url = env.get_value("ALGOD_URL_TESTNET")
-    #     algod_token = env.get_value("NODE_API_KEY")
-    #     headers = {
-    #         "X-API-Key": algod_token,
-    #     }
-    #     algod_client = AlgodClient(algod_token, algod_url, headers)
+        app_acc_info_before = algod_client.account_info(app_addr)
+        app_amount_before = app_acc_info_before["amount"]
+        app_min_balance = app_acc_info_before["min-balance"]
 
-    #     app_info = algod_client.application_info(app_id)
-    #     global_state = decode_state(app_info["params"]["global-state"])
-    #     donations_snapshot = global_state["donations_snapshot"]
-    #     papers_scraped_snapshot = global_state["papers_scraped_snapshot"]
+        app_distributable_amount = app_amount_before - app_min_balance
 
-    #     print(app_info)
-    #     print(global_state)
+        accounts = get_accounts_scraped()
 
-    #     app_addr_info = algod_client.account_info(app_addr)
+        expected_payments = []
 
-    #     print(app_addr_info)
+        for account in accounts:
+            expected_payments.append(
+                (
+                    account["algorandAddress"],
+                    (app_distributable_amount * account["scraped"]) // 9,
+                )
+            )
 
-    #     [
-    #         "UU4UQGGNJI7E5KYRXBY2NVKMWHJAHSN4BXYCIMZFD7WEMOPPSPGQ",
-    #         "HZDABPOSJCHCP66DANLCIQXBOMCESFUPLQYLV3G6MWO5AVFGO5BQ",
-    #     ]
-    #     # {
-    #     #     "id": 151578019,
-    #     #     "params": {
-    #     #         "approval-program": "ByACAAEmBAdtYW5hZ2VyEXRvdGFsX2Rpc3RyaWJ1dGVkEmRvbmF0aW9uc19zbmFwc2hvdBdwYXBlcnNfc2NyYXBlZF9zbmFwc2hvdDEbIhJAAFw2GgCABJZn1t4SQAA9NhoAgATdEB5aEkAAHTYaAIAEcibGQRJAAAEAMRkiEjEYIhMQRIgAySNDMRkiEjEYIhMQRDYaAReIAJojQzEZIhIxGCITEEQ2GgGIAHsjQzEZIhJAAEgxGSMSQAA3MRmBAhJAACUxGYEEEkAAEzEZgQUSQAABADEYIhNEiABDI0MxGCITRIgAMiNDMRgiE0SIACYjQzEYIhNEiAAaI0MxGCISRIgAAiNDKDEAZykiZyoiZysiZ4kiQyJDMQAoZBJEiTEAKGQSRIk1ADEAKGQSRCg0AGeJNQExAChkEkQyCmAiDUQqMgpgMgp4CWcrNAFniTEAKGQSRDEdIg1EMR0jCDEbEkQjNQI0AjEdIwgMQQBONALAGhcqZAsrZAo1AzQDIg00A4GgjQYMNALAHGAiEhAUEEAACTQCIwg1AkL/yCkpZDQDCGexI7IQMgqyADQCwByyBzQDsggisgGzQv/XiQ==",
-    #     #         "clear-state-program": "B4EAQw==",
-    #     #         "creator": "2FH5NPW44RRC2PFOYTDINEDKSIEWO3GGKN4PPT7PBBRRMSKDVVDLVWV2OM",
-    #     #         "global-state": [
-    #     #             {
-    #     #                 "key": "ZG9uYXRpb25zX3NuYXBzaG90",
-    #     #                 "value": {"bytes": "", "type": 2, "uint": 1350000},
-    #     #             },
-    #     #             {
-    #     #                 "key": "dG90YWxfZGlzdHJpYnV0ZWQ=",
-    #     #                 "value": {"bytes": "", "type": 2, "uint": 2250000},
-    #     #             },
-    #     #             {
-    #     #                 "key": "bWFuYWdlcg==",
-    #     #                 "value": {
-    #     #                     "bytes": "0U/WvtzkYi08rsTGhpBqkglnbMZTePfP7whjFklDrUY=",
-    #     #                     "type": 1,
-    #     #                     "uint": 0,
-    #     #                 },
-    #     #             },
-    #     #             {
-    #     #                 "key": "cGFwZXJzX3NjcmFwZWRfc25hcHNob3Q=",
-    #     #                 "value": {"bytes": "", "type": 2, "uint": 9},
-    #     #             },
-    #     #         ],
-    #     #         "global-state-schema": {"num-byte-slice": 1, "num-uint": 3},
-    #     #         "local-state-schema": {"num-byte-slice": 0, "num-uint": 0},
-    #     #     },
-    #     # }
-    #     {
-    #         "donations_snapshot": 1350000,
-    #         "total_distributed": 2250000,
-    #         "manager": "d14fd6bedce4622d3caec4c686906a9209676cc65378f7cfef0863164943ad46",
-    #         "papers_scraped_snapshot": 9,
-    #     }
-    #     {
-    #         "address": "ZH6QHCFO4UKUHDKFMTJDAQDMENWOFRKAKQCOC4RWBE54MJKCOBXCPO6OHE",
-    #         "amount": 100000,
-    #         "amount-without-pending-rewards": 100000,
-    #         "apps-local-state": [],
-    #         "apps-total-schema": {"num-byte-slice": 0, "num-uint": 0},
-    #         "assets": [],
-    #         "created-apps": [],
-    #         "created-assets": [],
-    #         "min-balance": 100000,
-    #         "pending-rewards": 0,
-    #         "reward-base": 27521,
-    #         "rewards": 0,
-    #         "round": 26733602,
-    #         "status": "Offline",
-    #         "total-apps-opted-in": 0,
-    #         "total-assets-opted-in": 0,
-    #         "total-created-apps": 0,
-    #         "total-created-assets": 0,
-    #     }
+        response = client.get(
+            "%s?distributeToken=%s"
+            % (
+                reverse("distribute_donations"),
+                env.get_value("DISTRIBUTE_DONATIONS_TOKEN"),
+            ),
+        ).data
 
-    # get app info
-    # do math here
-    # predict donations
-    # check each txn and compare predictions
+        if response is None:
+            assert True
+            return
+
+        assert len(response) == 2  # 2 txns
+
+        sleep(SLEEP)  # give indexer time to catch up
+
+        tries = 0
+        payments_verified = 0
+
+        for txn_id in response:
+            while tries < MAX_TRIES:
+                tries += 1
+                try:
+                    txn = indexer_client.transaction(txn_id)["transaction"]
+                    for inner_txn in txn["inner-txns"]:
+                        assert inner_txn["sender"] == app_addr
+                        assert inner_txn["tx-type"] == "pay"
+                        payment_txn = inner_txn["payment-transaction"]
+                        assert (
+                            payment_txn["receiver"],
+                            payment_txn["amount"],
+                        ) in expected_payments
+                        payments_verified += 1
+                    break
+                except IndexerHTTPError as e:
+                    print(e)
+                    print(
+                        "Error while getting txn {} from indexer. Indexer probably has not caught up yet. Let's wait.".format(
+                            txn_id
+                        )
+                    )
+                    if tries == MAX_TRIES:
+                        print("Could not retrieve txn info to run assertions with")
+                        assert False
+            tries = 0
+
+        assert payments_verified == 6
