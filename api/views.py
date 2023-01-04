@@ -446,7 +446,7 @@ def get_accounts(request):
 
 
 @api_view(["GET"])
-def get_amount_for_distribution(request):
+def get_smart_contract_info(request):
     algod_client = settings.ALGOD_CLIENT
     app_address = settings.SMART_CONTRACT_ADDRESS
 
@@ -462,7 +462,7 @@ def get_amount_for_distribution(request):
 
 
 @api_view(["GET"])
-def get_amount_distributed_todate(request):
+def get_smart_contract_state(request):
     algod_client = settings.ALGOD_CLIENT
     app_id = settings.SMART_CONTRACT_ID
 
