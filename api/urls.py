@@ -27,6 +27,7 @@ urlpatterns = [
         views.update_article_bucket_url,
         name="update_article_bucket_url",
     ),
+    path("api/accounts", views.get_accounts, name="get_accounts"),
     path(
         "api/donate/distribute", views.distribute_donations, name="distribute_donations"
     ),
