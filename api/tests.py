@@ -456,20 +456,22 @@ class TestAccount(TestCase):
         )
         self.assertEqual(sorted(json_result), sorted(expected_json_result))
 
-    def test_amount_for_distribution(self):
+    def test_get_smartcontract_info(self):
 
-        response = client.get(reverse("get_amount_for_distribution")).data
+        response = client.get(reverse("get_smart_contract_info")).data
 
         self.assertEqual(
             response["amount_for_distribution"],
             response["amount"] - response["min-balance"],
         )
 
-    def test_get_amount_distributed_todate(self):
+    def test_get_smartcontract_state(self):
 
-        response = client.get(reverse("get_amount_distributed_todate")).data
+        response = client.get(reverse("get_smart_contract_state")).data
 
         self.assertGreaterEqual(response["total_distributed"], 0)
+        self.assertGreaterEqual(response["donations_snapshot"], 0)
+        self.assertGreaterEqual(response["papers_scraped_snapshot"], 0)
 
     def test_distribute_donations(self):
         MAX_TRIES = 5

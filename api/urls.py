@@ -29,16 +29,18 @@ urlpatterns = [
     ),
     path("api/accounts", views.get_accounts, name="get_accounts"),
     path(
-        "api/donate/distribute", views.distribute_donations, name="distribute_donations"
+        "api/donations/distribute",
+        views.distribute_donations,
+        name="distribute_donations",
     ),
     path(
-        "api/accounts/amount/for-distribution",
-        views.get_amount_for_distribution,
-        name="get_amount_for_distribution"
+        "api/donations/smartcontract-info",
+        views.get_smart_contract_info,
+        name="get_smart_contract_info",
     ),
     path(
-        "api/accounts/amount/distributed-todate",
-        views.get_amount_distributed_todate,
-        name="get_amount_distributed_todate"
+        "api/donations/smartcontract-state",
+        views.get_smart_contract_state,
+        name="get_smart_contract_state",
     ),
 ]
