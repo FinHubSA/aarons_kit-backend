@@ -452,7 +452,15 @@ def get_smart_contract_info(request):
 
     smart_contract_info = algod_client.account_info(app_address)
 
-    # print(smart_contract_info)
+    # Example Data
+    # {
+    #     'address': 'ZH6QHCFO4UKUHDKFMTJDAQDMENWOFRKAKQCOC4RWBE54MJKCOBXCPO6OHE',
+    #     'amount': 100000,
+    #     'amount-without-pending-rewards': 100000,
+    #     'apps-local-state': [],
+    #     'min-balance': 100000
+    #      ......
+    # }
 
     smart_contract_info["amount_for_distribution"] = (
         smart_contract_info["amount"] - smart_contract_info["min-balance"]
@@ -473,7 +481,13 @@ def get_smart_contract_state(request):
 
     app_info = decode_state(global_state)
 
-    # print(f"global_state for app_id {app_id}: ", app_info)
+    # Example data
+    # {
+    #     'donations_snapshot': 1350000,
+    #     'manager': 'd14fd6bedce4622d3caec4c686906a9209676cc65378f7cfef0863164943ad46',
+    #     'papers_scraped_snapshot': 9,
+    #     'total_distributed': 225000
+    # }
 
     return Response(app_info, status.HTTP_200_OK)
 

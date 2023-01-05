@@ -55,11 +55,28 @@ elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
     project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
 
     client = secretmanager.SecretManagerServiceClient()
-    settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
-    name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
-    payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
 
-    env.read_env(io.StringIO(payload))
+    django_settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
+    algorand_secrets_name = os.environ.get("ALGORAND_SECRETS_NAME", "algorand_secrets")
+
+    django_settings = (
+        f"projects/{project_id}/secrets/{django_settings_name}/versions/latest"
+    )
+
+    algorand_secrets = (
+        f"projects/{project_id}/secrets/{algorand_secrets_name}/versions/latest"
+    )
+
+    django_settings_payload = client.access_secret_version(
+        name=django_settings
+    ).payload.data.decode("UTF-8")
+
+    algorand_secrets_payload = client.access_secret_version(
+        name=algorand_secrets
+    ).payload.data.decode("UTF-8")
+
+    env.read_env(io.StringIO(django_settings_payload))
+    env.read_env(io.StringIO(algorand_secrets_payload))
 else:
     raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
 # [END cloudrun_django_secret_config]
