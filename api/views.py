@@ -517,15 +517,22 @@ def distribute_donations(request):
     SLEEP = 0.05
     LONG_SLEEP = 5
 
-    algod_client = settings.ALGOD_CLIENT
-    app_id = int(settings.SMART_CONTRACT_ID)
-    app_address = settings.SMART_CONTRACT_ADDRESS
-    manager_address = settings.SMART_CONTRACT_MANAGER_ADDRESS
+    is_testnet = request.query_params.get("testnet")
+
+    if is_testnet is not None and is_testnet == "true":
+        algod_client = settings.ALGOD_CLIENT_TESTNET
+        app_id = int(settings.SMART_CONTRACT_ID_TESTNET)
+        app_address = settings.SMART_CONTRACT_ADDRESS_TESTNET
+        manager_address = settings.SMART_CONTRACT_MANAGER_ADDRESS
+    else:
+        algod_client = settings.ALGOD_CLIENT_MAINNET
+        app_id = int(settings.SMART_CONTRACT_ID_MAINNET)
+        app_address = settings.SMART_CONTRACT_ADDRESS_MAINNET
+        manager_address = settings.SMART_CONTRACT_MANAGER_ADDRESS
 
     info = algod_client.account_info(app_address)
 
-    if info["amount"] >= DISTRIBUTION_THRESHOLD:
-        # TODO: add choice of mainnet and testnet
+    if info["amount"] - info["min-balance"] >= DISTRIBUTION_THRESHOLD:
         signer = AccountTransactionSigner(env.get_value("DEPLOYMENT_PRIVATE"))
 
         take_snapshot_method = Method.from_signature("take_snapshot(uint64)void")
