@@ -55,27 +55,53 @@ elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
     project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
 
     client = secretmanager.SecretManagerServiceClient()
-    settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
-    name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
-    payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
 
-    env.read_env(io.StringIO(payload))
+    django_settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
+    algorand_secrets_name = os.environ.get("ALGORAND_SECRETS_NAME", "algorand_secrets")
+
+    django_settings = (
+        f"projects/{project_id}/secrets/{django_settings_name}/versions/latest"
+    )
+
+    algorand_secrets = (
+        f"projects/{project_id}/secrets/{algorand_secrets_name}/versions/latest"
+    )
+
+    django_settings_payload = client.access_secret_version(
+        name=django_settings
+    ).payload.data.decode("UTF-8")
+
+    algorand_secrets_payload = client.access_secret_version(
+        name=algorand_secrets
+    ).payload.data.decode("UTF-8")
+
+    env.read_env(io.StringIO(django_settings_payload))
+    env.read_env(io.StringIO(algorand_secrets_payload))
 else:
     raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
 # [END cloudrun_django_secret_config]
 
-algod_url = env.get_value("ALGOD_URL_TESTNET")
 api_token = env.get_value("NODE_API_KEY")
 headers = {
     "X-API-Key": api_token,
 }
 
-indexer_url = env.get_value("INDEXER_URL_TESTNET")
+algod_url_testnet = env.get_value("ALGOD_URL_TESTNET")
+algod_url_mainnet = env.get_value("ALGOD_URL_MAINNET")
 
-ALGOD_CLIENT = algod.AlgodClient(api_token, algod_url, headers)
-INDEXER_CLIENT = indexer.IndexerClient(api_token, indexer_url, headers)
-SMART_CONTRACT_ADDRESS = env.get_value("APP_ADDRESS_TESTNET")
-SMART_CONTRACT_ID = env.get_value("APP_ID_TESTNET")
+indexer_url_testnet = env.get_value("INDEXER_URL_TESTNET")
+indexer_url_mainnet = env.get_value("INDEXER_URL_MAINNET")
+
+ALGOD_CLIENT_TESTNET = algod.AlgodClient(api_token, algod_url_testnet, headers)
+INDEXER_CLIENT_TESTNET = indexer.IndexerClient(api_token, indexer_url_testnet, headers)
+SMART_CONTRACT_ADDRESS_TESTNET = env.get_value("APP_ADDRESS_TESTNET")
+SMART_CONTRACT_ID_TESTNET = env.get_value("APP_ID_TESTNET")
+
+ALGOD_CLIENT_MAINNET = algod.AlgodClient(api_token, algod_url_mainnet, headers)
+INDEXER_CLIENT_MAINNET = indexer.IndexerClient(api_token, indexer_url_mainnet, headers)
+SMART_CONTRACT_ADDRESS_MAINNET = env.get_value("APP_ADDRESS_MAINNET")
+SMART_CONTRACT_ID_MAINNET = env.get_value("APP_ID_MAINNET")
+
 SMART_CONTRACT_MANAGER_ADDRESS = env.get_value("DEPLOYMENT_ADDRESS")
 
 SECRET_KEY = env("SECRET_KEY")

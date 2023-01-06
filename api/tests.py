@@ -458,16 +458,24 @@ class TestAccount(TestCase):
 
     def test_get_smartcontract_info(self):
 
-        response = client.get(reverse("get_smart_contract_info")).data
+        response = client.get(
+            "%s?&testnet=true" % (reverse("get_smart_contract_info"))
+        ).data
 
         self.assertEqual(
             response["amount_for_distribution"],
             response["amount"] - response["min-balance"],
         )
+        self.assertGreaterEqual(
+            response["address"],
+            "ZH6QHCFO4UKUHDKFMTJDAQDMENWOFRKAKQCOC4RWBE54MJKCOBXCPO6OHE",
+        )
 
     def test_get_smartcontract_state(self):
 
-        response = client.get(reverse("get_smart_contract_state")).data
+        response = client.get(
+            "%s?&testnet=true" % (reverse("get_smart_contract_state"))
+        ).data
 
         self.assertGreaterEqual(response["total_distributed"], 0)
         self.assertGreaterEqual(response["donations_snapshot"], 0)
@@ -477,9 +485,9 @@ class TestAccount(TestCase):
         MAX_TRIES = 5
         SLEEP = 5
 
-        algod_client: AlgodClient = settings.ALGOD_CLIENT
-        indexer_client: IndexerClient = settings.INDEXER_CLIENT
-        app_addr = settings.SMART_CONTRACT_ADDRESS
+        algod_client: AlgodClient = settings.ALGOD_CLIENT_TESTNET
+        indexer_client: IndexerClient = settings.INDEXER_CLIENT_TESTNET
+        app_addr = settings.SMART_CONTRACT_ADDRESS_TESTNET
 
         app_acc_info_before = algod_client.account_info(app_addr)
         app_amount_before = app_acc_info_before["amount"]
@@ -500,7 +508,7 @@ class TestAccount(TestCase):
             )
 
         response = client.get(
-            "%s?distributeToken=%s"
+            "%s?distributeToken=%s&testnet=true"
             % (
                 reverse("distribute_donations"),
                 env.get_value("DISTRIBUTE_DONATIONS_TOKEN"),
@@ -543,6 +551,7 @@ class TestAccount(TestCase):
                     if tries == MAX_TRIES:
                         print("Could not retrieve txn info to run assertions with")
                         assert False
+                sleep(SLEEP)
             tries = 0
 
         assert payments_verified == 6
