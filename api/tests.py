@@ -458,16 +458,24 @@ class TestAccount(TestCase):
 
     def test_get_smartcontract_info(self):
 
-        response = client.get(reverse("get_smart_contract_info")).data
+        response = client.get(
+            "%s?&testnet=true" % (reverse("get_smart_contract_info"))
+        ).data
 
         self.assertEqual(
             response["amount_for_distribution"],
             response["amount"] - response["min-balance"],
         )
+        self.assertGreaterEqual(
+            response["address"],
+            "ZH6QHCFO4UKUHDKFMTJDAQDMENWOFRKAKQCOC4RWBE54MJKCOBXCPO6OHE",
+        )
 
     def test_get_smartcontract_state(self):
 
-        response = client.get(reverse("get_smart_contract_state")).data
+        response = client.get(
+            "%s?&testnet=true" % (reverse("get_smart_contract_state"))
+        ).data
 
         self.assertGreaterEqual(response["total_distributed"], 0)
         self.assertGreaterEqual(response["donations_snapshot"], 0)

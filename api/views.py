@@ -447,8 +447,14 @@ def get_accounts(request):
 
 @api_view(["GET"])
 def get_smart_contract_info(request):
-    algod_client = settings.ALGOD_CLIENT
-    app_address = settings.SMART_CONTRACT_ADDRESS
+    is_testnet = request.query_params.get("testnet")
+
+    if is_testnet is not None and is_testnet == "true":
+        algod_client = settings.ALGOD_CLIENT_TESTNET
+        app_address = settings.SMART_CONTRACT_ADDRESS_TESTNET
+    else:
+        algod_client = settings.ALGOD_CLIENT_MAINNET
+        app_address = settings.SMART_CONTRACT_ADDRESS_MAINNET
 
     smart_contract_info = algod_client.account_info(app_address)
 
@@ -471,8 +477,14 @@ def get_smart_contract_info(request):
 
 @api_view(["GET"])
 def get_smart_contract_state(request):
-    algod_client = settings.ALGOD_CLIENT
-    app_id = settings.SMART_CONTRACT_ID
+    is_testnet = request.query_params.get("testnet")
+
+    if is_testnet is not None and is_testnet == "true":
+        algod_client = settings.ALGOD_CLIENT_TESTNET
+        app_id = int(settings.SMART_CONTRACT_ID_TESTNET)
+    else:
+        algod_client = settings.ALGOD_CLIENT_MAINNET
+        app_id = int(settings.SMART_CONTRACT_ID_MAINNET)
 
     app = algod_client.application_info(app_id)
     global_state = (
