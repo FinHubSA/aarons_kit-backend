@@ -1,6 +1,6 @@
 [
     {
-        "model": "aarons_kit_api.Journal",
+        "model": "api.Journal",
         "pk": 1,
         "fields": {
             "journalName": "Journal of Animal Ecology",
@@ -9,7 +9,16 @@
         }
     },
     {
-        "model": "aarons_kit_api.Issue",
+        "model": "api.Journal",
+        "pk": 2,
+        "fields": {
+            "journalName": "Journal of Human Ecology",
+            "issn": "1234",
+            "altISSN": "4567"
+        }
+    },
+    {
+        "model": "api.Issue",
         "pk": 1,
         "fields": {
             "year": 1954,
@@ -20,64 +29,98 @@
         }
     },
     {
-        "model": "aarons_kit_api.Article",
+        "model": "api.Issue",
+        "pk": 2,
+        "fields": {
+            "year": 1954,
+            "volume": 23,
+            "journal": 2,
+            "issueJstorID": "2",
+            "number": "2"
+        }
+    },
+    {
+        "model": "api.Article",
         "pk": 1,
         "fields": {
             "title": "The Occurrence of Mytilicola intestinalis (Steuer) on the East Coast of England",
             "issue": 1,
-            "abstract": "",
-            "url": "",
-            "articleJstorID": "1"
+            "abstract": "A test abstract 1.",
+            "bucketURL": "www.test-url1.com",
+            "articleJstorID": "1",
+            "authors": [
+                3
+            ]
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 1,
         "fields": {
             "authorName": "G. D. Waugh"
         }
     },
     {
-        "model": "aarons_kit_api.Article",
-        "pk": 2,
-        "fields": {
-            "title": "The Mathematics of Bird Population Growth and Decline",
-            "issue": 1,
-            "abstract": "",
-            "url": "",
-            "articleJstorID": "2"
-        }
-    },
-    {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 2,
         "fields": {
             "authorName": "R. Capildeo"
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Author",
         "pk": 3,
         "fields": {
             "authorName": "J. B. S. Haldane"
         }
     },
     {
-        "model": "aarons_kit_api.Article",
+        "model": "api.Author",
+        "pk": 4,
+        "fields": {
+            "authorName": "B. R. Laurence"
+        }
+    },
+    {
+        "model": "api.Article",
+        "pk": 2,
+        "fields": {
+            "title": "The Mathematics of Bird Population Growth and Decline",
+            "issue": 1,
+            "abstract": "A test abstract 2",
+            "bucketURL": null,
+            "articleJstorID": "2",
+            "authors": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "api.Article",
         "pk": 3,
         "fields": {
             "title": "The Larval Inhabitants of Cow Pats",
             "issue": 1,
             "abstract": "",
-            "url": "",
-            "articleJstorID": "3"
+            "bucketURL": "www.test-url3.com",
+            "articleJstorID": "3",
+            "authors": [
+                4
+            ]
         }
     },
     {
-        "model": "aarons_kit_api.Author",
+        "model": "api.Article",
         "pk": 4,
         "fields": {
-            "authorName": "B. R. Laurence"
+            "title": "The Mathematics Of The Soviet Union",
+            "issue": 2,
+            "abstract": "A test abstract 1.",
+            "bucketURL": "www.test-url4.com",
+            "articleJstorID": "4",
+            "authors": [
+                3
+            ]
         }
     }
 ]

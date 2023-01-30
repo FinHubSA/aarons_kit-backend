@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import os
 import os.path
 
@@ -25,3 +26,14 @@ SCRAPE_HOUR = '*'
 SCRAPE_DAY_OF_WEEK = '*'
 SCRAPE_DAY_OF_MONTH = '*'
 SCRAPE_MONTH_OF_YEAR = '*'
+=======
+from .settings import env
+
+# To use local settings, rename this file to be local_settings.py
+# DB name is: <initials>_test_masterlist
+def update_db_settings(db_settings):
+    db_settings["TEST"] = {'NAME': 'tc_test_masterlist'}
+    return db_settings
+
+
+>>>>>>> d25ed0b8307e348b41334bfcc1412ecddd72c990

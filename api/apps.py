@@ -12,19 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-ASGI config for aarons_kit project.
+from django.apps import AppConfig
 
-It exposes the ASGI callable as a module-level variable named ``application``.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
-"""
-
-import os
-
-from django.core.asgi import get_asgi_application
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aarons_kit.settings")
-
-application = get_asgi_application()
+class ApiConfig(AppConfig):
+    name = "api"

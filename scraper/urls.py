@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-ASGI config for aarons_kit project.
+from django.urls import path
 
-It exposes the ASGI callable as a module-level variable named ``application``.
+from . import views
 
-For more information on this file, see
-https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
-"""
-
-import os
-
-from django.core.asgi import get_asgi_application
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "aarons_kit.settings")
-
-application = get_asgi_application()
+urlpatterns = [
+    path(
+        "scraper/enqueue",
+        views.enqueue_scraper_task,
+        name="enqueue_scraper_task",
+    ),
+    path(
+        "scraper/run",
+        views.scrape_metadata_task,
+        name="scrape_metadata_task",
+    ),
+]

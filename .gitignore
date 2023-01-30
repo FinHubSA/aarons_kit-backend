@@ -72,6 +72,9 @@ wheels/
 pip-log.txt 
 pip-delete-this-directory.txt 
 
+# Other logs
+**/data/logs
+
 # Unit test / coverage reports 
 htmlcov/ 
 .tox/ 
@@ -108,6 +111,9 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/
+
+#local settings
+local_settings.py
 
 # mkdocs documentation 
 /site 
