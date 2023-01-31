@@ -27,11 +27,17 @@ client = Client()
 class TestScraper(TestCase):
     def test_update_journal_data(self):
 
+        Journal.objects.create(
+            journalID=10,
+            issn="not found",
+            journalName="not found",
+            numberOfIssues=3,
+            numberOfIssuesScraped=0,
+        )
+
         update_journal_data()
 
-        journal = Journal.objects.get(
-            journalName="19th-Century Music"
-        )
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
         self.assertEqual(journal.journalName, "19th-Century Music")
 
@@ -41,18 +47,14 @@ class TestScraper(TestCase):
 
         journal.save()
 
-        journal = Journal.objects.get(
-            journalName="19th-Century Music"
-        )
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
         self.assertEqual(journal.journalName, "19th-Century Music")
 
         # update again from the jstor file
         update_journal_data()
 
-        journal = Journal.objects.get(
-            journalName="19th-Century Music"
-        )
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
         self.assertEqual(journal.journalName, "19th-Century Music")
 
@@ -121,11 +123,11 @@ class TestScraper(TestCase):
 
         # self.assertEqual(journal.issn, "00058351")
         # self.assertEqual(journal.numberOfIssuesScraped, 1)
-        
+
         self.assertEqual(True, True)
-    
+
     def test_scraper_validation(self):
-        extra={"HTTP_Authorization":"Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
+        extra = {"HTTP_Authorization": "Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
 
         response = client.post(reverse("scrape_metadata_task"))
 
@@ -136,6 +138,3 @@ class TestScraper(TestCase):
 
         self.assertEqual(response.data["message"], "Authorization Failed")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
-
