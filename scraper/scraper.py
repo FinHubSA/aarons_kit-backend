@@ -45,13 +45,14 @@ def scrape_all_journals():
 
     driver.quit()
 
+
 # count is the amount of new issues to scrape
 # For unlimited count of scraping put a negative number
 # Default is unlimited
-def scrape_journal(driver, journal, issue_scrape_count = -1):
+def scrape_journal(driver, journal, issue_scrape_count=-1):
     journal_url = journal.url
 
-    print("scrapping journal "+journal.url)
+    print("scrapping journal " + journal.url)
 
     directory = os.path.dirname(__file__)
 
@@ -122,10 +123,11 @@ def scrape_journal(driver, journal, issue_scrape_count = -1):
 
     return {"message": "Scraped {}".format(journal.journalName)}
 
+
 # Sets up the webdriver on the selenium grid machine.
 # The grid ochestrates the tests on the various machines that are setup.
 # We only setup the chrome instaled machine for the scraper.
-def remote_driver_setup(timeout = None):
+def remote_driver_setup(timeout=None):
     # Set directory to be current file
     directory = os.path.dirname(__file__)
 
@@ -210,19 +212,23 @@ def update_journal_data():
         "-", ""
     )
 
-    journal_data.rename(columns=
-        {
-            "publication_title":"journalName",
-            "print_identifier":"issn",
-            "online_identifier":"altISSN",
-            "title_url":"url",
-            "date_last_issue_online":"lastIssueDate",
-        } ,inplace=True)
+    journal_data.rename(
+        columns={
+            "publication_title": "journalName",
+            "print_identifier": "issn",
+            "online_identifier": "altISSN",
+            "title_url": "url",
+            "date_last_issue_online": "lastIssueDate",
+        },
+        inplace=True,
+    )
 
-    journal_data['issn'].fillna(journal_data['altISSN'], inplace=True)
-    
-    sm_journal_data = journal_data[["issn", "altISSN", "journalName","url","lastIssueDate"]]
-    
+    journal_data["issn"].fillna(journal_data["altISSN"], inplace=True)
+
+    sm_journal_data = journal_data[
+        ["issn", "altISSN", "journalName", "url", "lastIssueDate"]
+    ]
+
     save_db_journals(sm_journal_data)
 
 
@@ -238,16 +244,17 @@ def save_db_journals(db_journal_data):
     journal_groups = db_journal_data.groupby("issn")
 
     for record in journal_objects:
-        journal_update = journal_groups.get_group(record.issn)
 
-        if not journal_update.empty:
+        if record.issn in journal_groups.groups.keys():
+            journal_update = journal_groups.get_group(record.issn)
+
             record.lastIssueDate = journal_update.iloc[0]["lastIssueDate"]
-    
+
     # update the records
     if journal_objects.exists():
         print("** doing bulk update **", journal_objects.count())
 
-        Journal.objects.bulk_update(journal_objects, ['lastIssueDate'])
+        Journal.objects.bulk_update(journal_objects, ["lastIssueDate"])
 
         print("** after bulk update **")
 
@@ -255,23 +262,27 @@ def save_db_journals(db_journal_data):
     journal_records = db_journal_data.to_dict("records")
 
     # create those that aren't there
-    model_instances = [Journal(
-        altISSN=record['altISSN'],
-        issn=record['issn'],
-        journalName=record['journalName'],
-        url=record['url'],
-        lastIssueDate=record['lastIssueDate']
-    ) for record in journal_records]
+    model_instances = [
+        Journal(
+            altISSN=record["altISSN"],
+            issn=record["issn"],
+            journalName=record["journalName"],
+            url=record["url"],
+            lastIssueDate=record["lastIssueDate"],
+        )
+        for record in journal_records
+    ]
 
     Journal.objects.bulk_create(model_instances, ignore_conflicts=True)
 
     print("** done journals create ", len(journal_records))
 
+
 # Gets a journal that hasn't been scraped at all or with a new issue to be scraped
 def get_journals_to_scrape(get_all):
     result = Journal.objects.filter(
-        Q(numberOfIssues__gt=F('numberOfIssuesScraped')) |
-        ~Q(lastIssueDate=F('lastIssueDateScraped'))
+        Q(numberOfIssues__gt=F("numberOfIssuesScraped"))
+        | ~Q(lastIssueDate=F("lastIssueDateScraped"))
     )
 
     if result:
@@ -455,13 +466,15 @@ def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
     if issue_created:
         save_journal(journal, number_of_issues, journal_data)
 
-    articles_ids, authors_names, article_author_names = save_articles_and_authors(citations_data, issue)
-    
+    articles_ids, authors_names, article_author_names = save_articles_and_authors(
+        citations_data, issue
+    )
+
     save_article_author_relations(articles_ids, authors_names, article_author_names)
 
 
 def save_issue(issue_url, journal, journal_data):
-    issue_id = issue_url.rsplit('/', 1)[-1]
+    issue_id = issue_url.rsplit("/", 1)[-1]
 
     issue, issue_created = Issue.objects.get_or_create(
         url=issue_url,
@@ -480,7 +493,7 @@ def save_issue(issue_url, journal, journal_data):
 
 def save_journal(journal, number_of_issues, journal_data):
     number_of_issues_scraped = journal.numberOfIssuesScraped + 1
-    
+
     print(
         "number of issues: "
         + str(number_of_issues)
@@ -495,7 +508,7 @@ def save_journal(journal, number_of_issues, journal_data):
         journal.lastIssueDateScraped = journal.lastIssueDate
     else:
         journal.numberOfIssuesScraped = number_of_issues_scraped
-        journal.lastIssueDateScraped = journal_data["year"]+"-01-01"
+        journal.lastIssueDateScraped = journal_data["year"] + "-01-01"
 
     journal.save()
 
@@ -588,6 +601,7 @@ def save_article_author_relations(articles_ids, authors_names, article_author_na
     ArticleAuthorModel.objects.bulk_create(article_authors, ignore_conflicts=True)
 
     print("completed article author relations")
+
 
 def get_downloaded_files(driver):
     if not driver.current_url.startswith("chrome://downloads"):
