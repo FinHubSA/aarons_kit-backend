@@ -78,7 +78,10 @@ def scrape_journal(driver, journal, issue_scrape_count=-1):
         if count == issue_scrape_count:
             break
 
-        download_citations(driver, issue_url)
+        downloaded = download_citations(driver, issue_url)
+
+        if not downloaded:
+            continue
 
         old_name = os.path.join(directory, "data/logs/citations.txt")
         new_name = os.path.join(
@@ -348,28 +351,31 @@ def scrape_issue_urls(driver, journal_url):
     random.seed(time.time())
     issue_url_list = []
 
-    click = driver.find_elements(
-        By.XPATH, r".//div[@class='accordion-container']//details"
-    )
+    # click = driver.find_elements(
+    #     By.XPATH, r".//div[@class='accordion-container']//details"
+    # )
 
-    # print("details number: "+str(len(click)))
+    # print("details number: " + str(len(click)))
 
     # expand the decade drawers one by one
-    for element in click:
-        time.sleep(5)
-        element.click()
+    # for element in click:
+    #     time.sleep(2)
+    #     try:
+    #         element.click()
+    #     except:
+    #         print("not clickable", element.get_attribute("class"))
 
     time.sleep(2)
 
     # captures the year elements within the decade
-    decade_List = driver.find_elements(By.XPATH, r".//dd//ul//li")
+    decade_List = driver.find_elements(By.XPATH, r".//div//ol//li")
 
-    # print("decades number: "+str(len(decade_List)))
+    # print("decades number: " + str(len(decade_List)))
 
     # captures the issues of the year element and records the issue url
     for element in decade_List:
         year_list = element.find_elements(
-            By.XPATH, r".//ul//li//collection-view-pharos-link"
+            By.XPATH, r".//ol//li//collection-view-pharos-link"
         )
         temp = element.get_attribute("data-year")
         if temp == None:
@@ -380,12 +386,12 @@ def scrape_issue_urls(driver, journal_url):
                 issue_url = "https://www.jstor.org" + issue_url
             issue_url_list.append(issue_url)
 
-    print("issue number before filter: " + str(len(issue_url_list)))
+    # print("issue number before filter: " + str(len(issue_url_list)))
     original_issue_url_list = issue_url_list
 
     issue_url_list = filter_issues_urls(issue_url_list)
 
-    print("issue number after filter: " + str(len(issue_url_list)))
+    # print("issue number after filter: " + str(len(issue_url_list)))
 
     # filter out scraped issues by url
     return issue_url_list, original_issue_url_list
@@ -395,13 +401,15 @@ def download_citations(driver, issue_url):
     time.sleep(5 * random.random())
     driver.get(issue_url)
 
+    print("download citations ", issue_url)
+
     try:
         # Download Citations
         WebDriverWait(driver, 10).until(
             expected_conditions.element_to_be_clickable(
                 (
                     By.XPATH,
-                    r".//toc-view-pharos-checkbox[@id='select_all_citations']/span[@slot='label']",
+                    r".//*[@id='select_all_citations']/span[@slot='label']",
                 )
             )
         ).click()
@@ -414,7 +422,7 @@ def download_citations(driver, issue_url):
 
         # print("citations 2")
 
-        time.sleep(10)
+        time.sleep(5)
 
         # click the link to download the bibtex
         WebDriverWait(driver, 10).until(
@@ -427,9 +435,11 @@ def download_citations(driver, issue_url):
         ).click()
 
         # print("citations 3")
+
+        return True
     except Exception as e:
-        print(e)
-        input()
+        print("failed to download citations for ", issue_url)
+        return False
 
 
 # This must run atomically
