@@ -103,28 +103,28 @@ class TestScraper(TestCase):
         self.assertEqual(len(authors), 2)
         self.assertEqual(authors[0].authorName, "YING HONG")
 
-    def test_metadata_scrapper(self):
+    # def test_metadata_scrapper(self):
 
-        # driver = remote_driver_setup()
+    #     driver = remote_driver_setup()
 
-        # update_journal_data()
+    #     update_journal_data()
 
-        # journal = Journal.objects.get(journalName="Belfagor")
+    #     journal = Journal.objects.get(journalName="Belfagor")
 
-        # self.assertEqual(journal.issn, "00058351")
-        # self.assertEqual(journal.numberOfIssuesScraped, 0)
+    #     self.assertEqual(journal.issn, "00058351")
+    #     self.assertEqual(journal.numberOfIssuesScraped, 0)
 
-        # scrape_journal(driver, journal, 1)
+    #     scrape_journal(driver, journal, 1)
 
-        # driver.quit()
+    #     driver.quit()
 
-        # # Test journal
-        # journal = Journal.objects.get(journalName="Belfagor")
+    #     # Test journal
+    #     journal = Journal.objects.get(journalName="Belfagor")
 
-        # self.assertEqual(journal.issn, "00058351")
-        # self.assertEqual(journal.numberOfIssuesScraped, 1)
+    #     self.assertEqual(journal.issn, "00058351")
+    #     self.assertEqual(journal.numberOfIssuesScraped, 1)
 
-        self.assertEqual(True, True)
+    #     self.assertEqual(True, True)
 
     def test_scraper_validation(self):
         extra = {"HTTP_Authorization": "Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
