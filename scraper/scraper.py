@@ -46,9 +46,57 @@ def scrape_all_journals():
     driver.quit()
 
 
+def get_masterlist_state():
+    journals_count = Journal.objects.all().count()
+
+    unscraped_journals_count = Journal.objects.filter(numberOfIssuesScraped=0).count()
+
+    scraping_journals_count = Journal.objects.filter(
+        Q(numberOfIssuesScraped__gt=0)
+        & Q(numberOfIssues__gt=F("numberOfIssuesScraped"))
+    ).count()
+
+    scraped_journals_count = Journal.objects.filter(
+        numberOfIssuesScraped=F("numberOfIssues")
+    ).count()
+
+    return (
+        journals_count,
+        unscraped_journals_count,
+        scraping_journals_count,
+        scraped_journals_count,
+    )
+
+
+def print_masterlist_state():
+
+    (
+        journals_count,
+        unscraped_journals_count,
+        scraping_journals_count,
+        scraped_journals_count,
+    ) = get_masterlist_state()
+
+    print("***  Masterlist State  ***")
+    print("Total Journals       : ", journals_count)
+    print(
+        "Unscraped Journals : ",
+        "{0:.0f}%".format(unscraped_journals_count / float(journals_count) * 100),
+    )
+    print(
+        "Scraping Journals  : ",
+        "{0:.0f}%".format(scraping_journals_count / float(journals_count) * 100),
+    )
+    print(
+        "Scraped Journals   : ",
+        "{0:.0f}%".format(scraped_journals_count / float(journals_count) * 100),
+    )
+    print("*** -Masterlist State- ***")
+
+
 # count is the amount of new issues to scrape
 # For unlimited count of scraping put a negative number
-# Default is unlimited
+# This is useful when the scraping task service has a time limit
 def scrape_journal(driver, journal, issue_scrape_count=-1):
     journal_url = journal.url
 
