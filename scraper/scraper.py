@@ -57,7 +57,7 @@ def get_masterlist_state():
     ).count()
 
     scraped_journals_count = Journal.objects.filter(
-        numberOfIssuesScraped=F("numberOfIssues")
+        Q(numberOfIssuesScraped__gt=0) & Q(numberOfIssuesScraped=F("numberOfIssues"))
     ).count()
 
     return (
