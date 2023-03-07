@@ -144,6 +144,8 @@ def scrape_metadata_task(request):
 
     update_journal_data()
 
+    print_masterlist_state()
+
     journal = get_journals_to_scrape(False)
 
     if journal is None:
@@ -171,8 +173,6 @@ def scrape_metadata_task(request):
         + journal.journalName
         + "'"
     )
-
-    print_masterlist_state()
 
     return Response(
         {
