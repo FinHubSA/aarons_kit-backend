@@ -585,6 +585,9 @@ def save_articles_and_authors(citations_data, issue):
 
     for record in article_records:
 
+        if not "title" in record:
+            continue
+
         if record["title"] == "Front Matter" or record["title"] == "Back Matter":
             continue
 
