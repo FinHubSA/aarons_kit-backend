@@ -48,6 +48,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = (
             "articleID",
+            "articleURL",
             "journalName",
             "journalUrl",
             "issue",
