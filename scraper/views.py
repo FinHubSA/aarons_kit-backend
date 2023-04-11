@@ -17,6 +17,7 @@ from .scraper import (
     remote_driver_setup,
     get_journals_to_scrape,
     update_journal_data,
+    print_masterlist_state,
 )
 
 from api.models import (
@@ -66,25 +67,32 @@ def enqueue_scraper_task(request):
         {"message": "Created task {}".format(response.name)}, status=status.HTTP_200_OK
     )
 
+
 def authorize(headers):
     print("** headers ** ", headers)
 
     if not "Authorization" in headers:
         print("Not Authorized")
-        return False, Response({"message": "Not Authorized"}, status=status.HTTP_401_UNAUTHORIZED)
-    
-    if not headers["Authorization"].startswith('Bearer '):
+        return False, Response(
+            {"message": "Not Authorized"}, status=status.HTTP_401_UNAUTHORIZED
+        )
+
+    if not headers["Authorization"].startswith("Bearer "):
         print("Wrong Authorization")
-        return False, Response({"message": "Wrong Authorization"}, status=status.HTTP_401_UNAUTHORIZED)
+        return False, Response(
+            {"message": "Wrong Authorization"}, status=status.HTTP_401_UNAUTHORIZED
+        )
 
     # get the bearer token
     token = headers["Authorization"][7:]
-    print("** token "+token)
+    print("** token " + token)
 
-    response = requests.get("https://oauth2.googleapis.com/tokeninfo?id_token="+token).json()
+    response = requests.get(
+        "https://oauth2.googleapis.com/tokeninfo?id_token=" + token
+    ).json()
 
     print("** response **", response)
-    
+
     # {
     #     "aud": "https://api-service-mrz6aygprq-oa.a.run.app/scraper/run",
     #     "azp": "100386201458136714087",
@@ -101,17 +109,21 @@ def authorize(headers):
 
     if not "exp" in response:
         print("Authorization Failed ")
-        return False, Response({"message": "Authorization Failed"}, status=status.HTTP_401_UNAUTHORIZED)
+        return False, Response(
+            {"message": "Authorization Failed"}, status=status.HTTP_401_UNAUTHORIZED
+        )
 
     expiry = int(response["exp"])
     current_time = int(time.time())
 
-    print("** times ** ", str(expiry)+" - "+str(current_time))
+    print("** times ** ", str(expiry) + " - " + str(current_time))
 
-    if (expiry < current_time):
+    if expiry < current_time:
         print("Authorization Expired")
-        return False, Response({"message": "Authorization Expired"}, status=status.HTTP_401_UNAUTHORIZED)
-    
+        return False, Response(
+            {"message": "Authorization Expired"}, status=status.HTTP_401_UNAUTHORIZED
+        )
+
     return True, Response({"message": "Authorized"}, status=status.HTTP_200_OK)
 
 
@@ -132,13 +144,15 @@ def scrape_metadata_task(request):
 
     update_journal_data()
 
+    print_masterlist_state()
+
     journal = get_journals_to_scrape(False)
 
     if journal is None:
         return Response(
             {"message": "Found no journals to scrape"}, status=status.HTTP_200_OK
         )
-    
+
     # number of scraped issues currently
     scraped_issues = journal.numberOfIssuesScraped
 

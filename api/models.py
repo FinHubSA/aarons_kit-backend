@@ -3,24 +3,28 @@ from django.db import models
 from datetime import datetime
 
 # These are used to populate demo data
-# For instance for demo articles insert: 
+# For instance for demo articles insert:
 #   objects = DemoArticleManager()
 # In the Article class
 class DemoJournalManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(issues__articles__bucketURL__isnull=False)
 
+
 class DemoIssueManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(articles__bucketURL__isnull=False)
+
 
 class DemoAuthorManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(article__bucketURL__isnull=False)
 
+
 class DemoArticleManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(bucketURL__isnull=False)
+
 
 class Journal(models.Model):
     journalID = models.AutoField(primary_key=True)
@@ -36,11 +40,12 @@ class Journal(models.Model):
     class Meta:
         indexes = [
             GinIndex(
-                name='journal_journalName_gin_idx', 
-                fields=['journalName'], 
-                opclasses=['gin_trgm_ops'],
+                name="journal_journalName_gin_idx",
+                fields=["journalName"],
+                opclasses=["gin_trgm_ops"],
             ),
         ]
+
 
 class Issue(models.Model):
     issueID = models.AutoField(primary_key=True)
@@ -56,6 +61,7 @@ class Issue(models.Model):
     class Meta:
         ordering = ["-year", "number", "volume"]
 
+
 class Author(models.Model):
     authorID = models.AutoField(primary_key=True)
     authorName = models.CharField(max_length=200, unique=True)
@@ -63,11 +69,12 @@ class Author(models.Model):
     class Meta:
         indexes = [
             GinIndex(
-                name='author_authorName_gin_idx', 
-                fields=['authorName'], 
-                opclasses=['gin_trgm_ops'],
+                name="author_authorName_gin_idx",
+                fields=["authorName"],
+                opclasses=["gin_trgm_ops"],
             ),
         ]
+
 
 class Account(models.Model):
     accountID = models.AutoField(primary_key=True)
@@ -75,9 +82,10 @@ class Account(models.Model):
     donationsReceived = models.IntegerField(default=0)
     donationsPaid = models.IntegerField(default=0)
 
+
 class Article(models.Model):
     articleID = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=500)
+    title = models.CharField(max_length=1000)
     abstract = models.TextField()
     bucketURL = models.CharField(max_length=1000, unique=True, null=True)
     articleURL = models.CharField(max_length=500, unique=True, null=True)
@@ -85,16 +93,19 @@ class Article(models.Model):
     issue = models.ForeignKey(Issue, on_delete=models.CASCADE, related_name="articles")
     authors = models.ManyToManyField(Author)
     account = models.ForeignKey(
-        Account, on_delete=models.SET_NULL, related_name="articles", blank=True, null=True
+        Account,
+        on_delete=models.SET_NULL,
+        related_name="articles",
+        blank=True,
+        null=True,
     )
 
     class Meta:
         ordering = ["articleID"]
         indexes = [
             GinIndex(
-                name='article_title_gin_idx', 
-                fields=['title'], 
-                opclasses=['gin_trgm_ops'],
+                name="article_title_gin_idx",
+                fields=["title"],
+                opclasses=["gin_trgm_ops"],
             ),
         ]
-

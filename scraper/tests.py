@@ -12,7 +12,8 @@ from scraper.scraper import (
     save_issue_articles,
     remote_driver_setup,
     update_journal_data,
-    get_journals_to_scrape,
+    get_masterlist_state,
+    print_masterlist_state,
 )
 
 from api.models import (
@@ -27,11 +28,17 @@ client = Client()
 class TestScraper(TestCase):
     def test_update_journal_data(self):
 
+        Journal.objects.create(
+            journalID=10,
+            issn="not found",
+            journalName="not found",
+            numberOfIssues=3,
+            numberOfIssuesScraped=0,
+        )
+
         update_journal_data()
 
-        journal = Journal.objects.get(
-            journalName="19th-Century Music"
-        )
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
         self.assertEqual(journal.journalName, "19th-Century Music")
 
@@ -41,18 +48,14 @@ class TestScraper(TestCase):
 
         journal.save()
 
-        journal = Journal.objects.get(
-            journalName="19th-Century Music"
-        )
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
         self.assertEqual(journal.journalName, "19th-Century Music")
 
         # update again from the jstor file
         update_journal_data()
 
-        journal = Journal.objects.get(
-            journalName="19th-Century Music"
-        )
+        journal = Journal.objects.get(journalName="19th-Century Music")
 
         self.assertEqual(journal.journalName, "19th-Century Music")
 
@@ -101,31 +104,69 @@ class TestScraper(TestCase):
         self.assertEqual(len(authors), 2)
         self.assertEqual(authors[0].authorName, "YING HONG")
 
-    def test_metadata_scrapper(self):
+    # def test_metadata_scrapper(self):
 
-        # driver = remote_driver_setup()
+    #     driver = remote_driver_setup()
 
-        # update_journal_data()
+    #     update_journal_data()
 
-        # journal = Journal.objects.get(journalName="Belfagor")
+    #     journal = Journal.objects.get(journalName="Belfagor")
 
-        # self.assertEqual(journal.issn, "00058351")
-        # self.assertEqual(journal.numberOfIssuesScraped, 0)
+    #     self.assertEqual(journal.issn, "00058351")
+    #     self.assertEqual(journal.numberOfIssuesScraped, 0)
 
-        # scrape_journal(driver, journal, 1)
+    #     scrape_journal(driver, journal, 1)
 
-        # driver.quit()
+    #     driver.quit()
 
-        # # Test journal
-        # journal = Journal.objects.get(journalName="Belfagor")
+    #     # Test journal
+    #     journal = Journal.objects.get(journalName="Belfagor")
 
-        # self.assertEqual(journal.issn, "00058351")
-        # self.assertEqual(journal.numberOfIssuesScraped, 1)
-        
-        self.assertEqual(True, True)
-    
+    #     self.assertEqual(journal.issn, "00058351")
+    #     self.assertEqual(journal.numberOfIssuesScraped, 1)
+
+    def test_masterlist_state(self):
+
+        Journal.objects.create(
+            journalID=1,
+            issn="1",
+            journalName="1",
+            numberOfIssues=3,
+            numberOfIssuesScraped=3,
+        )
+
+        Journal.objects.create(
+            journalID=2,
+            issn="2",
+            journalName="2",
+            numberOfIssues=3,
+            numberOfIssuesScraped=2,
+        )
+
+        Journal.objects.create(
+            journalID=3,
+            issn="3",
+            journalName="3",
+            numberOfIssues=3,
+            numberOfIssuesScraped=0,
+        )
+
+        (
+            journals_count,
+            unscraped_journals_count,
+            scraping_journals_count,
+            scraped_journals_count,
+        ) = get_masterlist_state()
+
+        # print_masterlist_state()
+
+        self.assertEqual(journals_count, 3)
+        self.assertEqual(unscraped_journals_count, 1)
+        self.assertEqual(scraping_journals_count, 1)
+        self.assertEqual(scraped_journals_count, 1)
+
     def test_scraper_validation(self):
-        extra={"HTTP_Authorization":"Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
+        extra = {"HTTP_Authorization": "Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
 
         response = client.post(reverse("scrape_metadata_task"))
 
@@ -136,6 +177,3 @@ class TestScraper(TestCase):
 
         self.assertEqual(response.data["message"], "Authorization Failed")
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
-
