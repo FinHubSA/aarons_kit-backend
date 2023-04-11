@@ -21,6 +21,7 @@ class IssueSerializer(serializers.ModelSerializer):
         fields = (
             "issueID",
             "journal",
+            "url",
             "issueJstorID",
             "year",
             "volume",
@@ -41,6 +42,7 @@ class ArticleSerializer(serializers.ModelSerializer):
     authors = AuthorSerializer(read_only=True, many=True)
     journalName = serializers.CharField(source="issue.journal.journalName")
     journalUrl = serializers.CharField(source="issue.journal.url")
+    issue = IssueSerializer(read_only=True, many=False)
 
     class Meta:
         model = Article
@@ -55,6 +57,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             "bucketURL",
             "authors",
             "account",
+            "issue",
         )
 
 

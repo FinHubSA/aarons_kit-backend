@@ -137,6 +137,7 @@ class TestArticle(TestCase):
         articles = Article.objects.filter(issue__issueID=2)
 
         self.assertEqual(len(response), len(articles))
+        self.assertEqual(response[0]["issue"]["issueID"], issue_id)
 
     def test_get_articles_page_size(self):
         journal_name = "Journal of Animal Ecology"
