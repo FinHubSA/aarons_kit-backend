@@ -1,13 +1,7 @@
 from rest_framework import serializers
 from django.db import models
 
-from api.models import (
-    Journal,
-    Issue,
-    Article,
-    Author,
-    Account
-)
+from api.models import Journal, Issue, Article, Author, Account
 
 
 class JournalSerializer(serializers.ModelSerializer):
@@ -27,6 +21,7 @@ class IssueSerializer(serializers.ModelSerializer):
         fields = (
             "issueID",
             "journal",
+            "url",
             "issueJstorID",
             "year",
             "volume",
@@ -45,22 +40,28 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     authors = AuthorSerializer(read_only=True, many=True)
+    journalName = serializers.CharField(source="issue.journal.journalName")
+    journalUrl = serializers.CharField(source="issue.journal.url")
+    issue = IssueSerializer(read_only=True, many=False)
 
     class Meta:
         model = Article
         fields = (
             "articleID",
+            "journalName",
+            "journalUrl",
             "issue",
             "articleJstorID",
             "title",
             "abstract",
             "bucketURL",
             "authors",
-            "account"
+            "account",
+            "issue",
         )
 
-class AccountSerializer(serializers.ModelSerializer):
 
+class AccountSerializer(serializers.ModelSerializer):
     scraped = serializers.IntegerField()
 
     class Meta:
@@ -70,5 +71,5 @@ class AccountSerializer(serializers.ModelSerializer):
             "algorandAddress",
             "scraped",
             "donationsReceived",
-            "donationsPaid"
+            "donationsPaid",
         )
