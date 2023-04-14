@@ -631,8 +631,9 @@ def process_distribution(is_testnet):
         manager_address = settings.SMART_CONTRACT_MANAGER_ADDRESS
 
     info = algod_client.account_info(app_address)
+    distribution_amount = info["amount"] - info["min-balance"]
 
-    if info["amount"] - info["min-balance"] >= DISTRIBUTION_THRESHOLD:
+    if distribution_amount >= DISTRIBUTION_THRESHOLD:
         signer = AccountTransactionSigner(env.get_value("DEPLOYMENT_PRIVATE"))
 
         take_snapshot_method = Method.from_signature("take_snapshot(uint64)void")
@@ -828,6 +829,12 @@ def process_distribution(is_testnet):
             return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(txns, status.HTTP_200_OK)
+    else:
+        print(
+            "Distribution threshhold not reached ({} microALGO needed)".format(
+                distribution_amount
+            )
+        )
 
     return Response(None, status.HTTP_200_OK)
 
