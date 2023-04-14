@@ -21,6 +21,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.conf import settings
 from urllib.request import urlopen
+from scraper.views import authorize
 
 from api.models import Journal, Article, Author, Issue, Account
 from api.serializers import (
@@ -598,18 +599,25 @@ def distribute_donations(request):
     submit batches
     """
 
-    token = request.query_params.get("distributeToken")
+    headers = request.headers
 
-    if token != env.get_value("DISTRIBUTE_DONATIONS_TOKEN"):
-        return Response(None, status.HTTP_400_BAD_REQUEST)
+    authorized, response = authorize(headers)
+
+    if not authorized:
+        return response
+
+    is_testnet = request.query_params.get("testnet")
+
+    return process_distribution(is_testnet)
+
+
+def process_distribution(is_testnet):
 
     # TODO: increase after testing
     DISTRIBUTION_THRESHOLD = 1_000_000
     MAX_TRIES = 5
     SLEEP = 0.05
     LONG_SLEEP = 5
-
-    is_testnet = request.query_params.get("testnet")
 
     if is_testnet is not None and is_testnet == "true":
         algod_client = settings.ALGOD_CLIENT_TESTNET
@@ -623,8 +631,9 @@ def distribute_donations(request):
         manager_address = settings.SMART_CONTRACT_MANAGER_ADDRESS
 
     info = algod_client.account_info(app_address)
+    distribution_amount = info["amount"] - info["min-balance"]
 
-    if info["amount"] - info["min-balance"] >= DISTRIBUTION_THRESHOLD:
+    if distribution_amount >= DISTRIBUTION_THRESHOLD:
         signer = AccountTransactionSigner(env.get_value("DEPLOYMENT_PRIVATE"))
 
         take_snapshot_method = Method.from_signature("take_snapshot(uint64)void")
@@ -820,6 +829,12 @@ def distribute_donations(request):
             return Response(None, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return Response(txns, status.HTTP_200_OK)
+    else:
+        print(
+            "Distribution threshhold not reached ({} microALGO needed)".format(
+                distribution_amount
+            )
+        )
 
     return Response(None, status.HTTP_200_OK)
 

@@ -19,6 +19,7 @@ from api.views import (
     ONLY_JSTOR_ID,
     SCRAPED,
     update_article_account,
+    process_distribution,
 )
 
 client = Client()
@@ -484,6 +485,23 @@ class TestAccount(TestCase):
         self.assertGreaterEqual(response["donations_snapshot"], 0)
         self.assertGreaterEqual(response["papers_scraped_snapshot"], 0)
 
+    def test_distribution_validation(self):
+        extra = {"HTTP_Authorization": "Bearer z7ku30VAX6Y6rajq2VMC4dHhG7HlBnb0zFd9A"}
+
+        response = client.get(
+            "%s?testnet=true" % (reverse("distribute_donations")),
+        )
+
+        self.assertEqual(response.data["message"], "Not Authorized")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        response = client.get(
+            "%s?testnet=true" % (reverse("distribute_donations")), {}, **extra
+        )
+
+        self.assertEqual(response.data["message"], "Authorization Failed")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
     def test_distribute_donations(self):
         MAX_TRIES = 5
         SLEEP = 5
@@ -510,13 +528,7 @@ class TestAccount(TestCase):
                 )
             )
 
-        response = client.get(
-            "%s?distributeToken=%s&testnet=true"
-            % (
-                reverse("distribute_donations"),
-                env.get_value("DISTRIBUTE_DONATIONS_TOKEN"),
-            ),
-        ).data
+        response = process_distribution(True).data
 
         if response is None:
             assert True
