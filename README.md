@@ -10,11 +10,11 @@ You may need to use `python3` instead of `python` when following this guide if `
 
 - If you already have it make sure it's using the correct account.
 - Check the project list. If they are from another account then change the gcloud account.
-`gcloud projects list`
+  `gcloud projects list`
 - Change the gcloud account to correct one
-`gcloud auth login`
+  `gcloud auth login`
 - To push docker container images to gcp container registry
-`gcloud auth configure-docker`
+  `gcloud auth configure-docker`
 
 ### Get Cloud SQL Auth Proxy
 
@@ -26,7 +26,7 @@ Follow the relevant steps [here](https://cloud.google.com/python/django/run#conn
 
 ## Confirm Python Version
 
-`python -V`  
+`python -V`
 
 Make sure you have at least version 3.8.
 
@@ -39,6 +39,12 @@ python -m venv venv && \
 source venv/bin/activate && \
 pip install --upgrade pip && \
 pip install -r requirements.txt
+```
+
+If you get an error: Library not loaded: /opt/homebrew/opt/postgresql/lib/libpq.5.dylib, run this command
+
+```
+pip install --upgrade --force-reinstall psycopg2
 ```
 
 ## Running Aaron's Kit locally

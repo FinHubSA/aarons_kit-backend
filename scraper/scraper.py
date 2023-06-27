@@ -115,7 +115,7 @@ def scrape_journal(driver, journal, issue_scrape_count=-1):
     number_of_issues = len(original_issue_url_list)
 
     if len(issue_url_list) == 0:
-        journal.numberOfIssuesScraped = len(original_issue_url_list)
+        journal.numberOfIssuesScraped = number_of_issues
         save_journal(journal, number_of_issues, {})
         return
 
@@ -128,7 +128,10 @@ def scrape_journal(driver, journal, issue_scrape_count=-1):
 
         downloaded = download_citations(driver, issue_url)
 
+        # if issue not downloadable then reduce number of issues of journal
         if not downloaded:
+            number_of_issues = number_of_issues - 1
+            save_journal(journal, number_of_issues , {})
             continue
 
         old_name = os.path.join(directory, "data/logs/citations.txt")
@@ -360,7 +363,6 @@ def load_page(driver, journal_url, issue_scrape_count):
         driver.get(journal_url)
         time.sleep(5)
         driver.maximize_window()
-
         WebDriverWait(driver, 5).until(
             expected_conditions.presence_of_element_located(
                 (By.ID, "onetrust-consent-sdk")
@@ -368,8 +370,8 @@ def load_page(driver, journal_url, issue_scrape_count):
         )
         print("passed")
 
-    except:
-        print("Failed to access journal page")
+    except Exception as e:
+        print("Failed to access journal page ")
 
         driver = remote_driver_setup()
         journal = get_journals_to_scrape(False)
@@ -522,6 +524,7 @@ def save_issue_articles(citations_data, journal, issue_url, number_of_issues):
 
     # if issue was created update the journal
     if issue_created:
+        journal.numberOfIssuesScraped = journal.numberOfIssuesScraped + 1
         save_journal(journal, number_of_issues, journal_data)
 
     articles_ids, authors_names, article_author_names = save_articles_and_authors(
@@ -550,7 +553,7 @@ def save_issue(issue_url, journal, journal_data):
 
 
 def save_journal(journal, number_of_issues, journal_data):
-    number_of_issues_scraped = journal.numberOfIssuesScraped + 1
+    number_of_issues_scraped = journal.numberOfIssuesScraped
 
     print(
         "number of issues: "
