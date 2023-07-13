@@ -24,8 +24,11 @@ ENV PYTHONUNBUFFERED 1
 
 # Install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --upgrade setuptools
+RUN \
+ apk add --no-cache postgresql-libs && \
+ apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
+ python3 -m pip install -r requirements.txt --no-cache-dir && \
+ apk --purge del .build-deps
 
 # Copy local code to the container image.
 COPY . .
