@@ -16,6 +16,7 @@
 # https://hub.docker.com/_/python
 FROM ubuntu:20.04
 RUN apt-get -y update && apt-get install -y python3
+RUN apt-get -y install python3-pip
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
