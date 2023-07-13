@@ -14,9 +14,7 @@
 
 # Use an official lightweight Python image.
 # https://hub.docker.com/_/python
-FROM ubuntu:20.04
-RUN apt-get -y update && apt-get install -y python3
-RUN apt-get -y install python3-pip
+FROM croncorp/python-ffmpeg:3.10.4-slim-bullseye
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME
@@ -27,8 +25,6 @@ ENV PYTHONUNBUFFERED 1
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-RUN apt-get -y install ffmpeg
 
 # Copy local code to the container image.
 COPY . .
