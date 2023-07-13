@@ -28,7 +28,7 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN apt-get install ffmpeg
+RUN apt-get -y install ffmpeg
 
 # Copy local code to the container image.
 COPY . .
