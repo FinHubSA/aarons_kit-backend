@@ -25,6 +25,8 @@ ENV PYTHONUNBUFFERED 1
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN add-apt-repository ppa:mc3man/trusty-media
+RUN apt-get update
 RUN apt-get install ffmpeg
 
 # Copy local code to the container image.
