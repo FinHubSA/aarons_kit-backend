@@ -21,6 +21,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.remote import remote_connection
+from .recaptcha_solver import recaptcha_solver
 
 from api.models import (
     Journal,
@@ -361,7 +362,7 @@ def load_page(driver, journal_url, issue_scrape_count):
 
     try:
         driver.get(journal_url)
-        time.sleep(5)
+        time.sleep(10)
         driver.maximize_window()
         WebDriverWait(driver, 5).until(
             expected_conditions.presence_of_element_located(
@@ -373,9 +374,19 @@ def load_page(driver, journal_url, issue_scrape_count):
     except Exception as e:
         print("Failed to access journal page ")
 
-        driver = remote_driver_setup()
-        journal = get_journals_to_scrape(False)
-        scrape_journal(driver, journal, issue_scrape_count)
+        directory = os.path.dirname(__file__)
+        misc_directory = os.path.join(directory, "misc/")
+
+        success, start_time = recaptcha_solver(
+                        driver, 10, misc_directory
+                    )
+
+        if success:
+            print("[INF] ReCAPTCHA solved")
+        
+        # driver = remote_driver_setup()
+        # journal = get_journals_to_scrape(False)
+        # scrape_journal(driver, journal, issue_scrape_count)
 
 
 def accept_cookies(driver, journal_url):

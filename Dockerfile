@@ -14,7 +14,7 @@
 
 # Use an official lightweight Python image.
 # https://hub.docker.com/_/python
-FROM python:3.10-slim
+FROM croncorp/python-ffmpeg:3.10.4-slim-bullseye
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME

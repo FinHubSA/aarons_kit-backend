@@ -65,6 +65,10 @@ Back in the cloned repository:
 
 Then visit http://localhost:8000/
 
+Install ffmpeg
+
+`brew install ffmpeg`
+
 ## Doing Aaron's Kit Demo
 
 Create a demo database demo_masterlist if it's not already there
