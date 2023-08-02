@@ -15,6 +15,8 @@ You may need to use `python3` instead of `python` when following this guide if `
   `gcloud auth login`
 - To push docker container images to gcp container registry
   `gcloud auth configure-docker`
+- If there is an error about invalid_grant
+  `gcloud auth application-default set-quota-project <project_id>`
 
 ### Get Cloud SQL Auth Proxy
 

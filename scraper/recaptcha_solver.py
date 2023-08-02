@@ -63,6 +63,7 @@ def check_solved(driver, wait):
         solved = True
 
     except:
+        # print(driver.page_source)
         print("[INF] ReCAPTCHA not solved")
         solved = False
     
@@ -172,7 +173,7 @@ def recaptcha_solver(driver, wait, misc_directory):
 
                 except Exception as e:
                     print("[ERR] Error when using Audio challenge frame")
-                    print(driver.page_source)
+                    # print(driver.page_source)
                     success = False
                     is_recaptcha_control_active = False
                     break
