@@ -580,7 +580,8 @@ def save_journal(journal, number_of_issues, journal_data):
         journal.lastIssueDateScraped = journal.lastIssueDate
     else:
         journal.numberOfIssuesScraped = number_of_issues_scraped
-        journal.lastIssueDateScraped = journal_data["year"] + "-01-01"
+        if "year" in journal_data:
+            journal.lastIssueDateScraped = journal_data["year"] + "-01-01"
 
     journal.save()
 
